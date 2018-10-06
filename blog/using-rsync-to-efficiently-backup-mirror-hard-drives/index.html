@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="francium">
+<meta name="description" content="The concepts discussed here are not Raspberry Pi specific and can easily be adapted for other uses.  Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
+I found a simple solution to this problem using Rsync and Systemd timers (as opposed to installing Cron and learning Cron, but if you wish, you can substitute Systemd with Cron).">
+
+<meta property="og:title" content="Using Rsync to efficiently backup (mirror) hard drives" />
+<meta property="og:description" content="The concepts discussed here are not Raspberry Pi specific and can easily be adapted for other uses.  Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
+I found a simple solution to this problem using Rsync and Systemd timers (as opposed to installing Cron and learning Cron, but if you wish, you can substitute Systemd with Cron)." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://example.org/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/" /><meta property="article:published_time" content="2017-12-26T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2017-12-26T00:00:00&#43;00:00"/>
+
+
+<title>
+
+
+     Using Rsync to efficiently backup (mirror) hard drives 
+
+</title>
+<link rel="canonical" href="http://example.org/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="http://example.org/css/reset.css?t=2018-10-06%2013%3a14%3a50.44097444%20-0400%20EDT%20m%3d%2b0.074287483">
+    <link rel="stylesheet" href="http://example.org/css/pygments.css?t=2018-10-06%2013%3a14%3a50.44097444%20-0400%20EDT%20m%3d%2b0.074287483">
+    <link rel="stylesheet" href="http://example.org/css/main.css?t=2018-10-06%2013%3a14%3a50.44097444%20-0400%20EDT%20m%3d%2b0.074287483">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="http://example.org/img/leaf.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+            <a href="http://example.org/"><div class="name">francium</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-about"><a href="http://example.org/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-blog"><a href="http://example.org/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-projects"><a href="http://example.org/projects/"><span>Projects</span></a></li>
+                    
+                        <li class="nav-reading"><a href="http://example.org/reading/"><span>Reading</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/francium" target="_blank" rel="noopener"><img class="icon" src="http://example.org/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+
+	
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:francium@francium.cc"><img class="icon" src="http://example.org/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Using Rsync to efficiently backup (mirror) hard drives
+
+</div>
+
+                    <div class="initials"><a href="http://example.org/"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Tue Dec 26 2017'>2017-12-26</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<div class="info">
+  The concepts discussed here are not Raspberry Pi specific and can easily be adapted for
+  other uses.
+</div>
+
+<h2 id="background">Background</h2>
+
+<p>I have a Raspberry Pi setup with an external hard drive that is accessible over Samba.
+It&rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive
+hooked up to the same Raspberry Pi.</p>
+
+<p>I found a simple solution to this problem using Rsync and Systemd timers (as opposed to
+installing Cron and learning Cron, but if you wish, you can substitute Systemd with
+Cron).</p>
+
+<h2 id="setup">Setup</h2>
+
+<p>My preconditions were: 2 external hard drives, <code>systemd</code> and <code>rsync</code>.</p>
+
+<p>There is a master drive and a slave drive (one that is a mirrored backup of the master).
+Only the master is accessible over samba and the slave is not exposed except by ssh-ing
+into the Pi itself.</p>
+
+<p>I&rsquo;ve labeled the two disks so I can identify them by looking at <code>/dev/disk/by-label/</code>.
+The labeling can be done when you format them and create a filesystem or using the
+<code>e2label</code> command as described in <a href="https://www.cyberciti.biz/faq/linux-modify-partition-labels-command-to-change-diskname/">this nixCraft article</a>.</p>
+
+<p>So ensure the two disks are automatically mounted in a known location, I&rsquo;ve added these
+two lines to my <code>/etc/fstab</code> config:</p>
+
+<pre><code># &lt;file system&gt;  &lt;dir&gt;  &lt;type&gt;  &lt;options&gt;  &lt;dump&gt;  &lt;pass&gt;
+...
+/dev/disk/by-label/Master  /media/user_name/Master  ext4  defaults  0  0
+/dev/disk/by-label/Slave  /media/user_name/Slave  ext4  defaults  0  0
+</code></pre>
+
+<p>Make sure the mounting directory exists beforehand. As you can see above, I&rsquo;ve chosen
+<code>/media/user_name/</code> and created two directory in there <code>Master</code> and <code>Slave</code>.</p>
+
+<p>Systemd timers are composed of two files, a service for performing some task, and a timer
+for specifying when the service should execute. The service file will point to a bash
+script that will call rsync to perform the actual task of mirroring the two drives.</p>
+
+<h3 id="mirroring-script">Mirroring Script</h3>
+
+<p>I&rsquo;ve saved this file as <code>/usr/local/bin/drive-mirroring</code>:</p>
+
+<pre><code class="language-bash">#!/bin/bash
+
+echo &quot;########### Drive mirroring starting at `date` ###########&quot;
+
+SOURCE=/media/user_name/Master/
+DEST=/media/user_name/Slave/mirror
+
+rsync -ahvAE --delete --stats $SOURCE $DEST 2&gt;&amp;1 | tee /var/log/drive-mirroring.log
+
+echo &quot;########### Drive mirroring completed at `date` ###########&quot;
+</code></pre>
+
+<p>Note that we&rsquo;ve used the <code>tee</code> command to pipe the output (stdout and stderr as per the
+<code>2&gt;&amp;1</code>) of rsync to two places &ndash; stdout and the file <code>/var/log/drive-mirroring.log</code>. The
+stdout in the context of this setup will be systemd&rsquo;s journal (systemd&rsquo;s logs) since
+we&rsquo;ll be calling this bash script from within a systemd service.</p>
+
+<p>Also note that the file we&rsquo;re outputting to will be overwritten each time this script is
+run so it will only contain output from the previous execution. This behavior can be
+adjusted to suit your needs, but systemd&rsquo;s journal will have a complete set of logs
+anyway.</p>
+
+<p>In the script, I&rsquo;ve specified some arguments to customize the behavior of rsync. Here is
+a brief description and reason for each option:</p>
+
+<ul>
+<li><code>a</code> &ndash; Archive move; ensure common metadata is copied over</li>
+<li><code>h</code> &ndash; Human readable numbers are output instead of bytes</li>
+<li><code>v</code> &ndash; Increase verbosity of the output</li>
+<li><code>A</code> &ndash; Preserve ACLs; also implies <code>p</code> (preserve permissions)</li>
+<li><code>E</code> &ndash; Preserve executability</li>
+<li><code>delete</code> &ndash; Delete file on the destination that don&rsquo;t exist on source; clean up
+deleted files in backup</li>
+<li><code>stats</code> &ndash; Give some file-transfer stats</li>
+</ul>
+
+<p>Rsync is a program that efficiently transfers data between two sources. When I say
+efficiently&hellip; well look at how well it handles hundreds of gigs:</p>
+
+<pre><code>Dec 25 00:00:48 RPi systemd[1]: Started Drive sync.
+Dec 25 00:00:48 RPi drive-mirroring[1019]: ########### Drive mirroring starting at Mon Dec 25 00:00:48 UTC 2017 ###########
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of files: 79,953 (reg: 65,687, dir: 10,729, link: 3,504, dev: 33)
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of created files: 14 (reg: 13, dir: 1)
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of deleted files: 3 (reg: 3)
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of regular files transferred: 16
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Total file size: 458.53G bytes
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Total transferred file size: 35.53M bytes
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Literal data: 35.53M bytes
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Matched data: 0 bytes
+Dec 25 00:01:40 RPi drive-mirroring[1019]: File list size: 131.07K
+Dec 25 00:01:40 RPi drive-mirroring[1019]: File list generation time: 0.006 seconds
+Dec 25 00:01:40 RPi drive-mirroring[1019]: File list transfer time: 0.000 seconds
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Total bytes sent: 38.05M
+Dec 25 00:01:40 RPi drive-mirroring[1019]: Total bytes received: 11.82K
+Dec 25 00:01:40 RPi drive-mirroring[1019]: sent 38.05M bytes  received 11.82K bytes  725.03K bytes/sec
+Dec 25 00:01:40 RPi drive-mirroring[1019]: total size is 458.53G  speedup is 12,046.32
+Dec 25 00:01:40 RPi drive-mirroring[1019]: ########### Drive mirroring completed at Mon Dec 25 00:01:40 UTC 2017 ###########
+</code></pre>
+
+<p>Of course the first transfer will not be nearly this fast, but all subsequent transfers
+will only need to transfer the changes since last transfer.</p>
+
+<h3 id="systemd-scripts">Systemd Scripts</h3>
+
+<p>Save this file as <code>/etc/systemd/system/drive-mirroring.service</code>:</p>
+
+<pre><code class="language-ini">
+[Unit]
+Description=Drive sync
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/drive-mirroring
+</code></pre>
+
+<p>And finally the timer is saved as <code>/etc/systemd/system/drive-mirroring.timer</code></p>
+
+<pre><code class="language-ini">[Unit]
+Description=Drive sync
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+</code></pre>
+
+<p>You can have a look at systemd timers to customize the frequency of the sync. I&rsquo;ve set it
+to sync weekly (which defaults to Mondays at 12AM).</p>
+
+<p>For systemd to actually run the <code>drive-mirroring.timer</code>, it must first be enabled or
+started (enabling will ensure it gets started after a reboot whereas a starting will not
+cause it to be automatically started across reboots).</p>
+
+<pre><code>$ systemctl enable drive-mirroring.timer  # or replace `enable` with `start`
+</code></pre>
+
+<p>You can get information about the systemd timer or service using <code>systemctl
+drive-mirroring.service</code> (hint &ndash; the .service can be omitted, but anything else like a
+.timer must be explicit).</p>
+
+<p>And you can view the systemd logs for a particular service using <code>journalctl -u
+drive-mirroring.service</code>. We&rsquo;ve also piped the output of rsync to
+<code>/var/log/drive-mirroring.log</code> so the output of rsync can also be accessed there.</p>
+
+<h2 id="copyright"><em>Copyright</em></h2>
+
+<p><em>This code listed on this page is licensed under the terms of the <a href="http://example.org/assets/text/mit-license">MIT
+license</a>.</em></p>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="http://example.org/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

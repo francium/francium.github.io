@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on francium</title>
+    <link>http://example.org/blog/</link>
+    <description>Recent content in Blog on francium</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 17 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://example.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Book Notes - Matthew Griffith, &#34;Why Elm&#34;</title>
+      <link>http://example.org/blog/book-notes---matthew-griffith-why-elm/</link>
+      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/blog/book-notes---matthew-griffith-why-elm/</guid>
+      <description>Elm incorporates some of the advances from the last 40 years of programming design without learning academic jargon Many pain points of frontend development don&amp;rsquo;t exist in Elm - nulls, undefined is not a function - and runtime exceptions are extremely rare Static typing, compile time checks, friendly error messages, type signature inference Some experience Elm programmers will start a program by sketching out the type signatures first to get a high-level view of what the various APIs will be, organization will look like and create a specification for the code.</description>
+    </item>
+    
+    <item>
+      <title>Using Rsync to efficiently backup (mirror) hard drives</title>
+      <link>http://example.org/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/</link>
+      <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/</guid>
+      <description>The concepts discussed here are not Raspberry Pi specific and can easily be adapted for other uses.  Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&amp;rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
+I found a simple solution to this problem using Rsync and Systemd timers (as opposed to installing Cron and learning Cron, but if you wish, you can substitute Systemd with Cron).</description>
+    </item>
+    
+    <item>
+      <title>How to access the McMaster CAS virtual machines on Linux host</title>
+      <link>http://example.org/blog/how-to-access-the-mcmaster-cas-virtual-machines-on-linux-host/</link>
+      <pubDate>Tue, 10 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/blog/how-to-access-the-mcmaster-cas-virtual-machines-on-linux-host/</guid>
+      <description>There is a web client available, but still requires a connect to the VPN. See CAS wiki[ref 1] for more information.  Using openconnect Install openconenct
+openconnect sslvpn.mcmaster.ca (try with sudo if it fails)
+If nothing failed, you should be connected
+Tested on Xubuntu and Debian (x86_64).
+Download the VPN client for linux, *.tar.gz from https://www.mcmaster.ca/uts/network/vpn/
+Download the VMWare Horizon client, *bundle from https://www.vmware.com/go/viewclients
+cd to the location of both downloads</description>
+    </item>
+    
+    <item>
+      <title>The Knights Who say... Ni</title>
+      <link>http://example.org/blog/the-knights-who-say...-ni/</link>
+      <pubDate>Wed, 28 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>http://example.org/blog/the-knights-who-say...-ni/</guid>
+      <description> We are no longer the knights who say Ni! We are now the knights who say ekki-ekki-ekki-pitang-zoom-boing! Monty Python
+ </description>
+    </item>
+    
+  </channel>
+</rss>
