@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<meta name="author" content="francium">
+<meta name="description" content="One thing I find quite annoying with YouTube is &ldquo;Recommended For You&rdquo; spam in the related videos section. I do not sign into YouTube and use Firefox Containers so most &ldquo;Recommended For You&rdquo; videos are irrelevant, distracting, and seem suspiciously like they&rsquo;ve been paid for (I don&rsquo;t know if this is true).
+As a user of uBlock Origin, I do have the ability to add custom filters to block DOM elements.">
+
+<meta property="og:title" content="Hide YouTube&#39;s &#34;Recommended For You&#34; suggestions" />
+<meta property="og:description" content="One thing I find quite annoying with YouTube is &ldquo;Recommended For You&rdquo; spam in the related videos section. I do not sign into YouTube and use Firefox Containers so most &ldquo;Recommended For You&rdquo; videos are irrelevant, distracting, and seem suspiciously like they&rsquo;ve been paid for (I don&rsquo;t know if this is true).
+As a user of uBlock Origin, I do have the ability to add custom filters to block DOM elements." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blog/hide-youtubes-recommended-for-you-suggestions/" /><meta property="article:published_time" content="2018-10-06T19:43:00-04:00"/>
+<meta property="article:modified_time" content="2018-10-06T19:43:00-04:00"/>
+
+
+<title>
+
+
+     Hide YouTube&#39;s &#34;Recommended For You&#34; suggestions 
+
+</title>
+<link rel="canonical" href="/blog/hide-youtubes-recommended-for-you-suggestions/">
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Ubuntu+Mono:400,400i,700,700i|Raleway:500">
+
+
+
+    
+    <link rel="stylesheet" href="/css/reset.css?t=2018-10-06%2020%3a12%3a23.180565444%20-0400%20EDT%20m%3d%2b0.169432949">
+    <link rel="stylesheet" href="/css/pygments.css?t=2018-10-06%2020%3a12%3a23.180565444%20-0400%20EDT%20m%3d%2b0.169432949">
+    <link rel="stylesheet" href="/css/main.css?t=2018-10-06%2020%3a12%3a23.180565444%20-0400%20EDT%20m%3d%2b0.169432949">
+    
+
+
+
+
+<link rel="shortcut icon"
+
+    href="/img/leaf.ico"
+
+>
+
+
+
+
+
+
+
+
+</head>
+
+
+<body lang="en">
+
+<section class="header">
+    <div class="container">
+        <div class="content">
+            
+            <a href="/"><div class="name">francium</div></a>
+            
+            <nav>
+                <ul>
+                    
+                        <li class="nav-about"><a href="/about/"><span>About</span></a></li>
+                    
+                        <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
+                    
+                        <li class="nav-projects"><a href="/projects/"><span>Projects</span></a></li>
+                    
+                        <li class="nav-reading"><a href="/reading/"><span>Reading</span></a></li>
+                    
+                </ul>
+            </nav>
+        </div>
+    </div>
+</section>
+
+<section class="icons">
+    <div class="container">
+        <div class="content">
+        
+            <a href="//github.com/francium" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
+        
+
+        
+
+        
+
+	
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+
+        
+            <a href="mailto:francium@francium.cc"><img class="icon" src="/img/email.svg" alt="email" /></a>
+        
+
+        
+
+        
+        </div>
+    </div>
+</section>
+
+
+<section class="main post non-narrow zero-top-spacing">
+    <div class="container">
+        <div class="content">
+            <div class="front-matter">
+                <div class="title-container">
+                    <div class="page-heading">
+
+    Hide YouTube&#39;s &#34;Recommended For You&#34; suggestions
+
+</div>
+
+                    <div class="initials"><a href="/"></a></div>
+                </div>
+                <div class="meta">
+                    
+                    <div class="date" title='Sat Oct 6 2018'>2018-10-06</div>
+                    
+                    
+                </div>
+            </div>
+            <div class="markdown">
+                
+
+<p>One thing I find quite annoying with YouTube is &ldquo;Recommended For You&rdquo; spam in the related
+videos section. I do not sign into YouTube and use <a href="https://support.mozilla.org/en-US/kb/containers">Firefox
+Containers</a> so most &ldquo;Recommended For You&rdquo;
+videos are irrelevant, distracting, and seem suspiciously like they&rsquo;ve been paid for (I
+don&rsquo;t know if this is true).</p>
+
+<p>As a user of <a href="https://github.com/gorhill/uBlock">uBlock Origin</a>, I do have the ability to
+add custom filters to block DOM elements. After fiddling around with things and searching
+the web[1], I managed to come up with this filter which gets rid of &ldquo;Recommended For You&rdquo;
+from the related videos list,</p>
+
+<pre><code>youtube.com###css selector:has-text(Recommended for you)
+</code></pre>
+
+<p>You can put this line in &ldquo;My filters&rdquo; (on uBlock&rsquo;s setting page).</p>
+
+<h3 id="references">References</h3>
+
+<ul>
+<li>[1] Cosmetic filters.
+<a href="https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#cosmetic-filters">https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#cosmetic-filters</a></li>
+</ul>
+
+                <br>
+                
+                <p class="back-to-posts"><a href="/blog">Back to posts</a></p>
+            </div>
+            <br>
+            <div class="disqus">
+                
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+

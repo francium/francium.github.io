@@ -6,10 +6,20 @@
     <description>Recent content on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 17 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Oct 2018 19:43:00 -0400</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Hide YouTube&#39;s &#34;Recommended For You&#34; suggestions</title>
+      <link>/blog/hide-youtubes-recommended-for-you-suggestions/</link>
+      <pubDate>Sat, 06 Oct 2018 19:43:00 -0400</pubDate>
+      
+      <guid>/blog/hide-youtubes-recommended-for-you-suggestions/</guid>
+      <description>One thing I find quite annoying with YouTube is &amp;ldquo;Recommended For You&amp;rdquo; spam in the related videos section. I do not sign into YouTube and use Firefox Containers so most &amp;ldquo;Recommended For You&amp;rdquo; videos are irrelevant, distracting, and seem suspiciously like they&amp;rsquo;ve been paid for (I don&amp;rsquo;t know if this is true).
+As a user of uBlock Origin, I do have the ability to add custom filters to block DOM elements.</description>
+    </item>
     
     <item>
       <title>Book Notes - Matthew Griffith, &#34;Why Elm&#34;</title>
