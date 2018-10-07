@@ -93,16 +93,16 @@ A brief summary,
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>Zoidboard A dashboard for monitoring system activity and performance.
-Python, JavaScript, SPA, Linux
+      <description>zoidboard A dashboard for monitoring system activity and performance.
+Python, JavaScript, Linux
 Beasley Weather Station On going community project to build a weather station. Wrote most of the software that handles syncing data between the weather station and central server.
 Python, Docker
-Xournal (vi scrolling patch) C
-DietHN Hacker News browser with keyword filtering.
+microurl Simple URL shortener.
+Python, Flask
+diet Hacker News Hacker News with less fat (keyword filtering).
 JavaScript
-audiosave CLI around youtube-dl for saving audio versions of YouTube videos
-Python
-Ticker Tape Real-time stock dashboard.</description>
+Xournal (vi scrolling patch) C
+audiosave CLI around youtube-dl for saving audio versions of YouTube videos</description>
     </item>
     
     <item>
