@@ -6,10 +6,21 @@
     <description>Recent content on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Oct 2018 19:43:00 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 06 Oct 2018 20:18:48 -0400</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>GNOME Mutli-Monitor Workspace Fix (Gnome 3.30)</title>
+      <link>/blog/gnome-mutli-monitor-workspace-fix-gnome-3.30/</link>
+      <pubDate>Sat, 06 Oct 2018 20:18:48 -0400</pubDate>
+      
+      <guid>/blog/gnome-mutli-monitor-workspace-fix-gnome-3.30/</guid>
+      <description>workspaces_only_on_primary setting is suppose to make workspaces work correctly [1] in a multi-monitor setup.
+There are older articles on the internet about enabling this option, but they won&amp;rsquo;t work with newer versions of GNOME. Prior to 3.30, I was using a very similar command which was described by Greg Cordts in his post on the subject.
+After upgrading to GNOME 3.30, this way of enabling the option stopped working. After reporting this to the GNOME team as a bug, two individuals provided some very useful information,</description>
+    </item>
     
     <item>
       <title>Hide YouTube&#39;s &#34;Recommended For You&#34; suggestions</title>

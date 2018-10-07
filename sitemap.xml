@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/blog/gnome-mutli-monitor-workspace-fix-gnome-3.30/</loc>
+    <lastmod>2018-10-06T20:18:48-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/blog/hide-youtubes-recommended-for-you-suggestions/</loc>
     <lastmod>2018-10-06T19:43:00-04:00</lastmod>
   </url>
@@ -33,7 +38,7 @@
   
   <url>
     <loc>/blog/</loc>
-    <lastmod>2018-10-06T19:43:00-04:00</lastmod>
+    <lastmod>2018-10-06T20:18:48-04:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -57,7 +62,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-10-06T19:43:00-04:00</lastmod>
+    <lastmod>2018-10-06T20:18:48-04:00</lastmod>
     <priority>0</priority>
   </url>
   
