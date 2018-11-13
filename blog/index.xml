@@ -34,10 +34,10 @@ As a user of uBlock Origin, I do have the ability to add custom filters to block
     
     <item>
       <title>Book Notes - Matthew Griffith, &#34;Why Elm&#34;</title>
-      <link>/blog/book-notes---matthew-griffith-why-elm/</link>
+      <link>/blog/book-notes-matthew-griffith-why-elm/</link>
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/blog/book-notes---matthew-griffith-why-elm/</guid>
+      <guid>/blog/book-notes-matthew-griffith-why-elm/</guid>
       <description>Elm incorporates some of the advances from the last 40 years of programming design without learning academic jargon Many pain points of frontend development don&amp;rsquo;t exist in Elm - nulls, undefined is not a function - and runtime exceptions are extremely rare Static typing, compile time checks, friendly error messages, type signature inference Some experience Elm programmers will start a program by sketching out the type signatures first to get a high-level view of what the various APIs will be, organization will look like and create a specification for the code.</description>
     </item>
     
