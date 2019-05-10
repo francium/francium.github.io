@@ -6,10 +6,20 @@
     <description>Recent content in Blog on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Oct 2018 20:18:48 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 22 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An Implementation of Parallel Shearshort in C using PThreads</title>
+      <link>/blog/an-implementation-of-parallel-shearshort-in-c-using-pthreads/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/an-implementation-of-parallel-shearshort-in-c-using-pthreads/</guid>
+      <description>This will be a look at a parallel implementation of Shearsort using POSIX Threads (PThreads) in the C programming language.
+This is not meant to be an efficient or optimal implementation, nor should it be considered production ready code. This is purely an educational exercise. I&amp;rsquo;m also not a seasoned C/C++ developer, so expect some errors or downright stupidity here and there. If you have any suggestions for improvements feel free to create an issue on GitHub.</description>
+    </item>
     
     <item>
       <title>GNOME Mutli-Monitor Workspace Fix (Gnome 3.30)</title>

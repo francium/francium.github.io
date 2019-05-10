@@ -6,10 +6,20 @@
     <description>Recent content on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Oct 2018 20:18:48 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 22 Feb 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An Implementation of Parallel Shearshort in C using PThreads</title>
+      <link>/blog/an-implementation-of-parallel-shearshort-in-c-using-pthreads/</link>
+      <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/an-implementation-of-parallel-shearshort-in-c-using-pthreads/</guid>
+      <description>This will be a look at a parallel implementation of Shearsort using POSIX Threads (PThreads) in the C programming language.
+This is not meant to be an efficient or optimal implementation, nor should it be considered production ready code. This is purely an educational exercise. I&amp;rsquo;m also not a seasoned C/C++ developer, so expect some errors or downright stupidity here and there. If you have any suggestions for improvements feel free to create an issue on GitHub.</description>
+    </item>
     
     <item>
       <title>GNOME Mutli-Monitor Workspace Fix (Gnome 3.30)</title>
@@ -94,7 +104,7 @@ A brief summary,
       
       <guid>/talks/</guid>
       <description>A collection of talks I found interesting, as well as maybe a brief summary describing the main points.
-Other Inside the mind of a master procrastinator | Tim Urban Teaching Talk: Helping Students Who Procrastinate (Tim Pychyl) Software GOTO 2015 • Agile is Dead • Pragmatic Dave Thomas ITT 2016 - Kevlin Henney - Seven Ineffective Coding Habits of Many Programmers Leadership Without Management: Scaling Organizations by Scaling Engineers Bryan Cantrill - Surge 2013 Monktoberfest 2016: Bryan Cantrill - Oral Tradition in Software Engineering Hammock Driven Development - Rich Hickey  It is import to step away and think throughly and deeply about what the problem trying to be solved is and how to best solve it By thinking deeply you allow yourself to propose new solutions to the problem and see difference ways to solve it Take advantage of subconscious thought processes and the brain&amp;rsquo;s ability to generate ideas during rest and sleep  Rails Conf 2012 Keynote: Simplicity Matters by Rich Hickey  Simplicity is not about you and simplicity is hard work.</description>
+Other Inside the mind of a master procrastinator | Tim Urban Teaching Talk: Helping Students Who Procrastinate (Tim Pychyl) How to Land the Space Shuttle&amp;hellip; from Space Software GOTO 2015 • Agile is Dead • Pragmatic Dave Thomas ITT 2016 - Kevlin Henney - Seven Ineffective Coding Habits of Many Programmers Leadership Without Management: Scaling Organizations by Scaling Engineers Bryan Cantrill - Surge 2013 Monktoberfest 2016: Bryan Cantrill - Oral Tradition in Software Engineering Hammock Driven Development - Rich Hickey  It is import to step away and think throughly and deeply about what the problem trying to be solved is and how to best solve it By thinking deeply you allow yourself to propose new solutions to the problem and see difference ways to solve it Take advantage of subconscious thought processes and the brain&amp;rsquo;s ability to generate ideas during rest and sleep  Rails Conf 2012 Keynote: Simplicity Matters by Rich Hickey  Simplicity is not about you and simplicity is hard work.</description>
     </item>
     
     <item>
