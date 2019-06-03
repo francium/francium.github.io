@@ -6,10 +6,21 @@
     <description>Recent content in Blog on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 22 Feb 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Jun 2019 17:18:53 -0400</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A Few Thoughts About Elm</title>
+      <link>/blog/a-few-thoughts-about-elm/</link>
+      <pubDate>Mon, 03 Jun 2019 17:18:53 -0400</pubDate>
+      
+      <guid>/blog/a-few-thoughts-about-elm/</guid>
+      <description>Note: This is fairly rough right now. I may come back and revised in the future.
+This will not be an introduction to Elm. If you do not know what Elm is, have a look at the wikipedia article about Elm and the Elm website.
+Prior to learning Elm, I did not know anything about functional programming aside from map and some vague understand of reduce. Of course, functional programming is a lot more than just map and reduce.</description>
+    </item>
     
     <item>
       <title>An Implementation of Parallel Shearshort in C using PThreads</title>
