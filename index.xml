@@ -92,19 +92,8 @@ cd to the location of both downloads</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>Usually trying to learn, sometimes writing code. Worked on various things over the years, but still have a long way to go.
-A brief summary,
- Speak JavaScript, Python, Elm, Java, C, C++, and a few more (in order of experience) Know my way around a [Lin]u[ni]x CLI and common development tools Professional experience working on a web SPA frontend (Angular) and backend server Other buzzwords: SQL, Flask, Django, Node, REST, Docker, Containers, Cloud, React This was typed in Vim  If you’ve made it this far, perhaps you’d be interested in looking at some of my projects.</description>
-    </item>
-    
-    <item>
-      <title>Interesting Talks</title>
-      <link>/talks/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/talks/</guid>
-      <description>A collection of talks I found interesting, as well as maybe a brief summary describing the main points.
-Other Inside the mind of a master procrastinator | Tim Urban Teaching Talk: Helping Students Who Procrastinate (Tim Pychyl) How to Land the Space Shuttle&amp;hellip; from Space Software GOTO 2015 • Agile is Dead • Pragmatic Dave Thomas ITT 2016 - Kevlin Henney - Seven Ineffective Coding Habits of Many Programmers Leadership Without Management: Scaling Organizations by Scaling Engineers Bryan Cantrill - Surge 2013 Monktoberfest 2016: Bryan Cantrill - Oral Tradition in Software Engineering Hammock Driven Development - Rich Hickey  It is import to step away and think throughly and deeply about what the problem trying to be solved is and how to best solve it By thinking deeply you allow yourself to propose new solutions to the problem and see difference ways to solve it Take advantage of subconscious thought processes and the brain&amp;rsquo;s ability to generate ideas during rest and sleep  Rails Conf 2012 Keynote: Simplicity Matters by Rich Hickey  Simplicity is not about you and simplicity is hard work.</description>
+      <description>Varun Hooda A brief summary,
+ Canadian software developer Fluently able to read and write various languages, including JavaScript, Python, C, Elm, Java, C++, Bash, SQL Know my way around a [Lin]u[ni]x CLI and many common development tools Other buzzwords: Agile, Angular 2+, Bash, Dev Ops, Django, Docker, Flask, Functional Programming, Node, Optimization, REST APIs, Refactoring, React, SCRUM, Unit Testing, UI, UX This was typed in Vim  If you’ve made it this far, perhaps you’d be interested in looking at some of my projects or my GitHub profile.</description>
     </item>
     
     <item>
@@ -113,16 +102,12 @@ Other Inside the mind of a master procrastinator | Tim Urban Teaching Talk: Help
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/projects/</guid>
-      <description>zoidboard A dashboard for monitoring system activity and performance.
-Python, JavaScript, Linux
-Beasley Weather Station On going community project to build a weather station. Wrote most of the software that handles syncing data between the weather station and central server.
-Python, Docker
-microurl Simple URL shortener.
-Python, Flask
-diet Hacker News Hacker News with less fat (keyword filtering).
-JavaScript
-Xournal (vi scrolling patch) C
-audiosave CLI around youtube-dl for saving audio versions of YouTube videos</description>
+      <description>qinterest Pinterest clone
+Fast Blur A highly optimized box blur implementation.
+Project Imacs Final year capstone project. Visual note taking and note management system. Project lead.
+zoidboard A plugin based dashboard for monitoring servers.
+Beasley Weather Station Community project to build a weather station. Wrote most of the software that handles syncing data between the weather station and central server.
+resume css Template for creating a resume in HTML.</description>
     </item>
     
     <item>
@@ -131,7 +116,7 @@ audiosave CLI around youtube-dl for saving audio versions of YouTube videos</des
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/reading/</guid>
-      <description>Now  Norman, Design of Everyday Things   2018  Foer, Moonwalking with Einstein [Review] Grahama, Hackers and Painters ★ Griffith, Why Elm [Notes] Hallam, Millionaire Teacher ★ McCarthy, The Road ★ McCarthy, No Country For Old Men Scalzi, Old Man&amp;rsquo;s War (audio) [Review] Weir, The Egg ★ (short story) deGrasse Tyson, Astrophysics for People in a Hurry (audio)  2017  Dawkins, Selfish Gene (audio) Doctorow, I, Robot Gladwell, Outliers: The Story of Success (audio) Kafka, The Metamorphosis Mark Richards, Microservices vs.</description>
+      <description>Now  Graeber, Debt, The First 5000 Years  2019  Lovecraft, Pickman&amp;rsquo;s Model [Review] Lovecraft, The Color Out Of Space [Review]  2018  Foer, Moonwalking with Einstein [Review] Graham, Hackers and Painters ★ Griffith, Why Elm [Notes] Hallam, Millionaire Teacher ★ McCarthy, The Road ★ McCarthy, No Country For Old Men Scalzi, Old Man&amp;rsquo;s War (audio) [Review] Weir, The Egg ★ (short story) deGrasse Tyson, Astrophysics for People in a Hurry (audio)  2017  Dawkins, Selfish Gene (audio) Doctorow, I, Robot Gladwell, Outliers: The Story of Success (audio) Kafka, The Metamorphosis Mark Richards, Microservices vs.</description>
     </item>
     
   </channel>

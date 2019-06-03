@@ -43,9 +43,9 @@ This is not meant to be an efficient or optimal implementation, nor should it be
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2019-05-10%2017%3a27%3a56.684693697%20-0400%20EDT%20m%3d%2b0.039898566">
-    <link rel="stylesheet" href="/css/pygments.css?t=2019-05-10%2017%3a27%3a56.684693697%20-0400%20EDT%20m%3d%2b0.039898566">
-    <link rel="stylesheet" href="/css/main.css?t=2019-05-10%2017%3a27%3a56.684693697%20-0400%20EDT%20m%3d%2b0.039898566">
+    <link rel="stylesheet" href="/css/reset.css?t=2019-06-03%2017%3a11%3a04.660132156%20-0400%20EDT%20m%3d%2b0.042347288">
+    <link rel="stylesheet" href="/css/pygments.css?t=2019-06-03%2017%3a11%3a04.660132156%20-0400%20EDT%20m%3d%2b0.042347288">
+    <link rel="stylesheet" href="/css/main.css?t=2019-06-03%2017%3a11%3a04.660132156%20-0400%20EDT%20m%3d%2b0.042347288">
     
 
 
@@ -82,8 +82,6 @@ This is not meant to be an efficient or optimal implementation, nor should it be
                     
                         <li class="nav-blog"><a href="/blog/"><span>Blog</span></a></li>
                     
-                        <li class="nav-talks"><a href="/talks/"><span>Interesting Talks</span></a></li>
-                    
                         <li class="nav-projects"><a href="/projects/"><span>Projects</span></a></li>
                     
                         <li class="nav-reading"><a href="/reading/"><span>Reading</span></a></li>
@@ -97,8 +95,6 @@ This is not meant to be an efficient or optimal implementation, nor should it be
 <section class="icons">
     <div class="container">
         <div class="content">
-        
-            <a href="//github.com/francium" target="_blank" rel="noopener"><img class="icon" src="/img/github.svg" alt="github" /></a>
         
 
         
@@ -123,8 +119,6 @@ This is not meant to be an efficient or optimal implementation, nor should it be
 
         
 
-        
-            <a href="mailto:francium@francium.cc"><img class="icon" src="/img/email.svg" alt="email" /></a>
         
 
         
@@ -543,9 +537,6 @@ we will need to make sure we implement mutual exclusion in the critical sections
 <h3 id="a-queue">A Queue</h3>
 
 <h4 id="but-why">But why?</h4>
-
-<p><center><img
-src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2F2.bp.blogspot.com%2F-3xtPQ5Mc88c%2FVTiUiYJspSI%2FAAAAAAAAS-c%2FrF-0oHwlb4A%2Fs1600%2Fbut-why.gif&f=1"></img></center></p>
 
 <p>Actually, before we start writing code, let&rsquo;s talk about why a queue works for us in this
 context. First, let&rsquo;s look at what we&rsquo;re trying to do. We have a single master and a bunch
