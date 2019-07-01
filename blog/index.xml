@@ -17,7 +17,7 @@
       <pubDate>Mon, 03 Jun 2019 17:18:53 -0400</pubDate>
       
       <guid>/blog/a-few-thoughts-about-elm/</guid>
-      <description>Note: This is fairly rough right now. I may come back and revised in the future.
+      <description>Note: This is fairly rough right now. I may come back and revise it in the future.
 This will not be an introduction to Elm. If you do not know what Elm is, have a look at the wikipedia article about Elm and the Elm website.
 Prior to learning Elm, I did not know anything about functional programming aside from map and some vague understand of reduce. Of course, functional programming is a lot more than just map and reduce.</description>
     </item>
