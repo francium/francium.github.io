@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>The Knights Who say... Ni // francium</title>
+    <title>Trigger bash commands in a Docker container from host // francium</title>
 
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -10,11 +10,11 @@
     
     
 
-        <meta property="og:title" content="The Knights Who say... Ni" />
+        <meta property="og:title" content="Trigger bash commands in a Docker container from host" />
     <meta property="og:description" content="" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en" />
-    <meta property="og:url" content="/blog/ni-ni-ni/" />
+    <meta property="og:url" content="/blog/2020-04-18-trigger-command-in-docker-container/" />
     
 
     <link rel="shortcut icon" href="/favicon.ico">
@@ -58,23 +58,43 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">The Knights Who say... Ni</h1>
+            <h1 class="article-title" itemprop="name">Trigger bash commands in a Docker container from host</h1>
         </header>
         
         <div class="article-meta">
-            <a href="/blog/ni-ni-ni/" class="article-date">
-                <time datetime='2016-12-28T00:00:00.000&#43;00:00' itemprop="datePublished">2016-12-28</time>
+            <a href="/blog/2020-04-18-trigger-command-in-docker-container/" class="article-date">
+                <time datetime='2020-04-18T15:38:21.000-04:00' itemprop="datePublished">2020-04-18</time>
             </a>
             
             
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <blockquote>
-<p>We are no longer the knights who say Ni! We are now the knights who say
-ekki-ekki-ekki-pitang-zoom-boing!</p>
-<p>&ndash; Monty Python</p>
-</blockquote>
+            <p>Here is an easy way to trigger a command inside a docker container. One use case
+of this is to trigger a compiler, which is running inside a container, to
+recompile sources.</p>
+<p>Make sure <code>inotify-tools</code> is installed on the container, <code>apt install inotify-tools</code> (Debian/Ubuntu), <code>pacman -S inotify-tools</code> (Arch). It&rsquo;s also
+assumed some directory is mounted on the container which the host can write to
+and container can read.</p>
+<p>The trick here is a <code>.watchfile</code> file which we can <code>touch</code> which will be picked
+up by <a href="https://bitbucket.org/denilsonsa/small_scripts/src/default/sleep_until_modified.sh"><code>watchdo</code></a> (a script wrapping inotify written by <a href="https://bitbucket.org/denilsonsa/small_scripts/">Denilson Sá</a>)
+which will trigger some commands.</p>
+<p><strong>build.sh</strong>,</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000080;font-weight:bold">while</span> ./watchdo .watchfile; <span style="color:#000080;font-weight:bold">do</span>
+    gcc -o main main.c
+<span style="color:#000080;font-weight:bold">done</span>
+</code></pre></div><p>Run <code>build.sh</code> inside the container and to trigger it just <code>touch</code> the
+<code>.watchfile</code>. If your IDE or editor lets you map a shortcut to trigger a
+command, you can easily trigger a recompilation without having to leave your
+editor.</p>
+<p>In Vim, you can map <code>&lt;leader&gt;s</code> to save and trigger recompilation,</p>
+<pre><code>:nmap &lt;leader&gt;s :wall &lt;BAR&gt; silent !touch .watchfile&lt;CR&gt;
+</code></pre><p>Alternatively if you&rsquo;re working with a single file, you can just point <code>watchdo</code>
+to the file and just saving normally after making changes it will be enough to
+trigger the actions.</p>
+<p>It&rsquo;s also possible to use inotify to watch a whole directory and trigger
+whenever any file changes. <code>watchdo</code> currently doesn&rsquo;t support it, but it should
+be a simple to add with some help from man pages or online references.</p>
 
         </div>
 

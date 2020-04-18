@@ -3,17 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/blog/a-few-thoughts-about-elm/</loc>
-    <lastmod>2019-06-03T17:18:53-04:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/blog/</loc>
-    <lastmod>2019-06-03T17:18:53-04:00</lastmod>
+    <lastmod>2020-04-18T15:38:21-04:00</lastmod>
   </url>
   
   <url>
     <loc>/</loc>
+    <lastmod>2020-04-18T15:38:21-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/2020-04-18-trigger-command-in-docker-container/</loc>
+    <lastmod>2020-04-18T15:38:21-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/blog/a-few-thoughts-about-elm/</loc>
     <lastmod>2019-06-03T17:18:53-04:00</lastmod>
   </url>
   

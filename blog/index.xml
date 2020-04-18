@@ -6,10 +6,21 @@
     <description>Recent content in Blogs on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jun 2019 17:18:53 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2020 15:38:21 -0400</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Trigger bash commands in a Docker container from host</title>
+      <link>/blog/2020-04-18-trigger-command-in-docker-container/</link>
+      <pubDate>Sat, 18 Apr 2020 15:38:21 -0400</pubDate>
+      
+      <guid>/blog/2020-04-18-trigger-command-in-docker-container/</guid>
+      <description>Here is an easy way to trigger a command inside a docker container. One use case of this is to trigger a compiler, which is running inside a container, to recompile sources.
+Make sure inotify-tools is installed on the container, apt install inotify-tools (Debian/Ubuntu), pacman -S inotify-tools (Arch). It&amp;rsquo;s also assumed some directory is mounted on the container which the host can write to and container can read.
+The trick here is a .</description>
+    </item>
     
     <item>
       <title>A Few Thoughts About Elm</title>
