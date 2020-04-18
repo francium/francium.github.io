@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Blog on francium</title>
+    <title>Blogs on francium</title>
     <link>/blog/</link>
-    <description>Recent content in Blog on francium</description>
+    <description>Recent content in Blogs on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 03 Jun 2019 17:18:53 -0400</lastBuildDate>
@@ -24,20 +24,20 @@ Prior to learning Elm, I did not know anything about functional programming asid
     
     <item>
       <title>An Implementation of Parallel Shearshort in C using PThreads</title>
-      <link>/blog/an-implementation-of-parallel-shearshort-in-c-using-pthreads/</link>
+      <link>/blog/implementation-of-parallel-shearort-in-c/</link>
       <pubDate>Fri, 22 Feb 2019 00:00:00 +0000</pubDate>
       
-      <guid>/blog/an-implementation-of-parallel-shearshort-in-c-using-pthreads/</guid>
+      <guid>/blog/implementation-of-parallel-shearort-in-c/</guid>
       <description>This will be a look at a parallel implementation of Shearsort using POSIX Threads (PThreads) in the C programming language.
 This is not meant to be an efficient or optimal implementation, nor should it be considered production ready code. This is purely an educational exercise. I&amp;rsquo;m also not a seasoned C/C++ developer, so expect some errors or downright stupidity here and there. If you have any suggestions for improvements feel free to create an issue on GitHub.</description>
     </item>
     
     <item>
       <title>GNOME Mutli-Monitor Workspace Fix (Gnome 3.30)</title>
-      <link>/blog/gnome-mutli-monitor-workspace-fix-gnome-3.30/</link>
+      <link>/blog/gnome-mutli-monitor-workspace-fix/</link>
       <pubDate>Sat, 06 Oct 2018 20:18:48 -0400</pubDate>
       
-      <guid>/blog/gnome-mutli-monitor-workspace-fix-gnome-3.30/</guid>
+      <guid>/blog/gnome-mutli-monitor-workspace-fix/</guid>
       <description>workspaces_only_on_primary setting is suppose to make workspaces work correctly [1] in a multi-monitor setup.
 There are older articles on the internet about enabling this option, but they won&amp;rsquo;t work with newer versions of GNOME. Prior to 3.30, I was using a very similar command which was described by Greg Cordts in his post on the subject.
 After upgrading to GNOME 3.30, this way of enabling the option stopped working. After reporting this to the GNOME team as a bug, two individuals provided some very useful information,</description>
@@ -45,10 +45,10 @@ After upgrading to GNOME 3.30, this way of enabling the option stopped working. 
     
     <item>
       <title>Hide YouTube&#39;s &#34;Recommended For You&#34; suggestions</title>
-      <link>/blog/hide-youtubes-recommended-for-you-suggestions/</link>
+      <link>/blog/hide-youtube-recommended-videos/</link>
       <pubDate>Sat, 06 Oct 2018 19:43:00 -0400</pubDate>
       
-      <guid>/blog/hide-youtubes-recommended-for-you-suggestions/</guid>
+      <guid>/blog/hide-youtube-recommended-videos/</guid>
       <description>One thing I find quite annoying with YouTube is &amp;ldquo;Recommended For You&amp;rdquo; spam in the related videos section. I do not sign into YouTube and use Firefox Containers so most &amp;ldquo;Recommended For You&amp;rdquo; videos are irrelevant, distracting, and seem suspiciously like they&amp;rsquo;ve been paid for (I don&amp;rsquo;t know if this is true).
 As a user of uBlock Origin, I do have the ability to add custom filters to block DOM elements.</description>
     </item>
@@ -64,20 +64,20 @@ As a user of uBlock Origin, I do have the ability to add custom filters to block
     
     <item>
       <title>Using Rsync to efficiently backup (mirror) hard drives</title>
-      <link>/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/</link>
+      <link>/blog/using-rsync-to-backup-mirror-drives/</link>
       <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
       
-      <guid>/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/</guid>
+      <guid>/blog/using-rsync-to-backup-mirror-drives/</guid>
       <description>Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&amp;rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
 I found a simple solution to this problem using Rsync and Systemd timers (as opposed to installing Cron and learning Cron, but if you wish, you can substitute Systemd with Cron).</description>
     </item>
     
     <item>
       <title>How to access the McMaster CAS virtual machines on Linux host</title>
-      <link>/blog/how-to-access-the-mcmaster-cas-virtual-machines-on-linux-host/</link>
+      <link>/blog/access-mcmaster-cas-virtual-machines-on-linux/</link>
       <pubDate>Tue, 10 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>/blog/how-to-access-the-mcmaster-cas-virtual-machines-on-linux-host/</guid>
+      <guid>/blog/access-mcmaster-cas-virtual-machines-on-linux/</guid>
       <description>Using openconnect Install openconenct
 openconnect sslvpn.mcmaster.ca (try with sudo if it fails)
 If nothing failed, you should be connected
@@ -91,10 +91,10 @@ $ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install libudev1 libpangox
     
     <item>
       <title>The Knights Who say... Ni</title>
-      <link>/blog/the-knights-who-say...-ni/</link>
+      <link>/blog/ni-ni-ni/</link>
       <pubDate>Wed, 28 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>/blog/the-knights-who-say...-ni/</guid>
+      <guid>/blog/ni-ni-ni/</guid>
       <description> We are no longer the knights who say Ni! We are now the knights who say ekki-ekki-ekki-pitang-zoom-boing!
 &amp;ndash; Monty Python
  </description>

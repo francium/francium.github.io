@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    <meta name="author" content="francium">
+    
     
     
 
@@ -14,7 +14,7 @@
     <meta property="og:description" content="" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en" />
-    <meta property="og:url" content="/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/" />
+    <meta property="og:url" content="/blog/using-rsync-to-backup-mirror-drives/" />
     
 
     <link rel="shortcut icon" href="/favicon.ico">
@@ -23,7 +23,7 @@
     <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="/css/style.css">
-    
+    <link rel="stylesheet" href="/css/main.css">
 
     <meta name="generator" content="Hugo 0.68.0" />
 </head>
@@ -40,11 +40,7 @@
                 
                 <a class="main-nav-link" href="/about/">About</a>
                 
-                <a class="main-nav-link" href="/blog/">Blog</a>
-                
                 <a class="main-nav-link" href="/projects/">Projects</a>
-                
-                <a class="main-nav-link" href="/reading/">Reading</a>
                 
             </nav>
             <nav id="sub-nav">
@@ -64,7 +60,7 @@
         </header>
         
         <div class="article-meta">
-            <a href="/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/" class="article-date">
+            <a href="/blog/using-rsync-to-backup-mirror-drives/" class="article-date">
                 <time datetime='2017-12-26T00:00:00.000&#43;00:00' itemprop="datePublished">2017-12-26</time>
             </a>
             
@@ -102,16 +98,16 @@ for specifying when the service should execute. The service file will point to a
 script that will call rsync to perform the actual task of mirroring the two drives.</p>
 <h3 id="mirroring-script">Mirroring Script</h3>
 <p>I&rsquo;ve saved this file as <code>/usr/local/bin/drive-mirroring</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
-</span><span class="cp"></span>
-<span class="nb">echo</span> <span class="s2">&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+echo <span style="color:#e6db74">&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
 
-<span class="nv">SOURCE</span><span class="o">=</span>/media/user_name/Master/
-<span class="nv">DEST</span><span class="o">=</span>/media/user_name/Slave/mirror
+SOURCE<span style="color:#f92672">=</span>/media/user_name/Master/
+DEST<span style="color:#f92672">=</span>/media/user_name/Slave/mirror
 
-rsync -ahvAE --delete --stats <span class="nv">$SOURCE</span> <span class="nv">$DEST</span> 2&gt;<span class="p">&amp;</span><span class="m">1</span> <span class="p">|</span> tee /var/log/drive-mirroring.log
+rsync -ahvAE --delete --stats $SOURCE $DEST 2&gt;&amp;<span style="color:#ae81ff">1</span> | tee /var/log/drive-mirroring.log
 
-<span class="nb">echo</span> <span class="s2">&#34;########### Drive mirroring completed at `date` ###########&#34;</span>
+echo <span style="color:#e6db74">&#34;########### Drive mirroring completed at `date` ###########&#34;</span>
 </code></pre></div><p>Note that we&rsquo;ve used the <code>tee</code> command to pipe the output (stdout and stderr as per the
 <code>2&gt;&amp;1</code>) of rsync to two places &ndash; stdout and the file <code>/var/log/drive-mirroring.log</code>. The
 stdout in the context of this setup will be systemd&rsquo;s journal (systemd&rsquo;s logs) since
@@ -156,23 +152,23 @@ Dec 25 00:01:40 RPi drive-mirroring[1019]: ########### Drive mirroring completed
 will only need to transfer the changes since last transfer.</p>
 <h3 id="systemd-scripts">Systemd Scripts</h3>
 <p>Save this file as <code>/etc/systemd/system/drive-mirroring.service</code>:</p>
-<div class="highlight"><pre class="chroma"><code class="language-ini" data-lang="ini">
-<span class="k">[Unit]</span>
-<span class="na">Description</span><span class="o">=</span><span class="s">Drive sync</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">
+<span style="color:#66d9ef">[Unit]</span>
+<span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Drive sync</span>
 
-<span class="k">[Service]</span>
-<span class="na">Type</span><span class="o">=</span><span class="s">simple</span>
-<span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/local/bin/drive-mirroring</span>
+<span style="color:#66d9ef">[Service]</span>
+<span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">simple</span>
+<span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/local/bin/drive-mirroring</span>
 </code></pre></div><p>And finally the timer is saved as <code>/etc/systemd/system/drive-mirroring.timer</code></p>
-<div class="highlight"><pre class="chroma"><code class="language-ini" data-lang="ini"><span class="k">[Unit]</span>
-<span class="na">Description</span><span class="o">=</span><span class="s">Drive sync</span>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[Unit]</span>
+<span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Drive sync</span>
 
-<span class="k">[Timer]</span>
-<span class="na">OnCalendar</span><span class="o">=</span><span class="s">weekly</span>
-<span class="na">Persistent</span><span class="o">=</span><span class="s">true</span>
+<span style="color:#66d9ef">[Timer]</span>
+<span style="color:#a6e22e">OnCalendar</span><span style="color:#f92672">=</span><span style="color:#e6db74">weekly</span>
+<span style="color:#a6e22e">Persistent</span><span style="color:#f92672">=</span><span style="color:#e6db74">true</span>
 
-<span class="k">[Install]</span>
-<span class="na">WantedBy</span><span class="o">=</span><span class="s">timers.target</span>
+<span style="color:#66d9ef">[Install]</span>
+<span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">timers.target</span>
 </code></pre></div><p>You can have a look at systemd timers to customize the frequency of the sync. I&rsquo;ve set it
 to sync weekly (which defaults to Mondays at 12AM).</p>
 <p>For systemd to actually run the <code>drive-mirroring.timer</code>, it must first be enabled or
@@ -210,20 +206,7 @@ cause it to be automatically started across reboots).</p>
 
         
     </div>
-    <nav id="article-nav">
     
-    <a href="/blog/book-notes-matthew-griffith-why-elm/" id="article-nav-newer" class="article-nav-link-wrap">
-        <div class="article-nav-title"><span>&lt;</span>&nbsp;
-            Book Notes - Matthew Griffith, &#34;Why Elm&#34;
-        </div>
-    </a>
-    
-    
-    <a href="/blog/how-to-access-the-mcmaster-cas-virtual-machines-on-linux-host/" id="article-nav-older" class="article-nav-link-wrap">
-        <div class="article-nav-title">How to access the McMaster CAS virtual machines on Linux host&nbsp;<span>&gt;</span></div>
-    </a>
-    
-</nav>
 
 </article>
 
