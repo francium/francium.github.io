@@ -42,6 +42,8 @@
                 
                 <a class="main-nav-link" href="/projects/">Projects</a>
                 
+                <a class="main-nav-link" href="/til/">TIL</a>
+                
             </nav>
             <nav id="sub-nav">
                 <div id="search-form-wrap">
@@ -98,16 +100,16 @@ for specifying when the service should execute. The service file will point to a
 script that will call rsync to perform the actual task of mirroring the two drives.</p>
 <h3 id="mirroring-script">Mirroring Script</h3>
 <p>I&rsquo;ve saved this file as <code>/usr/local/bin/drive-mirroring</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/bash
-</span><span style="color:#75715e"></span>
-echo <span style="color:#e6db74">&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">#!/bin/bash
+</span><span style="color:#008080"></span>
+echo <span style="color:#00f">&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
 
-SOURCE<span style="color:#f92672">=</span>/media/user_name/Master/
-DEST<span style="color:#f92672">=</span>/media/user_name/Slave/mirror
+SOURCE=/media/user_name/Master/
+DEST=/media/user_name/Slave/mirror
 
-rsync -ahvAE --delete --stats $SOURCE $DEST 2&gt;&amp;<span style="color:#ae81ff">1</span> | tee /var/log/drive-mirroring.log
+rsync -ahvAE --delete --stats $SOURCE $DEST 2&gt;&amp;<span style="color:#00f">1</span> | tee /var/log/drive-mirroring.log
 
-echo <span style="color:#e6db74">&#34;########### Drive mirroring completed at `date` ###########&#34;</span>
+echo <span style="color:#00f">&#34;########### Drive mirroring completed at `date` ###########&#34;</span>
 </code></pre></div><p>Note that we&rsquo;ve used the <code>tee</code> command to pipe the output (stdout and stderr as per the
 <code>2&gt;&amp;1</code>) of rsync to two places &ndash; stdout and the file <code>/var/log/drive-mirroring.log</code>. The
 stdout in the context of this setup will be systemd&rsquo;s journal (systemd&rsquo;s logs) since
@@ -152,23 +154,23 @@ Dec 25 00:01:40 RPi drive-mirroring[1019]: ########### Drive mirroring completed
 will only need to transfer the changes since last transfer.</p>
 <h3 id="systemd-scripts">Systemd Scripts</h3>
 <p>Save this file as <code>/etc/systemd/system/drive-mirroring.service</code>:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">
-<span style="color:#66d9ef">[Unit]</span>
-<span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Drive sync</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">
+<span style="color:#000080;font-weight:bold">[Unit]</span>
+<span style="color:#f00">Description</span>=<span style="color:#00f">Drive sync</span>
 
-<span style="color:#66d9ef">[Service]</span>
-<span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">simple</span>
-<span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/local/bin/drive-mirroring</span>
+<span style="color:#000080;font-weight:bold">[Service]</span>
+<span style="color:#f00">Type</span>=<span style="color:#00f">simple</span>
+<span style="color:#f00">ExecStart</span>=<span style="color:#00f">/usr/local/bin/drive-mirroring</span>
 </code></pre></div><p>And finally the timer is saved as <code>/etc/systemd/system/drive-mirroring.timer</code></p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[Unit]</span>
-<span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">Drive sync</span>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#000080;font-weight:bold">[Unit]</span>
+<span style="color:#f00">Description</span>=<span style="color:#00f">Drive sync</span>
 
-<span style="color:#66d9ef">[Timer]</span>
-<span style="color:#a6e22e">OnCalendar</span><span style="color:#f92672">=</span><span style="color:#e6db74">weekly</span>
-<span style="color:#a6e22e">Persistent</span><span style="color:#f92672">=</span><span style="color:#e6db74">true</span>
+<span style="color:#000080;font-weight:bold">[Timer]</span>
+<span style="color:#f00">OnCalendar</span>=<span style="color:#00f">weekly</span>
+<span style="color:#f00">Persistent</span>=<span style="color:#00f">true</span>
 
-<span style="color:#66d9ef">[Install]</span>
-<span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">timers.target</span>
+<span style="color:#000080;font-weight:bold">[Install]</span>
+<span style="color:#f00">WantedBy</span>=<span style="color:#00f">timers.target</span>
 </code></pre></div><p>You can have a look at systemd timers to customize the frequency of the sync. I&rsquo;ve set it
 to sync weekly (which defaults to Mondays at 12AM).</p>
 <p>For systemd to actually run the <code>drive-mirroring.timer</code>, it must first be enabled or
@@ -206,7 +208,20 @@ cause it to be automatically started across reboots).</p>
 
         
     </div>
+    <nav id="article-nav">
     
+    <a href="/blog/book-notes-matthew-griffith-why-elm/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            Book Notes - Matthew Griffith, &#34;Why Elm&#34;
+        </div>
+    </a>
+    
+    
+    <a href="/blog/access-mcmaster-cas-virtual-machines-on-linux/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">How to access the McMaster CAS virtual machines on Linux host&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
 
 </article>
 
@@ -220,11 +235,6 @@ cause it to be automatically started across reboots).</p>
             Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
         </div>
     </div>
-    
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 
     
     <script>

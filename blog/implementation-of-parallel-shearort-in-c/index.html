@@ -42,6 +42,8 @@
                 
                 <a class="main-nav-link" href="/projects/">Projects</a>
                 
+                <a class="main-nav-link" href="/til/">TIL</a>
+                
             </nav>
             <nav id="sub-nav">
                 <div id="search-form-wrap">
@@ -139,29 +141,29 @@ v v v
 but any other array sorting algorithm will suffice.</p>
 <p>We&rsquo;ll define a header and source file for the bubble sort,</p>
 <p><strong>bubble.h</strong></p>
-<pre><code>#include &lt;stddef.h&gt;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stddef.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#008080">#ifndef BUBBLE_H
+</span><span style="color:#008080">#define BUBBLE_H
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">void</span> sort(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size);
 
-#ifndef BUBBLE_H
-#define BUBBLE_H
-
-void sort(int arr[], size_t size);
-
-#endif
-</code></pre><p><strong>bubble.c</strong></p>
-<pre><code>#include &quot;bubble.h&quot;
-
-void sort(int arr[], size_t size) {
-    for (int i = size - 1; i &gt; 0; i--) {
-        int max_i = 0;
-        for (int j = 0; j &lt;= i; j++) {
-            if (arr[j] &gt; arr[max_i]) max_i = j;
+<span style="color:#008080">#endif
+</span></code></pre></div><p><strong>bubble.c</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&#34;bubble.h&#34;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">void</span> sort(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size) {
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = size - <span style="color:#00f">1</span>; i &gt; <span style="color:#00f">0</span>; i--) {
+        <span style="color:#000080;font-weight:bold">int</span> max_i = <span style="color:#00f">0</span>;
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> j = <span style="color:#00f">0</span>; j &lt;= i; j++) {
+            <span style="color:#000080;font-weight:bold">if</span> (arr[j] &gt; arr[max_i]) max_i = j;
         }
-        int t = arr[i];
+        <span style="color:#000080;font-weight:bold">int</span> t = arr[i];
         arr[i] = arr[max_i];
         arr[max_i] = t;
     }
 }
-</code></pre><p>In the header we&rsquo;ve used the <code>#ifndef</code> include guard (<a href="https://stackoverflow.com/questions/1653958/why-are-ifndef-and-define-used-in-c-header-files">see this explaination for more
+</code></pre></div><p>In the header we&rsquo;ve used the <code>#ifndef</code> include guard (<a href="https://stackoverflow.com/questions/1653958/why-are-ifndef-and-define-used-in-c-header-files">see this explaination for more
 information about why it might be a good idea to use it</a>).</p>
 <h3 id="improving-bubble-sort">Improving bubble sort</h3>
 <p>One limiation we see in our bubble sort implementation is the inability to specify whether
@@ -173,33 +175,33 @@ we&rsquo;ll use functions so we can explore function pointers a bit.</p>
 <p>We will first defined two additional <a href="https://stackoverflow.com/questions/1653958/why-are-ifndef-and-define-used-in-c-header-files">inline</a> functions in the header and source files.
 And we&rsquo;ll also modify the <code>sort</code> function enable paramertization.</p>
 <p><strong>bubble.h</strong></p>
-<pre><code>...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-int cmp_min(int, int);
-int cmp_max(int, int);
+<span style="color:#000080;font-weight:bold">int</span> cmp_min(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>);
+<span style="color:#000080;font-weight:bold">int</span> cmp_max(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>);
 ...
-</code></pre><p><strong>bubble.c</strong></p>
-<pre><code>...
+</code></pre></div><p><strong>bubble.c</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-int cmp_min(int a, int b) {
-  return a &lt; b ? 1 : 0;
+<span style="color:#000080;font-weight:bold">int</span> cmp_min(<span style="color:#000080;font-weight:bold">int</span> a, <span style="color:#000080;font-weight:bold">int</span> b) {
+  <span style="color:#000080;font-weight:bold">return</span> a &lt; b ? <span style="color:#00f">1</span> : <span style="color:#00f">0</span>;
 }
 
-int cmp_max(int, int) {
-  return a &gt; b ? 1 : 0;
+<span style="color:#000080;font-weight:bold">int</span> cmp_max(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>) {
+  <span style="color:#000080;font-weight:bold">return</span> a &gt; b ? <span style="color:#00f">1</span> : <span style="color:#00f">0</span>;
 }
 
-// Bubble sort function with just the new changed highlighted
-void sort(int arr[], size_t size, int (*cmp)(int, int)) {
-    for (...) {
+<span style="color:#080;font-style:italic">// Bubble sort function with just the new changed highlighted
+</span><span style="color:#080;font-style:italic"></span><span style="color:#000080;font-weight:bold">void</span> sort(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size, <span style="color:#000080;font-weight:bold">int</span> (*cmp)(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>)) {
+    <span style="color:#000080;font-weight:bold">for</span> (...) {
         ...
-        for (...) {
-            if (cmp(arr[j], arr[k])) k = j;
+        <span style="color:#000080;font-weight:bold">for</span> (...) {
+            <span style="color:#000080;font-weight:bold">if</span> (cmp(arr[j], arr[k])) k = j;
         }
         ...
     }
 }
-</code></pre><h3 id="implementing-a-squential-shearsort">Implementing a squential shearsort</h3>
+</code></pre></div><h3 id="implementing-a-squential-shearsort">Implementing a squential shearsort</h3>
 <p>With array sorting out of the way, we can focus on the shearsort implementation. Basic
 algorithm would be (pseudocode),</p>
 <pre><code>P = ceil(log2(n) + 1)
@@ -232,20 +234,20 @@ due to the inevetiable cache missed we&rsquo;ll suffer from as <code>N</code> in
 </ul>
 <p>So that means we should define a transpose function now,</p>
 <p><strong>main.c</strong></p>
-<pre><code>#include &lt;stddef.h&gt;
-
-void transpose(int arr[], size_t size) {
-    for (int i = 0; i &lt; size; i++) {
-        for (int j = 0; j &lt; size; j++) {
-            // Only process lower half of matrix
-            if (j &lt; i) continue;
-            int t = arr[i * size + j];
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stddef.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">void</span> transpose(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size) {
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; size; i++) {
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> j = <span style="color:#00f">0</span>; j &lt; size; j++) {
+            <span style="color:#080;font-style:italic">// Only process lower half of matrix
+</span><span style="color:#080;font-style:italic"></span>            <span style="color:#000080;font-weight:bold">if</span> (j &lt; i) <span style="color:#000080;font-weight:bold">continue</span>;
+            <span style="color:#000080;font-weight:bold">int</span> t = arr[i * size + j];
             arr[i * size + j] = arr[j * size + i];
             arr[j * size + i] = t;
         }
     }
 }
-</code></pre><p>There&rsquo;s not much going on here, but keep in mind we&rsquo;ll just process the lower half of the
+</code></pre></div><p>There&rsquo;s not much going on here, but keep in mind we&rsquo;ll just process the lower half of the
 matrix to avoid undoing our changes by processing the other half as well. One thing to
 note is that since we&rsquo;re using a 1D array to hold our matrix, we need to do some math in
 order to make sure we&rsquo;re accessing the correct part of the array so it corresponds to the
@@ -254,56 +256,56 @@ Take a moment to prove to yourself this will do that right thing.</p>
 <p>One more thing we&rsquo;ll quickly do is create a function to print out the matrix so we have an
 idea of what&rsquo;s going on at each phase,</p>
 <p><strong>main.c</strong></p>
-<pre><code>#include &lt;stdio.h&gt;
-...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stdio.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>...
 
-void print_matrix(int arr[], size_t size) {
-    for (int i = 0; i &lt; size; i++) {
-        for (int j = 0; j &lt; size; j++) {
-            printf(&quot;%-5d &quot;, arr[i * size + j]);
+<span style="color:#000080;font-weight:bold">void</span> print_matrix(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size) {
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; size; i++) {
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> j = <span style="color:#00f">0</span>; j &lt; size; j++) {
+            printf(<span style="color:#00f">&#34;%-5d &#34;</span>, arr[i * size + j]);
         }
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#00f">&#34;</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>);
     }
 }
 
 ...
-</code></pre><p>Now we&rsquo;ll finish implemnting shearsort using this transpose function.</p>
+</code></pre></div><p>Now we&rsquo;ll finish implemnting shearsort using this transpose function.</p>
 <p><strong>main.c</strong></p>
-<pre><code>...
-#include &lt;math.h&gt;
-#include &quot;bubble.h&quot;
-
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
+<span style="color:#008080">#include</span> <span style="color:#008080">&lt;math.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080">#include</span> <span style="color:#008080">&#34;bubble.h&#34;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
 ...
 
-int main() {
-    int N = 9;
-    int n = 3;
-    int arr[N] = {4, 3, 1, 9, 8, 7, 5, 6, 0};
+<span style="color:#000080;font-weight:bold">int</span> main() {
+    <span style="color:#000080;font-weight:bold">int</span> N = <span style="color:#00f">9</span>;
+    <span style="color:#000080;font-weight:bold">int</span> n = <span style="color:#00f">3</span>;
+    <span style="color:#000080;font-weight:bold">int</span> arr[N] = {<span style="color:#00f">4</span>, <span style="color:#00f">3</span>, <span style="color:#00f">1</span>, <span style="color:#00f">9</span>, <span style="color:#00f">8</span>, <span style="color:#00f">7</span>, <span style="color:#00f">5</span>, <span style="color:#00f">6</span>, <span style="color:#00f">0</span>};
 
-    // shearsort
-    const int P = log2(n) + 1;
-    for (int phase = 1; phase &lt; P; phase++) {
-        if (phase % 2 == 0) {
-            for (int col = 0; col &lt; n; col++)
+    <span style="color:#080;font-style:italic">// shearsort
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#000080;font-weight:bold">const</span> <span style="color:#000080;font-weight:bold">int</span> P = log2(n) + <span style="color:#00f">1</span>;
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> phase = <span style="color:#00f">1</span>; phase &lt; P; phase++) {
+        <span style="color:#000080;font-weight:bold">if</span> (phase % <span style="color:#00f">2</span> == <span style="color:#00f">0</span>) {
+            <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> col = <span style="color:#00f">0</span>; col &lt; n; col++)
                 sort(arr[col], n, cmp_max);
-        } else {
-            for (int row = 0; row &lt; n; row++)
-                // Sort in increasing or decreasing order depending on row
-                sort(arr[row],
+        } <span style="color:#000080;font-weight:bold">else</span> {
+            <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> row = <span style="color:#00f">0</span>; row &lt; n; row++)
+                <span style="color:#080;font-style:italic">// Sort in increasing or decreasing order depending on row
+</span><span style="color:#080;font-style:italic"></span>                sort(arr[row],
                      n,
-                     row % 2 == 0 ? cmp_max : cmp_min);
+                     row % <span style="color:#00f">2</span> == <span style="color:#00f">0</span> ? cmp_max : cmp_min);
         }
 
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#00f">&#34;</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>);
         print_matrix(arr, s);
-        printf(&quot;After phase %d (%s)\n&quot;,
+        printf(<span style="color:#00f">&#34;After phase %d (%s)</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>,
                phase,
-               phase % 2 == 0 ? &quot;col sort&quot; : &quot;row sort&quot;);
+               phase % <span style="color:#00f">2</span> == <span style="color:#00f">0</span> ? <span style="color:#00f">&#34;col sort&#34;</span> : <span style="color:#00f">&#34;row sort&#34;</span>);
     }
 
-    return 0;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
-</code></pre><h2 id="parallel">Parallel</h2>
+</code></pre></div><h2 id="parallel">Parallel</h2>
 <p>Now that we&rsquo;ve got a working shearsort using a single thread (the main thread), we need to
 tihnk about how we can split the work up across multiple threads. Since we&rsquo;re using C, we
 won&rsquo;t have many fancy tools to help us out. The one thing we do have are PThreads. I guess
@@ -387,56 +389,56 @@ pointers and may this a generic queue that can be used anywhere!</p>
 <p>The queue has a simple API, you initialize it, push pointers to things on it and take
 oldest pushed pointer from it, as well as destroy it once you&rsquo;re done with it.</p>
 <p><strong>queue.h</strong></p>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-typedef struct {
-    void **buffer;
-    int size;
-    int capacity;
-    int head;
-    int tail;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stdio.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stdlib.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">typedef</span> <span style="color:#000080;font-weight:bold">struct</span> {
+    <span style="color:#000080;font-weight:bold">void</span> **buffer;
+    <span style="color:#000080;font-weight:bold">int</span> size;
+    <span style="color:#000080;font-weight:bold">int</span> capacity;
+    <span style="color:#000080;font-weight:bold">int</span> head;
+    <span style="color:#000080;font-weight:bold">int</span> tail;
 } Queue;
 
-void queue_init(Queue *queue, int capacity);
-void queue_destroy(Queue *queue);
-void* queue_dequeue(Queue *queue);
-int queue_enqueue(Queue *queue, void *item);
-</code></pre><p><strong>queue.c</strong></p>
-<pre><code>#include &quot;queue.h&quot;
-
-void queue_init(Queue *queue, int capacity) {
-    void *ptr = malloc((sizeof(int*)) * capacity);
-    queue-&gt;buffer = (void **)ptr;
+<span style="color:#000080;font-weight:bold">void</span> queue_init(Queue *queue, <span style="color:#000080;font-weight:bold">int</span> capacity);
+<span style="color:#000080;font-weight:bold">void</span> queue_destroy(Queue *queue);
+<span style="color:#000080;font-weight:bold">void</span>* queue_dequeue(Queue *queue);
+<span style="color:#000080;font-weight:bold">int</span> queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item);
+</code></pre></div><p><strong>queue.c</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&#34;queue.h&#34;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">void</span> queue_init(Queue *queue, <span style="color:#000080;font-weight:bold">int</span> capacity) {
+    <span style="color:#000080;font-weight:bold">void</span> *ptr = malloc((<span style="color:#000080;font-weight:bold">sizeof</span>(<span style="color:#000080;font-weight:bold">int</span>*)) * capacity);
+    queue-&gt;buffer = (<span style="color:#000080;font-weight:bold">void</span> **)ptr;
     queue-&gt;capacity = capacity;
-    queue-&gt;size = 0;
-    queue-&gt;head = 0;
-    queue-&gt;tail = 0;
+    queue-&gt;size = <span style="color:#00f">0</span>;
+    queue-&gt;head = <span style="color:#00f">0</span>;
+    queue-&gt;tail = <span style="color:#00f">0</span>;
 }
 
-void queue_destroy(Queue *queue) {
+<span style="color:#000080;font-weight:bold">void</span> queue_destroy(Queue *queue) {
   free(queue-&gt;buffer);
 }
 
-void* queue_dequeue(Queue *queue) {
-    if (queue-&gt;size == 0) return NULL;
+<span style="color:#000080;font-weight:bold">void</span>* queue_dequeue(Queue *queue) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == <span style="color:#00f">0</span>) <span style="color:#000080;font-weight:bold">return</span> NULL;
 
-    void *item = queue-&gt;buffer[queue-&gt;head];
+    <span style="color:#000080;font-weight:bold">void</span> *item = queue-&gt;buffer[queue-&gt;head];
     queue-&gt;buffer[queue-&gt;head] = NULL;
-    queue-&gt;head = (queue-&gt;head + 1) % queue-&gt;capacity;
+    queue-&gt;head = (queue-&gt;head + <span style="color:#00f">1</span>) % queue-&gt;capacity;
     queue-&gt;size--;
-    return item;
+    <span style="color:#000080;font-weight:bold">return</span> item;
 }
 
-int queue_enqueue(Queue *queue, void *item) {
-    if (queue-&gt;size == queue-&gt;capacity) return -1;
+<span style="color:#000080;font-weight:bold">int</span> queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == queue-&gt;capacity) <span style="color:#000080;font-weight:bold">return</span> -<span style="color:#00f">1</span>;
 
     queue-&gt;buffer[queue-&gt;tail] = item;
     queue-&gt;size++;
-    queue-&gt;tail = (queue-&gt;tail + 1) % queue-&gt;capacity;
-    return 0;
+    queue-&gt;tail = (queue-&gt;tail + <span style="color:#00f">1</span>) % queue-&gt;capacity;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
-</code></pre><p>The queue itself is just a struct containing things we need to maintain it - a buffer that
+</code></pre></div><p>The queue itself is just a struct containing things we need to maintain it - a buffer that
 contains the actual data in the queue (buffer), the current number of items in the queue
 (size), the maximium number of items that can be stored in the queue (capacity), and two
 pointer for the queue head and tail.</p>
@@ -453,10 +455,10 @@ function using <code>free</code>.</p>
 keep in mind is that since we&rsquo;re using the circular buffer approach we need to wrap the
 head and tail pointers when we reach the end. We do this by doing some modulo arithmetic
 in both functions.</p>
-<pre><code>queue-&gt;head = (queue-&gt;head + 1) % queue-&gt;capacity;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">queue-&gt;head = (queue-&gt;head + <span style="color:#00f">1</span>) % queue-&gt;capacity;
 ...
-queue-&gt;tail = (queue-&gt;tail + 1) % queue-&gt;capacity;
-</code></pre><p>We also had a bit of error handling in both functions to handle an empty queue.</p>
+queue-&gt;tail = (queue-&gt;tail + <span style="color:#00f">1</span>) % queue-&gt;capacity;
+</code></pre></div><p>We also had a bit of error handling in both functions to handle an empty queue.</p>
 <h3 id="a-thread-safe-queue">A Thread Safe Queue</h3>
 <p>This queue, in its current form, is not thread safe. It two thread try to enqueue an item
 at the same time, something will happen, but probably not what you want. We need to make
@@ -469,29 +471,29 @@ same memory location.</p>
 <code>_unsafe_queue_enqueue</code> and <code>_unsafe_queue_dequeue</code>. Unsafe meaning unsafe in a
 multithreaded environment.</p>
 <p><strong>queue.c</strong></p>
-<pre><code>...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-static void* _unsafe_queue_dequeue(Queue *queue) {
-    if (queue-&gt;size == 0) return NULL;
+<span style="color:#000080;font-weight:bold">static</span> <span style="color:#000080;font-weight:bold">void</span>* _unsafe_queue_dequeue(Queue *queue) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == <span style="color:#00f">0</span>) <span style="color:#000080;font-weight:bold">return</span> NULL;
 
-    void *item = queue-&gt;buffer[queue-&gt;head];
+    <span style="color:#000080;font-weight:bold">void</span> *item = queue-&gt;buffer[queue-&gt;head];
     queue-&gt;buffer[queue-&gt;head] = NULL;
-    queue-&gt;head = (queue-&gt;head + 1) % queue-&gt;capacity;
+    queue-&gt;head = (queue-&gt;head + <span style="color:#00f">1</span>) % queue-&gt;capacity;
     queue-&gt;size--;
-    return item;
+    <span style="color:#000080;font-weight:bold">return</span> item;
 }
 
-static int _unsafe_queue_enqueue(Queue *queue, void *item) {
-    if (queue-&gt;size == queue-&gt;capacity) return -1;
+<span style="color:#000080;font-weight:bold">static</span> <span style="color:#000080;font-weight:bold">int</span> _unsafe_queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == queue-&gt;capacity) <span style="color:#000080;font-weight:bold">return</span> -<span style="color:#00f">1</span>;
 
     queue-&gt;buffer[queue-&gt;tail] = item;
     queue-&gt;size++;
-    queue-&gt;tail = (queue-&gt;tail + 1) % queue-&gt;capacity;
-    return 0;
+    queue-&gt;tail = (queue-&gt;tail + <span style="color:#00f">1</span>) % queue-&gt;capacity;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
 
 ...
-</code></pre><p>Here we have also added <a href="https://stackoverflow.com/questions/558122/what-is-a-static-function"><code>static</code></a> to make sure it can&rsquo;t be outside this file.</p>
+</code></pre></div><p>Here we have also added <a href="https://stackoverflow.com/questions/558122/what-is-a-static-function"><code>static</code></a> to make sure it can&rsquo;t be outside this file.</p>
 <p>Next, let&rsquo;s look at how the mutex and condition variables work.</p>
 <h4 id="mutex">Mutex</h4>
 <p>A mutex is <a href="https://en.wikipedia.org/wiki/Lock_(computer_science)">lock</a> that can be acquired atomically. In the simplest terms it means only
@@ -500,13 +502,13 @@ variable of type <code>pthread_mutex_t</code>, initializing it, and using <code>
 <code>pthread_mutex_unlock</code> to acquire and release it.</p>
 <p><a href="https://computing.llnl.gov/tutorials/pthreads/#Mutexes">For more information about PThread mutexes see this reference</a>.</p>
 <p>A simple example of a mutex,</p>
-<pre><code>pthread_mutex_t mtx;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">pthread_mutex_t mtx;
 pthread_mutex_init(&amp;mtx, NULL);
 pthread_mutex_lock(&amp;mtx);
-// do something unsafe in a multithreaded environment
-pthread_mutex_unlock(&amp;mtx);
+<span style="color:#080;font-style:italic">// do something unsafe in a multithreaded environment
+</span><span style="color:#080;font-style:italic"></span>pthread_mutex_unlock(&amp;mtx);
 pthread_mutex_destroy(&amp;mtx);
-</code></pre><h4 id="condition-variable">Condition Variable</h4>
+</code></pre></div><h4 id="condition-variable">Condition Variable</h4>
 <p>A <a href="https://en.wikipedia.org/wiki/Monitor_(synchronization)#Condition_variables">condition variable</a> lets us &lsquo;sleep&rsquo; until someone wakes us up. But a condition
 variable is associated with a lock so when we wake up, we acquire the lock too. So a
 condition variable lets us elegantly block until we can proceed with our work. Using
@@ -519,18 +521,18 @@ released and reacquired with you wake up. Additionally, when you wake, you will 
 remember to unlock the mutex after you&rsquo;re done doing what you needed to do.</p>
 <p><a href="https://computing.llnl.gov/tutorials/pthreads/#ConditionVariables">For more information about PThread condition variables see this reference</a>.</p>
 <p>A simple example of a condition variable,</p>
-<pre><code>pthread_mutex_t mtx;
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">pthread_mutex_t mtx;
 pthread_mutex_init(&amp;mtx, NULL);
-// ... some other thread locks mtx
-
+<span style="color:#080;font-style:italic">// ... some other thread locks mtx
+</span><span style="color:#080;font-style:italic"></span>
 pthread_cond_t cond;
 pthread_cond_init(&amp;cond);
-// make sure you already have a lock on mtx youself when you call this
-pthread_cond_wait(&amp;cond, &amp;mtx);
-// do something
-pthread_mutex_unlock(&amp;mtx);
+<span style="color:#080;font-style:italic">// make sure you already have a lock on mtx youself when you call this
+</span><span style="color:#080;font-style:italic"></span>pthread_cond_wait(&amp;cond, &amp;mtx);
+<span style="color:#080;font-style:italic">// do something
+</span><span style="color:#080;font-style:italic"></span>pthread_mutex_unlock(&amp;mtx);
 pthread_cond_destroy(&amp;cond);
-</code></pre><p>This is one big thing we have not mentioned yet. Who wakes us up when we run
+</code></pre></div><p>This is one big thing we have not mentioned yet. Who wakes us up when we run
 <code>pthread_cond_wait</code>? The answer is someone has to call <code>pthread_cond_broadcast</code> or
 <code>pthread_cond_singal</code>.</p>
 <p>A broadcast will wake up all waiting threads and they will acquire the lock in some order.
@@ -541,67 +543,67 @@ nothing happens.</p>
 mutex and condition variable.</p>
 <p>First, we need to declare and initialize the mutex and condition variables.</p>
 <p><strong>queue.h</strong></p>
-<pre><code>...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-typedef struct {
+<span style="color:#000080;font-weight:bold">typedef</span> <span style="color:#000080;font-weight:bold">struct</span> {
     ...
     pthread_cond_t cond;
     pthread_mutex_t mutex;
 } Queue;
 
 ...
-</code></pre><p><strong>queue.c</strong></p>
-<pre><code>...
+</code></pre></div><p><strong>queue.c</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-void queue_init(Queue *queue, int capacity) {
+<span style="color:#000080;font-weight:bold">void</span> queue_init(Queue *queue, <span style="color:#000080;font-weight:bold">int</span> capacity) {
     ...
     pthread_cond_init(&amp;queue-&gt;cond, NULL);
     pthread_mutex_init(&amp;queue-&gt;mutex, NULL);
 }
 
-void queue_destroy(Queue *queue) {
+<span style="color:#000080;font-weight:bold">void</span> queue_destroy(Queue *queue) {
     ...
     pthread_cond_destroy(&amp;queue-&gt;cond);
     pthread_mutex_destroy(&amp;queue-&gt;mutex);
 }
 
 ...
-</code></pre><p>Let&rsquo;s look at the enqueue first. You will note the function signature is the same as
+</code></pre></div><p>Let&rsquo;s look at the enqueue first. You will note the function signature is the same as
 before. Any existing user of this function will not be able to tell the difference, but
 the functionality will now be thread safe.</p>
 <p><strong>queue.c</strong></p>
-<pre><code>...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-int queue_enqueue(Queue *queue, void *item) {
+<span style="color:#000080;font-weight:bold">int</span> queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item) {
     pthread_mutex_lock(&amp;queue-&gt;mutex);
-    int rc = _unsafe_queue_enqueue(queue, item);
+    <span style="color:#000080;font-weight:bold">int</span> rc = _unsafe_queue_enqueue(queue, item);
     pthread_mutex_unlock(&amp;queue-&gt;mutex);
     pthread_cond_signal(&amp;queue-&gt;cond);
-    return rc;
+    <span style="color:#000080;font-weight:bold">return</span> rc;
 }
 
 ...
-</code></pre><p>Here we acquire the mutex, then run the unsafe enqueue operation, and then release the
+</code></pre></div><p>Here we acquire the mutex, then run the unsafe enqueue operation, and then release the
 lock. Finally, we issue a signal to wake up a single other blocked thread (we&rsquo;ll see why
 someone who be blocked when we look at the dequeue). If we failed to issue this signal,
 anyone who was blocked would remain blocked forever.</p>
 <p>Turning our attention to dequeue we see that we don&rsquo;t need to make any changes to the
 signture here either.</p>
 <p><strong>queue.c</strong></p>
-<pre><code>...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-void* queue_dequeue(Queue *queue) {
+<span style="color:#000080;font-weight:bold">void</span>* queue_dequeue(Queue *queue) {
     pthread_mutex_lock(&amp;queue-&gt;mutex);
-    if (queue-&gt;size == 0) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == <span style="color:#00f">0</span>) {
         pthread_cond_wait(&amp;queue-&gt;cond, &amp;queue-&gt;mutex);
     }
-    void *item = _unsafe_queue_dequeue(queue);
+    <span style="color:#000080;font-weight:bold">void</span> *item = _unsafe_queue_dequeue(queue);
     pthread_mutex_unlock(&amp;queue-&gt;mutex);
-    return item;
+    <span style="color:#000080;font-weight:bold">return</span> item;
 }
 
 ...
-</code></pre><p>Here we acquire the mutex, check if the queue is empty, in which case we wait until
+</code></pre></div><p>Here we acquire the mutex, check if the queue is empty, in which case we wait until
 someone signals us to wake up (this occurs, as we saw, when someone else enqueues
 something). In out case, we only want to wake up at most one blocked thread since we only
 pushed a single item to the queue. If we instead woke up all threads that were blocked,
@@ -653,41 +655,41 @@ function main
         tranpose arr
 </code></pre><p>In the actual implementation we will use a struct as an argument to the <code>worker</code> functions
 so we don&rsquo;t have any global variables.</p>
-<pre><code>...
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">...
 
-typedef struct {
-    int id;
-    int *arr;
+<span style="color:#000080;font-weight:bold">typedef</span> <span style="color:#000080;font-weight:bold">struct</span> {
+    <span style="color:#000080;font-weight:bold">int</span> id;
+    <span style="color:#000080;font-weight:bold">int</span> *arr;
     size_t size;
     Queue *inbox;
     Queue *outbox;
 } WorkerArgs;
 
-void* worker(void *args) {
+<span style="color:#000080;font-weight:bold">void</span>* worker(<span style="color:#000080;font-weight:bold">void</span> *args) {
     WorkerArgs *worker_args = (WorkerArgs*) args;
-    int row = worker_args-&gt;id;
-    int size = worker_args-&gt;size;
-    int *arr = worker_args-&gt;arr;
+    <span style="color:#000080;font-weight:bold">int</span> row = worker_args-&gt;id;
+    <span style="color:#000080;font-weight:bold">int</span> size = worker_args-&gt;size;
+    <span style="color:#000080;font-weight:bold">int</span> *arr = worker_args-&gt;arr;
 
-    int *phase = queue_dequeue(worker_args-&gt;inbox);
-    while (phase != NULL) {
-        if (*phase % 2 == 0) {
+    <span style="color:#000080;font-weight:bold">int</span> *phase = queue_dequeue(worker_args-&gt;inbox);
+    <span style="color:#000080;font-weight:bold">while</span> (phase != NULL) {
+        <span style="color:#000080;font-weight:bold">if</span> (*phase % <span style="color:#00f">2</span> == <span style="color:#00f">0</span>) {
             sort(&amp;arr[row * size], size, cmp_max);
-        } else {
-            sort(&amp;arr[row * size], size, row % 2 == 0 ? cmp_max : cmp_min);
+        } <span style="color:#000080;font-weight:bold">else</span> {
+            sort(&amp;arr[row * size], size, row % <span style="color:#00f">2</span> == <span style="color:#00f">0</span> ? cmp_max : cmp_min);
         }
 
         queue_enqueue(worker_args-&gt;outbox, phase);
         phase = queue_dequeue(worker_args-&gt;inbox);
     }
 
-    return 0;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
 
-int main(void) {
-    int N = 9;
-    int n = 3;
-    int arr[N] = {4, 3, 1, 9, 8, 7, 5, 6, 0};
+<span style="color:#000080;font-weight:bold">int</span> main(<span style="color:#000080;font-weight:bold">void</span>) {
+    <span style="color:#000080;font-weight:bold">int</span> N = <span style="color:#00f">9</span>;
+    <span style="color:#000080;font-weight:bold">int</span> n = <span style="color:#00f">3</span>;
+    <span style="color:#000080;font-weight:bold">int</span> arr[N] = {<span style="color:#00f">4</span>, <span style="color:#00f">3</span>, <span style="color:#00f">1</span>, <span style="color:#00f">9</span>, <span style="color:#00f">8</span>, <span style="color:#00f">7</span>, <span style="color:#00f">5</span>, <span style="color:#00f">6</span>, <span style="color:#00f">0</span>};
 
     Queue tq[N];
     Queue mq;
@@ -696,8 +698,8 @@ int main(void) {
     WorkerArgs args[N];
     pthread_t tids[N];
 
-    for (int i = 0; i &lt; n; i++) {
-        queue_init(&amp;tq[i], 1);
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++) {
+        queue_init(&amp;tq[i], <span style="color:#00f">1</span>);
         args[i].id = i;
         args[i].arr = arr;
         args[i].size = n;
@@ -706,38 +708,38 @@ int main(void) {
         pthread_create(&amp;tids[i], NULL, worker, &amp;args[i]);
     }
 
-    int P = ceil(log2(N) + 1);
-    for (int phase = 1; phase &lt;= P; phase++) {
-        for (int i = 0; i &lt; n; i++)
+    <span style="color:#000080;font-weight:bold">int</span> P = ceil(log2(N) + <span style="color:#00f">1</span>);
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> phase = <span style="color:#00f">1</span>; phase &lt;= P; phase++) {
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++)
             queue_enqueue(&amp;tq[i], &amp;phase);
 
-        int remaining = n;
-        while (remaining &gt; 0) {
+        <span style="color:#000080;font-weight:bold">int</span> remaining = n;
+        <span style="color:#000080;font-weight:bold">while</span> (remaining &gt; <span style="color:#00f">0</span>) {
             queue_dequeue(&amp;mq);
             remaining--;
         }
 
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#00f">&#34;</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>);
         print_matrix(arr, n);
         printf(
-           &quot;after Phase %d (%s)\n&quot;,
+           <span style="color:#00f">&#34;after Phase %d (%s)</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>,
            phase,
-           phase % 2 == 0 ? &quot;col sort&quot; : &quot;row sort&quot;
+           phase % <span style="color:#00f">2</span> == <span style="color:#00f">0</span> ? <span style="color:#00f">&#34;col sort&#34;</span> : <span style="color:#00f">&#34;row sort&#34;</span>
        );
 
         transpose(arr, n);
     }
 
-    for (int i = 0; i &lt; n; i++) queue_enqueue(&amp;tq[i], NULL);
-    for(int i = 0; i &lt; n; i++) pthread_join(tids[i], NULL);
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++) queue_enqueue(&amp;tq[i], NULL);
+    <span style="color:#000080;font-weight:bold">for</span>(<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++) pthread_join(tids[i], NULL);
 
     queue_destroy(&amp;mq);
-    for (int i = 0; i &lt; n; i++)
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++)
         queue_destroy(&amp;tq[i]);
 
-    return 0;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
-</code></pre><p>While some small details have been modified in the implementation, the code largely
+</code></pre></div><p>While some small details have been modified in the implementation, the code largely
 follows the aglorithm described above. We have a total of <code>n + 1</code> queues, <code>n</code> for the
 worker threads and <code>1</code> for the master. Since our queue takes in pointers, we&rsquo;re passing in
 a <code>NULL</code> when we want to signal to the worker they can exit. Otherwise we enqueue in a
@@ -747,12 +749,12 @@ each worker will dequeue from and the outbox is the queue a worker will enqueue 
 is done.</p>
 <p>One thing I want to point is an early mistake I made that left me quite confused until I
 finally figure it out. Notice the <code>WorkerArgs</code> struct has two pointers to queues,</p>
-<pre><code>typedef struct {
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000080;font-weight:bold">typedef</span> <span style="color:#000080;font-weight:bold">struct</span> {
     ...
     Queue *inbox;
     Queue *outbox;
 } WorkerArgs;
-</code></pre><p>I intially made the mistake of setting not making the inbox and outbox pointers. This
+</code></pre></div><p>I intially made the mistake of setting not making the inbox and outbox pointers. This
 subtle differene would break everything in our setup. To understand why, we have to look
 at how C works. The C programming language passes around things by value. Meaning, when we
 declare our struct, the assignment operation on the <code>Queue inbox</code> and <code>Queue outbox</code>
@@ -769,45 +771,45 @@ different memory locations than the <code>Queue</code> struct the object enqueue
 memory.</p>
 <h2 id="full-source">Full Source</h2>
 <p><strong>main.c</strong></p>
-<pre><code>#include &lt;math.h&gt;
-#include &lt;stddef.h&gt;
-#include &lt;stdio.h&gt;
-
-#include &quot;bubble.h&quot;
-
-void transpose(int arr[], size_t size) {
-    for (int i = 0; i &lt; size; i++) {
-        for (int j = 0; j &lt; size; j++) {
-            // Only process lower half of matrix
-            if (j &lt; i) continue;
-            int t = arr[i * size + j];
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&lt;math.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stddef.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stdio.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#008080">#include</span> <span style="color:#008080">&#34;bubble.h&#34;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">void</span> transpose(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size) {
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; size; i++) {
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> j = <span style="color:#00f">0</span>; j &lt; size; j++) {
+            <span style="color:#080;font-style:italic">// Only process lower half of matrix
+</span><span style="color:#080;font-style:italic"></span>            <span style="color:#000080;font-weight:bold">if</span> (j &lt; i) <span style="color:#000080;font-weight:bold">continue</span>;
+            <span style="color:#000080;font-weight:bold">int</span> t = arr[i * size + j];
             arr[i * size + j] = arr[j * size + i];
             arr[j * size + i] = t;
         }
     }
 }
 
-void print_matrix(int arr[], size_t size) {
-    for (int i = 0; i &lt; size; i++) {
-        for (int j = 0; j &lt; size; j++) {
-            printf(&quot;%-5d &quot;, arr[i * size + j]);
+<span style="color:#000080;font-weight:bold">void</span> print_matrix(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size) {
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; size; i++) {
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> j = <span style="color:#00f">0</span>; j &lt; size; j++) {
+            printf(<span style="color:#00f">&#34;%-5d &#34;</span>, arr[i * size + j]);
         }
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#00f">&#34;</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>);
     }
 }
 
-typedef struct {
-    int id;
-    int *arr;
+<span style="color:#000080;font-weight:bold">typedef</span> <span style="color:#000080;font-weight:bold">struct</span> {
+    <span style="color:#000080;font-weight:bold">int</span> id;
+    <span style="color:#000080;font-weight:bold">int</span> *arr;
     size_t size;
     Queue *inbox;
     Queue *outbox;
 } WorkerArgs;
 
-int main(void) {
-    int N = 9;
-    int n = 3;
-    int arr[N] = {4, 3, 1, 9, 8, 7, 5, 6, 0};
+<span style="color:#000080;font-weight:bold">int</span> main(<span style="color:#000080;font-weight:bold">void</span>) {
+    <span style="color:#000080;font-weight:bold">int</span> N = <span style="color:#00f">9</span>;
+    <span style="color:#000080;font-weight:bold">int</span> n = <span style="color:#00f">3</span>;
+    <span style="color:#000080;font-weight:bold">int</span> arr[N] = {<span style="color:#00f">4</span>, <span style="color:#00f">3</span>, <span style="color:#00f">1</span>, <span style="color:#00f">9</span>, <span style="color:#00f">8</span>, <span style="color:#00f">7</span>, <span style="color:#00f">5</span>, <span style="color:#00f">6</span>, <span style="color:#00f">0</span>};
 
     Queue tq[N];
     Queue mq;
@@ -816,8 +818,8 @@ int main(void) {
     WorkerArgs args[N];
     pthread_t tids[N];
 
-    for (int i = 0; i &lt; n; i++) {
-        queue_init(&amp;tq[i], 1);
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++) {
+        queue_init(&amp;tq[i], <span style="color:#00f">1</span>);
         args[i].id = i;
         args[i].arr = arr;
         args[i].size = n;
@@ -826,164 +828,164 @@ int main(void) {
         pthread_create(&amp;tids[i], NULL, worker, &amp;args[i]);
     }
 
-    int P = ceil(log2(N) + 1);
-    for (int phase = 1; phase &lt;= P; phase++) {
-        for (int i = 0; i &lt; n; i++)
+    <span style="color:#000080;font-weight:bold">int</span> P = ceil(log2(N) + <span style="color:#00f">1</span>);
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> phase = <span style="color:#00f">1</span>; phase &lt;= P; phase++) {
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++)
             queue_enqueue(&amp;tq[i], &amp;phase);
 
-        int remaining = n;
-        while (remaining &gt; 0) {
+        <span style="color:#000080;font-weight:bold">int</span> remaining = n;
+        <span style="color:#000080;font-weight:bold">while</span> (remaining &gt; <span style="color:#00f">0</span>) {
             queue_dequeue(&amp;mq);
             remaining--;
         }
 
-        printf(&quot;\n&quot;);
+        printf(<span style="color:#00f">&#34;</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>);
         print_matrix(arr, n);
         printf(
-           &quot;after Phase %d (%s)\n&quot;,
+           <span style="color:#00f">&#34;after Phase %d (%s)</span><span style="color:#00f">\n</span><span style="color:#00f">&#34;</span>,
            phase,
-           phase % 2 == 0 ? &quot;col sort&quot; : &quot;row sort&quot;
+           phase % <span style="color:#00f">2</span> == <span style="color:#00f">0</span> ? <span style="color:#00f">&#34;col sort&#34;</span> : <span style="color:#00f">&#34;row sort&#34;</span>
        );
 
         transpose(arr, n);
     }
 
-    for (int i = 0; i &lt; n; i++) queue_enqueue(&amp;tq[i], NULL);
-    for(int i = 0; i &lt; n; i++) pthread_join(tids[i], NULL);
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++) queue_enqueue(&amp;tq[i], NULL);
+    <span style="color:#000080;font-weight:bold">for</span>(<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++) pthread_join(tids[i], NULL);
 
     queue_destroy(&amp;mq);
-    for (int i = 0; i &lt; n; i++)
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = <span style="color:#00f">0</span>; i &lt; n; i++)
         queue_destroy(&amp;tq[i]);
 
-    return 0;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
 
-void* worker(void *args) {
+<span style="color:#000080;font-weight:bold">void</span>* worker(<span style="color:#000080;font-weight:bold">void</span> *args) {
     WorkerArgs *worker_args = (WorkerArgs*) args;
-    int row = worker_args-&gt;id;
-    int size = worker_args-&gt;size;
-    int *arr = worker_args-&gt;arr;
+    <span style="color:#000080;font-weight:bold">int</span> row = worker_args-&gt;id;
+    <span style="color:#000080;font-weight:bold">int</span> size = worker_args-&gt;size;
+    <span style="color:#000080;font-weight:bold">int</span> *arr = worker_args-&gt;arr;
 
-    int *phase = queue_dequeue(worker_args-&gt;inbox);
-    while (phase != NULL) {
-        if (*phase % 2 == 0) {
+    <span style="color:#000080;font-weight:bold">int</span> *phase = queue_dequeue(worker_args-&gt;inbox);
+    <span style="color:#000080;font-weight:bold">while</span> (phase != NULL) {
+        <span style="color:#000080;font-weight:bold">if</span> (*phase % <span style="color:#00f">2</span> == <span style="color:#00f">0</span>) {
             sort(&amp;arr[row * size], size, cmp_max);
-        } else {
-            sort(&amp;arr[row * size], size, row % 2 == 0 ? cmp_max : cmp_min);
+        } <span style="color:#000080;font-weight:bold">else</span> {
+            sort(&amp;arr[row * size], size, row % <span style="color:#00f">2</span> == <span style="color:#00f">0</span> ? cmp_max : cmp_min);
         }
 
         queue_enqueue(worker_args-&gt;outbox, phase);
         phase = queue_dequeue(worker_args-&gt;inbox);
     }
 
-    return 0;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
-</code></pre><p><strong>queue.h</strong></p>
-<pre><code>#ifndef QUEUE_H
-#define QUEUE_H
-
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-typedef struct {
-    void **buffer;
-    int size;
-    int capacity;
-    int head;
-    int tail;
+</code></pre></div><p><strong>queue.h</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#ifndef QUEUE_H
+</span><span style="color:#008080">#define QUEUE_H
+</span><span style="color:#008080"></span>
+<span style="color:#008080">#include</span> <span style="color:#008080">&lt;stdio.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stdlib.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">typedef</span> <span style="color:#000080;font-weight:bold">struct</span> {
+    <span style="color:#000080;font-weight:bold">void</span> **buffer;
+    <span style="color:#000080;font-weight:bold">int</span> size;
+    <span style="color:#000080;font-weight:bold">int</span> capacity;
+    <span style="color:#000080;font-weight:bold">int</span> head;
+    <span style="color:#000080;font-weight:bold">int</span> tail;
     pthread_cond_t cond;
     pthread_mutex_t mutex;
 } Queue;
 
-void queue_init(Queue *queue, int capacity);
-void queue_destroy(Queue *queue);
-void* queue_dequeue(Queue *queue);
-int queue_enqueue(Queue *queue, void *item);
+<span style="color:#000080;font-weight:bold">void</span> queue_init(Queue *queue, <span style="color:#000080;font-weight:bold">int</span> capacity);
+<span style="color:#000080;font-weight:bold">void</span> queue_destroy(Queue *queue);
+<span style="color:#000080;font-weight:bold">void</span>* queue_dequeue(Queue *queue);
+<span style="color:#000080;font-weight:bold">int</span> queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item);
 
-#endif
-</code></pre><p><strong>queue.c</strong></p>
-<pre><code>#include &quot;queue.h&quot;
-
-void queue_init(Queue *queue, int capacity) {
+<span style="color:#008080">#endif
+</span></code></pre></div><p><strong>queue.c</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&#34;queue.h&#34;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">void</span> queue_init(Queue *queue, <span style="color:#000080;font-weight:bold">int</span> capacity) {
     free(queue-&gt;buffer);
     pthread_cond_init(&amp;queue-&gt;cond, NULL);
     pthread_mutex_init(&amp;queue-&gt;mutex, NULL);
 }
 
-void queue_destroy(Queue *queue) {
+<span style="color:#000080;font-weight:bold">void</span> queue_destroy(Queue *queue) {
     free(queue-&gt;buffer);
     pthread_cond_destroy(&amp;queue-&gt;cond);
     pthread_mutex_destroy(&amp;queue-&gt;mutex);
 }
 
-void* queue_dequeue(Queue *queue) {
+<span style="color:#000080;font-weight:bold">void</span>* queue_dequeue(Queue *queue) {
     pthread_mutex_lock(&amp;queue-&gt;mutex);
-    if (queue-&gt;size == 0) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == <span style="color:#00f">0</span>) {
         pthread_cond_wait(&amp;queue-&gt;cond, &amp;queue-&gt;mutex);
     }
-    void *item = _unsafe_queue_dequeue(queue);
+    <span style="color:#000080;font-weight:bold">void</span> *item = _unsafe_queue_dequeue(queue);
     pthread_mutex_unlock(&amp;queue-&gt;mutex);
-    return item;
+    <span style="color:#000080;font-weight:bold">return</span> item;
 }
 
-int queue_enqueue(Queue *queue, void *item) {
+<span style="color:#000080;font-weight:bold">int</span> queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item) {
     pthread_mutex_lock(&amp;queue-&gt;mutex);
-    int rc = _unsafe_queue_enqueue(queue, item);
+    <span style="color:#000080;font-weight:bold">int</span> rc = _unsafe_queue_enqueue(queue, item);
     pthread_mutex_unlock(&amp;queue-&gt;mutex);
     pthread_cond_signal(&amp;queue-&gt;cond);
-    return rc;
+    <span style="color:#000080;font-weight:bold">return</span> rc;
 }
 
-static void* _unsafe_queue_dequeue(Queue *queue) {
-    if (queue-&gt;size == 0) return NULL;
+<span style="color:#000080;font-weight:bold">static</span> <span style="color:#000080;font-weight:bold">void</span>* _unsafe_queue_dequeue(Queue *queue) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == <span style="color:#00f">0</span>) <span style="color:#000080;font-weight:bold">return</span> NULL;
 
-    void *item = queue-&gt;buffer[queue-&gt;head];
+    <span style="color:#000080;font-weight:bold">void</span> *item = queue-&gt;buffer[queue-&gt;head];
     queue-&gt;buffer[queue-&gt;head] = NULL;
-    queue-&gt;head = (queue-&gt;head + 1) % queue-&gt;capacity;
+    queue-&gt;head = (queue-&gt;head + <span style="color:#00f">1</span>) % queue-&gt;capacity;
     queue-&gt;size--;
-    return item;
+    <span style="color:#000080;font-weight:bold">return</span> item;
 }
 
-static int _unsafe_queue_enqueue(Queue *queue, void *item) {
-    if (queue-&gt;size == queue-&gt;capacity) return -1;
+<span style="color:#000080;font-weight:bold">static</span> <span style="color:#000080;font-weight:bold">int</span> _unsafe_queue_enqueue(Queue *queue, <span style="color:#000080;font-weight:bold">void</span> *item) {
+    <span style="color:#000080;font-weight:bold">if</span> (queue-&gt;size == queue-&gt;capacity) <span style="color:#000080;font-weight:bold">return</span> -<span style="color:#00f">1</span>;
 
     queue-&gt;buffer[queue-&gt;tail] = item;
     queue-&gt;size++;
-    queue-&gt;tail = (queue-&gt;tail + 1) % queue-&gt;capacity;
-    return 0;
+    queue-&gt;tail = (queue-&gt;tail + <span style="color:#00f">1</span>) % queue-&gt;capacity;
+    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">0</span>;
 }
-</code></pre><p><strong>bubble.h</strong></p>
-<pre><code>#include &lt;stddef.h&gt;
+</code></pre></div><p><strong>bubble.h</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#008080">#include</span> <span style="color:#008080">&lt;stddef.h&gt;</span><span style="color:#008080">
+</span><span style="color:#008080"></span>
+<span style="color:#008080">#ifndef BUBBLE_H
+</span><span style="color:#008080">#define BUBBLE_H
+</span><span style="color:#008080"></span>
+<span style="color:#000080;font-weight:bold">int</span> cmp_min(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>);
+<span style="color:#000080;font-weight:bold">int</span> cmp_max(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>);
+<span style="color:#000080;font-weight:bold">void</span> sort(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size);
 
-#ifndef BUBBLE_H
-#define BUBBLE_H
-
-int cmp_min(int, int);
-int cmp_max(int, int);
-void sort(int arr[], size_t size);
-
-#endif
-</code></pre><p><strong>bubble.c</strong></p>
-<pre><code>int cmp_min(int a, int b) {
-  return a &lt; b ? 1 : 0;
-}
-
-int cmp_max(int, int) {
-  return a &gt; b ? 1 : 0;
+<span style="color:#008080">#endif
+</span></code></pre></div><p><strong>bubble.c</strong></p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#000080;font-weight:bold">int</span> cmp_min(<span style="color:#000080;font-weight:bold">int</span> a, <span style="color:#000080;font-weight:bold">int</span> b) {
+  <span style="color:#000080;font-weight:bold">return</span> a &lt; b ? <span style="color:#00f">1</span> : <span style="color:#00f">0</span>;
 }
 
-void sort(int arr[], size_t size, int (*cmp)(int, int)) {
-    for (int i = size - 1; i &gt; 0; i--) {
-        int max_i = 0;
-        for (int j = 0; j &lt;= i; j++) {
-            if (cmp(arr[j], arr[k])) max_i = j;
+<span style="color:#000080;font-weight:bold">int</span> cmp_max(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>) {
+  <span style="color:#000080;font-weight:bold">return</span> a &gt; b ? <span style="color:#00f">1</span> : <span style="color:#00f">0</span>;
+}
+
+<span style="color:#000080;font-weight:bold">void</span> sort(<span style="color:#000080;font-weight:bold">int</span> arr[], size_t size, <span style="color:#000080;font-weight:bold">int</span> (*cmp)(<span style="color:#000080;font-weight:bold">int</span>, <span style="color:#000080;font-weight:bold">int</span>)) {
+    <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> i = size - <span style="color:#00f">1</span>; i &gt; <span style="color:#00f">0</span>; i--) {
+        <span style="color:#000080;font-weight:bold">int</span> max_i = <span style="color:#00f">0</span>;
+        <span style="color:#000080;font-weight:bold">for</span> (<span style="color:#000080;font-weight:bold">int</span> j = <span style="color:#00f">0</span>; j &lt;= i; j++) {
+            <span style="color:#000080;font-weight:bold">if</span> (cmp(arr[j], arr[k])) max_i = j;
         }
-        int t = arr[i];
+        <span style="color:#000080;font-weight:bold">int</span> t = arr[i];
         arr[i] = arr[max_i];
         arr[max_i] = t;
     }
 }
-</code></pre><!-- raw HTML omitted -->
+</code></pre></div><!-- raw HTML omitted -->
 <!-- raw HTML omitted -->
 
         </div>
@@ -1020,7 +1022,20 @@ void sort(int arr[], size_t size, int (*cmp)(int, int)) {
 
         
     </div>
+    <nav id="article-nav">
     
+    <a href="/blog/a-few-thoughts-about-elm/" id="article-nav-newer" class="article-nav-link-wrap">
+        <div class="article-nav-title"><span>&lt;</span>&nbsp;
+            A Few Thoughts About Elm
+        </div>
+    </a>
+    
+    
+    <a href="/blog/gnome-mutli-monitor-workspace-fix/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">GNOME Mutli-Monitor Workspace Fix (Gnome 3.30)&nbsp;<span>&gt;</span></div>
+    </a>
+    
+</nav>
 
 </article>
 
@@ -1034,11 +1049,6 @@ void sort(int arr[], size_t size, int (*cmp)(int, int)) {
             Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
         </div>
     </div>
-    
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/tomorrow-night.min.css" integrity="sha256-2wL88NKUqvJi/ExflDzkzUumjUM73mcK2gBvBBeLvTk=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js" integrity="sha256-KbfTjB0WZ8vvXngdpJGY3Yp3xKk+tttbqClO11anCIU=" crossorigin="anonymous"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
 
     
     <script>
