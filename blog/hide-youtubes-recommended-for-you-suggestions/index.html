@@ -43,9 +43,9 @@ As a user of uBlock Origin, I do have the ability to add custom filters to block
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2019-09-26%2022%3a32%3a06.634717131%20-0400%20EDT%20m%3d%2b0.103619272">
-    <link rel="stylesheet" href="/css/pygments.css?t=2019-09-26%2022%3a32%3a06.634717131%20-0400%20EDT%20m%3d%2b0.103619272">
-    <link rel="stylesheet" href="/css/main.css?t=2019-09-26%2022%3a32%3a06.634717131%20-0400%20EDT%20m%3d%2b0.103619272">
+    <link rel="stylesheet" href="/css/reset.css?t=2020-04-18%2012%3a09%3a51.522248694%20-0400%20EDT%20m%3d%2b0.173536293">
+    <link rel="stylesheet" href="/css/pygments.css?t=2020-04-18%2012%3a09%3a51.522248694%20-0400%20EDT%20m%3d%2b0.173536293">
+    <link rel="stylesheet" href="/css/main.css?t=2020-04-18%2012%3a09%3a51.522248694%20-0400%20EDT%20m%3d%2b0.173536293">
     
 
 
@@ -150,26 +150,18 @@ As a user of uBlock Origin, I do have the ability to add custom filters to block
                 </div>
             </div>
             <div class="markdown">
-                
-
-<p>One thing I find quite annoying with YouTube is &ldquo;Recommended For You&rdquo; spam in the related
+                <p>One thing I find quite annoying with YouTube is &ldquo;Recommended For You&rdquo; spam in the related
 videos section. I do not sign into YouTube and use <a href="https://support.mozilla.org/en-US/kb/containers">Firefox
 Containers</a> so most &ldquo;Recommended For You&rdquo;
 videos are irrelevant, distracting, and seem suspiciously like they&rsquo;ve been paid for (I
 don&rsquo;t know if this is true).</p>
-
 <p>As a user of <a href="https://github.com/gorhill/uBlock">uBlock Origin</a>, I do have the ability to
 add custom filters to block DOM elements. After fiddling around with things and searching
 the web[1], I managed to come up with this filter which gets rid of &ldquo;Recommended For You&rdquo;
 from the related videos list,</p>
-
 <pre><code>youtube.com###css selector:has-text(Recommended for you)
-</code></pre>
-
-<p>You can put this line in &ldquo;My filters&rdquo; (on uBlock&rsquo;s setting page).</p>
-
+</code></pre><p>You can put this line in &ldquo;My filters&rdquo; (on uBlock&rsquo;s setting page).</p>
 <h3 id="references">References</h3>
-
 <ul>
 <li>[1] Cosmetic filters.
 <a href="https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#cosmetic-filters">https://github.com/gorhill/uBlock/wiki/Static-filter-syntax#cosmetic-filters</a></li>

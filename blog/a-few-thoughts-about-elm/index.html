@@ -45,9 +45,9 @@ Prior to learning Elm, I did not know anything about functional programming asid
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2019-09-26%2022%3a32%3a06.634741689%20-0400%20EDT%20m%3d%2b0.103643782">
-    <link rel="stylesheet" href="/css/pygments.css?t=2019-09-26%2022%3a32%3a06.634741689%20-0400%20EDT%20m%3d%2b0.103643782">
-    <link rel="stylesheet" href="/css/main.css?t=2019-09-26%2022%3a32%3a06.634741689%20-0400%20EDT%20m%3d%2b0.103643782">
+    <link rel="stylesheet" href="/css/reset.css?t=2020-04-18%2012%3a09%3a51.52104777%20-0400%20EDT%20m%3d%2b0.172335397">
+    <link rel="stylesheet" href="/css/pygments.css?t=2020-04-18%2012%3a09%3a51.52104777%20-0400%20EDT%20m%3d%2b0.172335397">
+    <link rel="stylesheet" href="/css/main.css?t=2020-04-18%2012%3a09%3a51.52104777%20-0400%20EDT%20m%3d%2b0.172335397">
     
 
 
@@ -153,11 +153,9 @@ Prior to learning Elm, I did not know anything about functional programming asid
             </div>
             <div class="markdown">
                 <p><em>Note: This is fairly rough right now. I may come back and revise it in the future.</em></p>
-
 <p>This will not be an introduction to Elm. If you do not know what Elm is, have a look at
 the <a href="https://en.wikipedia.org/wiki/Elm_(programming_language)">wikipedia article</a> about
 Elm and the <a href="https://elm-lang.org/">Elm website</a>.</p>
-
 <p>Prior to learning Elm, I did not know anything about functional programming aside from
 <code>map</code> and some vague understand of <code>reduce</code>. Of course, functional programming is a lot
 more than just <code>map</code> and <code>reduce</code>. Elm is also more than just another functional
@@ -165,25 +163,21 @@ programming language. The goal of Elm, from what I understand, is to provide a r
 platform for writing robust web application in the face of churn and chaos in the rest of
 the JavaScript ecosystem. Elm also acts as a gateway to the world of functional
 programming for developers of all skill levels.</p>
-
 <p>As a platform for web development, it exhibits many great qualities. Having worked on
 various small projects in Elm, I was able get something on screen quickly and easily. The
 compiler is also quite the experience. It&rsquo;s not like any compiler I&rsquo;ve used since &ndash; I
 know rust, for example, has a pretty cool and helpful compiler, but I haven&rsquo;t begun that
 journey of learning yet but I do look forward to diving in soon.</p>
-
 <p>Going back to vanilla JavaScript is quite a shock once you experience the power of
 compiler that can help you avoid very common mistakes and provide you with useful hints.
 There&rsquo;s no &lsquo;AI&rsquo; behind the compiler, just decades of programming language, compiler design
 and theory[1].</p>
-
 <p>Even after doing some extensive TypeScript development, it&rsquo;s not quite the same
 experience. When configuring TypeScript, I opted to enabled the strongest typing options
 possible and utilize the type system as much as possible. It&rsquo;s was a decision heavily
 influenced by my Elm development experience. The compiler did obviously help countless
 times by catching common type level issues and enable myself and other developers to
 easily refactor code, add new code and remove code with a lot more confidence.</p>
-
 <p>I think the difference between Elm and TypeScript, from  a development experience
 perspective, is the fact the Elm is more than just a language. It&rsquo;s a domain-specific
 language and framework. It not only compiles highly abstract functional programming
@@ -191,7 +185,6 @@ concepts into vanilla JavaScript, it also provide a robust framework for archite
 the web application according to a certain set of principles. This two fold nature of Elm,
 bundled into a single entity, means Elm has a better idea of what you&rsquo;re trying to do and
 can guide you along the way better than a general purpose language like TypeScript can.</p>
-
 <p>Like most things in engineering, it&rsquo;s a trade off. Neither language is better in some
 general sense, both have different goals and different aspirations. With both do manage to
 do is make web application development more approachable. JavaScript can do a lot of
@@ -202,7 +195,6 @@ the code in your head, which gets harder and harder once you write more and more
 you&rsquo;re bound to make a mistake or introduce a bug. This is not a slight at JavaScript,
 it&rsquo;s fine as a language, but it&rsquo;s not great. I think TypeScript and Elm provide some great
 developer experiences and empower the developer more than vanilla JavaScript.</p>
-
 <p>Elm&rsquo;s very domain specific approach also enabled additional benefits for the developer.
 One of the great things about the Elm ecosystem is the confidence it provide the developer
 with things like automatic semantic versioning &ndash; compiler tells you if you&rsquo;re breaking a
@@ -214,7 +206,6 @@ developers easier. Having a compiler that can provide you with guarantees is a v
 thing. By adding in unsafe JavaScript, you&rsquo;re undermining the compiler&rsquo;s abilities. Again,
 trade off. But a trade off that is made to enhance confidence for developers and allow
 them to reason about code without additional mental overhead that where possible.</p>
-
 <p>I founded a lot of value from learning Elm and developing some small projects in it. It&rsquo;s
 a different experience. It&rsquo;s not always going to be the right tool for every job. It&rsquo;s
 important to be able to choose the right tool. Learning Elm required some amount of
@@ -225,13 +216,11 @@ them in many different ways. I really find my self wishing there was a builtin p
 operator in more languages. You will also have a greater appreciation for types and will
 miss some of the first class type features Elm provides. Pattern matching is also another
 thing I wish I could do in other languages.</p>
-
 <p>But  moving away from just the syntax, Elm&rsquo;s approach to architecting application has been
 very influential. By making use of types, you gain the ability to reason about application
 state, design functionality without breaking other things and know when (and how) to fix
 other things when you do break something during a refactor or feature addition (or
 deletion).</p>
-
 <p>While I was working on a final year project, I opted to employ many of the lessons I
 learned from Elm. This project was in TypeScript and used an Elm-like JavaScript framework
 called Hyperapp. Of course enabling the strictest and strongest type checking options in
@@ -244,9 +233,7 @@ with Redux). Having experienced this type of approach to web development was hig
 valuable. But there bigger take away is that it&rsquo;s important to explore new things and
 learn the different approaches to doing the same things. Eye opening experiences are
 everywhere and it&rsquo;s worth it to at least give them a glance.</p>
-
-<hr />
-
+<hr>
 <p>[1] <a href="https://guide.elm-lang.org/">https://guide.elm-lang.org/</a></p>
 
                 <br>

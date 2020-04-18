@@ -45,9 +45,9 @@ After upgrading to GNOME 3.30, this way of enabling the option stopped working. 
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2019-09-26%2022%3a32%3a06.63509924%20-0400%20EDT%20m%3d%2b0.104001301">
-    <link rel="stylesheet" href="/css/pygments.css?t=2019-09-26%2022%3a32%3a06.63509924%20-0400%20EDT%20m%3d%2b0.104001301">
-    <link rel="stylesheet" href="/css/main.css?t=2019-09-26%2022%3a32%3a06.63509924%20-0400%20EDT%20m%3d%2b0.104001301">
+    <link rel="stylesheet" href="/css/reset.css?t=2020-04-18%2012%3a09%3a51.520759149%20-0400%20EDT%20m%3d%2b0.172046772">
+    <link rel="stylesheet" href="/css/pygments.css?t=2020-04-18%2012%3a09%3a51.520759149%20-0400%20EDT%20m%3d%2b0.172046772">
+    <link rel="stylesheet" href="/css/main.css?t=2020-04-18%2012%3a09%3a51.520759149%20-0400%20EDT%20m%3d%2b0.172046772">
     
 
 
@@ -154,27 +154,23 @@ After upgrading to GNOME 3.30, this way of enabling the option stopped working. 
             <div class="markdown">
                 <p><code>workspaces_only_on_primary</code> setting is suppose to make workspaces work correctly [1] in a
 multi-monitor setup.</p>
-
 <p>There are older articles on the internet about enabling this option, but they won&rsquo;t work
 with newer versions of GNOME. Prior to 3.30, I was using a very similar command which was
 described by <a href="http://gregcor.com/2011/05/07/fix-dual-monitors-in-gnome-3-aka-my-workspaces-are-broken/">Greg Cordts in his post on the
 subject</a>.</p>
-
 <p>After upgrading to GNOME 3.30, this way of enabling the option stopped working.
 After <a href="http://gregcor.com/2011/05/07/fix-dual-monitors-in-gnome-3-aka-my-workspaces-are-broken/">reporting this to the GNOME team as a bug</a>, two individuals provided some very useful
 information,</p>
-
 <ul>
-<li><p>The new way of enabling this option is,</p>
-
+<li>
+<p>The new way of enabling this option is,</p>
 <pre><code>gsettings set org.gnome.mutter workspaces-only-on-primary false
 </code></pre></li>
-
-<li><p>The Gnome Tweaks tool provides an option to enable this in the Workspaces tab</p></li>
+<li>
+<p>The Gnome Tweaks tool provides an option to enable this in the Workspaces tab</p>
+</li>
 </ul>
-
-<hr />
-
+<hr>
 <p>[1] Correctly means the workspace extends across all monitors and changing workspace
 changes to the same workspace on all monitors. I don&rsquo;t know why this is not enabled by
 default.</p>

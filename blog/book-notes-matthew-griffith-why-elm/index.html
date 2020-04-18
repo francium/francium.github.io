@@ -41,9 +41,9 @@
 
 
     
-    <link rel="stylesheet" href="/css/reset.css?t=2019-09-26%2022%3a32%3a06.637892898%20-0400%20EDT%20m%3d%2b0.106795034">
-    <link rel="stylesheet" href="/css/pygments.css?t=2019-09-26%2022%3a32%3a06.637892898%20-0400%20EDT%20m%3d%2b0.106795034">
-    <link rel="stylesheet" href="/css/main.css?t=2019-09-26%2022%3a32%3a06.637892898%20-0400%20EDT%20m%3d%2b0.106795034">
+    <link rel="stylesheet" href="/css/reset.css?t=2020-04-18%2012%3a09%3a51.520955458%20-0400%20EDT%20m%3d%2b0.172243075">
+    <link rel="stylesheet" href="/css/pygments.css?t=2020-04-18%2012%3a09%3a51.520955458%20-0400%20EDT%20m%3d%2b0.172243075">
+    <link rel="stylesheet" href="/css/main.css?t=2020-04-18%2012%3a09%3a51.520955458%20-0400%20EDT%20m%3d%2b0.172243075">
     
 
 
@@ -160,24 +160,24 @@ organization will look like and create a specification for the code.</li>
 <li>Nulls are replaced by a Maybe type that provide safety without constant defensive
 programming</li>
 <li>Elm&rsquo;s typing provides many benefits to the developer,
-
 <ul>
 <li>No runtime exceptions in practice</li>
 <li>Developer-friendly error messages at compile time</li>
 <li>Make refactoring easy and robust since the compiler will walk you through
 everything that has been broken by your changes
-
 <ul>
 <li>No chance of forgetting to update some code in a corner of the codebase that
 would in other languages result in a runtime exception if left un-updated</li>
-</ul></li>
+</ul>
+</li>
 <li>Enforced semantic versioning since the compiler can know whether your changes add,
 remove or just modify existing code without API changes. This makes sure your
 changes do accidentally break your API for your users</li>
 <li>In combination with Elm&rsquo;s immutable data, functions are easily reusable and
 testable</li>
 <li>Optimization of external effects such as rendering and HTTP requests</li>
-</ul></li>
+</ul>
+</li>
 <li>Elm&rsquo;s language level immutability provides ecosystem wide optimization and performance
 improvement opportunities - such as faster rendering without breaking existing code</li>
 <li>Elm&rsquo;s functions are pure and can&rsquo;t modify global state and can only create new data</li>
@@ -202,7 +202,6 @@ will tell you. This provided by language level feature such as the <code>case</c
 types like <code>Maybe</code> and <code>Result</code></li>
 <li>TypeScript provides a superset of JavaScript that adds static typing and a Java-like
 OOP approach to programming
-
 <ul>
 <li>It adds some safety over vanilla JavaScript, but some things safety measures that
 compiler provides are left as optional configuration options rather than enabled by
@@ -214,7 +213,8 @@ same runtime environment</li>
 messages as Elm</li>
 <li>TypeScript is also based on mutable data, so same care must be applied as with
 JavaScript programming</li>
-</ul></li>
+</ul>
+</li>
 <li>Elm&rsquo;s feature also ensures that you can assume other developer&rsquo;s code follows the same
 good approaches to writing exception free, well structured and maintainable code as
 your own. Elm&rsquo;s semantic versioning also provides the previously mentioned benefit of
@@ -222,7 +222,6 @@ guaranteeing the API doesn&rsquo;t break from under you without you knowing if y
 package</li>
 <li>The Elm Architecture (TEA) provides a very maintainable variation of the
 Model-View-Controller pattern
-
 <ul>
 <li>TEA provides a declarative way of describing the application without worrying about
 the order of any particular bit of code</li>
@@ -237,18 +236,18 @@ exactly what the next state will be given a model and a message</li>
 application given a model. In addition, the HTML will be able to emit a message
 when the user performs some action that will then be handed to the update function
 by the Elm runtime</li>
-</ul></li>
+</ul>
+</li>
 <li>Elm is similar to React, but Elm provides may of the optional things that can be
 combined with React (packages such as Redux, TypeScript support and libraries such as
 Immutable.js) already baked in to the language.
-
 <ul>
 <li>This reduces the amount of cognitive effort required to get started, make the right
 choices and choose the right packages and libraries that make the application easy
 to build and maintain</li>
-</ul></li>
+</ul>
+</li>
 <li>Elm provides a set to tools and packages that may getting started approachable
-
 <ul>
 <li>elm-package provides access to a repository community built packages and libraries
 like NPM but no where as vast. The packages in the elm-package repository also all
@@ -260,13 +259,13 @@ messages that are being passed to the update function, as well as the state of t
 application (model) at any point in time. You can also export/import the
 application state to save the debug session for others (or yourself) to use for
 things such as bug reports
-
 <ul>
 <li>Unlike the Redux Debugger, Elm&rsquo;s debugger has access to the type information of
 the Elm code and can tell if you the imported debug history is comptabile with
 the current application code and not lead to bizarre side effects of
 incompatible code</li>
-</ul></li>
+</ul>
+</li>
 <li>elm-reactor provides a local sever that compiles Elm code on the fly, enables
 debugging by default and serves it for fast development</li>
 <li>elm-format provides a way to automatically format Elm code that follows the best
@@ -279,7 +278,8 @@ used inline or as a separate stylesheet. Using elm-css, you can be sure that you
 styles will stay in sync with changes in your view thanks to the Elm compiler.</li>
 <li>elm-style-animation provides an easy way to add animations to your application with
 all the guarentees of the Elm language</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 
                 <br>

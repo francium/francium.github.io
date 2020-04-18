@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>francium</title>
@@ -68,7 +68,7 @@ As a user of uBlock Origin, I do have the ability to add custom filters to block
       <pubDate>Tue, 26 Dec 2017 00:00:00 +0000</pubDate>
       
       <guid>/blog/using-rsync-to-efficiently-backup-mirror-hard-drives/</guid>
-      <description>The concepts discussed here are not Raspberry Pi specific and can easily be adapted for other uses.  Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&amp;rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
+      <description>Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&amp;rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
 I found a simple solution to this problem using Rsync and Systemd timers (as opposed to installing Cron and learning Cron, but if you wish, you can substitute Systemd with Cron).</description>
     </item>
     
@@ -78,13 +78,15 @@ I found a simple solution to this problem using Rsync and Systemd timers (as opp
       <pubDate>Tue, 10 Jan 2017 00:00:00 +0000</pubDate>
       
       <guid>/blog/how-to-access-the-mcmaster-cas-virtual-machines-on-linux-host/</guid>
-      <description>There is a web client available, but still requires a connect to the VPN. See CAS wiki[ref 1] for more information.  Using openconnect Install openconenct
+      <description>Using openconnect Install openconenct
 openconnect sslvpn.mcmaster.ca (try with sudo if it fails)
 If nothing failed, you should be connected
 Tested on Xubuntu and Debian (x86_64).
 Download the VPN client for linux, *.tar.gz from https://www.mcmaster.ca/uts/network/vpn/
 Download the VMWare Horizon client, *bundle from https://www.vmware.com/go/viewclients
-cd to the location of both downloads</description>
+cd to the location of both downloads
+Install libudev1 and libpangox-1.0-dev and if it is not already installed
+$ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install libudev1 libpangox-1.0-dev  Extract the VPN client</description>
     </item>
     
     <item>
@@ -119,7 +121,8 @@ Fast Blur A highly optimized box blur implementation.
 Project Imacs Final year capstone project. Visual note taking and note management system. Project lead.
 zoidboard A plugin based dashboard for monitoring servers.
 Beasley Weather Station Community project to build a weather station. Wrote most of the software that handles syncing data between the weather station and central server.
-resume css Template for creating a resume in HTML.</description>
+resume css Template for creating a resume in HTML.
+diet Hacker News Hacker News with keyword filtering of posts.</description>
     </item>
     
     <item>
@@ -128,7 +131,7 @@ resume css Template for creating a resume in HTML.</description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/reading/</guid>
-      <description>Now  Mets, Practical Object-Oriented Design in Ruby Kaku, Physics of the Impossible  2019  Cox, Why Does E=MC2? ★ (audio) [Review] Harari, Sapiens: A Breif History of Humankind (audio) [Review] Hawking, The Universe in a Nutshell ★ (audio) [Review] Jason Gregory, Game Engine Architecture ★ (read most) Krauss, A Universe from Nothing ★ (audio) [Review] Lovecraft, Pickman&amp;rsquo;s Model [Review] Lovecraft, The Color Out Of Space [Review] Mets and Owen, 99 Bottles of OOP - A Practical Guide to Object-Oriented Design (read 1st ed.</description>
+      <description>Now 2019  Stephenson, Cryptonomicon ★ (audio) Cox, Why Does E=MC2? ★ (audio) [Review] Harari, Sapiens: A Breif History of Humankind (audio) [Review] Hawking, The Universe in a Nutshell ★ (audio) [Review] Jason Gregory, Game Engine Architecture ★ (read most) Krauss, A Universe from Nothing ★ (audio) [Review] Lovecraft, Pickman&amp;rsquo;s Model [Review] Lovecraft, The Color Out Of Space [Review] Mets and Owen, 99 Bottles of OOP - A Practical Guide to Object-Oriented Design (read 1st ed.</description>
     </item>
     
   </channel>
