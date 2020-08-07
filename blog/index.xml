@@ -6,10 +6,20 @@
     <description>Recent content in Blogs on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 18 Apr 2020 15:38:21 -0400</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2020 12:00:00 -0400</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React Hooks: A very brief intro</title>
+      <link>/blog/2020-08-07-react-hooks-brief-intro/</link>
+      <pubDate>Fri, 07 Aug 2020 12:00:00 -0400</pubDate>
+      
+      <guid>/blog/2020-08-07-react-hooks-brief-intro/</guid>
+      <description>React Hooks API appears to be a immediate-mode layer on top of the traditional retained-mode style React system.
+Internally, the library knows which component is currently being rendered and since a hook can only be called from a React component function or another hook, React is able to keep track of function calls to the hook APIs to &amp;lsquo;magically&amp;rsquo; manage state without being explicit about function calls across multiple render cycles.</description>
+    </item>
     
     <item>
       <title>Trigger bash commands in a Docker container from host</title>
