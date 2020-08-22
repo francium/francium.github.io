@@ -6,10 +6,19 @@
     <description>Recent content on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2020 12:00:00 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2020 12:00:00 -0400</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Making delegation easier in JavaScript (TypeScript)</title>
+      <link>/blog/2020-08-22-making-delegation-easier-in-javascript/</link>
+      <pubDate>Sat, 22 Aug 2020 12:00:00 -0400</pubDate>
+      
+      <guid>/blog/2020-08-22-making-delegation-easier-in-javascript/</guid>
+      <description>Using metaprogramming to enable easier method delegation</description>
+    </item>
     
     <item>
       <title>React Hooks: A very brief intro</title>
@@ -128,7 +137,7 @@ $ sudo apt-get update &amp;amp;&amp;amp; sudo apt-get install libudev1 libpangox
       
       <guid>/about/</guid>
       <description>Varun Hooda A brief summary,
- Canadian software developer Fluently able to read and write various languages, including JavaScript, Python, C, Elm, Java, C++, Bash, SQL Know my way around a [Lin]u[ni]x CLI and many common development tools Other buzzwords: Agile, Angular 2+, Bash, Dev Ops, Django, Docker, Flask, Functional Programming, Node, Optimization, REST APIs, Refactoring, React, SCRUM, Unit Testing, UI, UX This was typed in Vim  If you’ve made it this far, perhaps you’d be interested in looking at some of my projects or my GitHub profile.</description>
+ Canadian software developer Able to read and write various languages with varying levels of fluency, including JavaScript, TypeScript, Python, C/C++, Rust, Elm, Java, Bash, SQL Know my way around a [Lin]u[ni]x CLI and many common development tools Random buzzwords: Agile, SCRUM, Dev Ops, Docker, Functional Programming, Optimization, REST APIs, Refactoring, Flask, Angular 2+, React, Unit Testing, UI, UX This was typed in Vim  If you’ve made it this far, perhaps you’d be interested in looking at some of my projects or my GitHub profile.</description>
     </item>
     
     <item>

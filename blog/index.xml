@@ -6,10 +6,19 @@
     <description>Recent content in Blogs on francium</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2020 12:00:00 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 22 Aug 2020 12:00:00 -0400</lastBuildDate>
     
 	<atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Making delegation easier in JavaScript (TypeScript)</title>
+      <link>/blog/2020-08-22-making-delegation-easier-in-javascript/</link>
+      <pubDate>Sat, 22 Aug 2020 12:00:00 -0400</pubDate>
+      
+      <guid>/blog/2020-08-22-making-delegation-easier-in-javascript/</guid>
+      <description>Using metaprogramming to enable easier method delegation</description>
+    </item>
     
     <item>
       <title>React Hooks: A very brief intro</title>
