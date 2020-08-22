@@ -178,10 +178,15 @@ compiler happy.</p>
 specifying the <code>methods</code> list using <code>keyof</code>,</p>
 <div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{ ..., methods: [<span style="color:#00f">&#39;print&#39;</span>] <span style="color:#000080;font-weight:bold">as</span> Array&lt;<span style="color:#000080;font-weight:bold">keyof</span> <span style="color:#f00">IPrinter</span>&gt; },
 </code></pre></div><p>This will catch any typos and ensure we only try to delegate to things that
-exist on that interface.</p>
+exist on that interface. But unfortunately, in the current setup, this will only
+check to see we&rsquo;ve got all the methods required by the interface and any
+additional methods will not be flagged by the compiler.</p>
 <p>But I couldn&rsquo;t see a way to making the <code>to: '_scanner'</code> type safe since
 we&rsquo;re trying to keep it private and the <code>Delegators</code> class would be inherited by
 the class with the private property; Turns into a chicken and egg problem.</p>
+<p>So obviously there&rsquo;s a bit of room from improvement here. Currently this is the
+most type safe implementation I&rsquo;ve thought of, but perhaps things will improve
+in the future.</p>
 <h2 id="delegation-of-properties">Delegation of properties?</h2>
 <p>Delegating properties is certainly doable, using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> would help a
 lot, but without it things get a bit tricker. I wanted to achieve the method
