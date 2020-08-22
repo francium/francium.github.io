@@ -165,7 +165,7 @@ console.log(<span style="color:#00f">&#39;p2 print: &#39;</span>, p2.print(<span
 </code></pre></div><p>This too outputs the same stuff as first version,</p>
 <pre><code>p1 scan:  scanned at Sat Aug 22 2020 13:36:28 GMT-0400 (Eastern Daylight Time)
 p1 print:  true
-</code></pre><h2 id="type-checking">Type checking</h2>
+</code></pre><h2 id="type-checking-and-future-work">Type checking and future work</h2>
 <p>With TypeScript you do get a bit more type safety than JavaScript in this
 context, but it&rsquo;s not bulletproof.</p>
 <p>We can ensure the final class&rsquo;s interface looks correct by specifying the type
@@ -184,9 +184,9 @@ additional methods will not be flagged by the compiler.</p>
 <p>But I couldn&rsquo;t see a way to making the <code>to: '_scanner'</code> type safe since
 we&rsquo;re trying to keep it private and the <code>Delegators</code> class would be inherited by
 the class with the private property; Turns into a chicken and egg problem.</p>
-<p>So obviously there&rsquo;s a bit of room from improvement here. Currently this is the
-most type safe implementation I&rsquo;ve thought of, but perhaps things will improve
-in the future.</p>
+<p>So obviously there&rsquo;s a bit of room for improvement here. Currently this is the
+most type safe implementation I&rsquo;ve thought of so far, but perhaps things will
+improve in the future.</p>
 <h2 id="delegation-of-properties">Delegation of properties?</h2>
 <p>Delegating properties is certainly doable, using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> would help a
 lot, but without it things get a bit tricker. I wanted to achieve the method
@@ -210,7 +210,7 @@ the reader.</p>
     <li><a href="#manually-setting-up-delegation">Manually setting up delegation</a></li>
     <li><a href="#delegation-helper-applying-some-metaprogramming-to-remove-the-boilerplate">Delegation helper: applying some metaprogramming to remove the boilerplate</a></li>
     <li><a href="#easy-delegation">Easy delegation</a></li>
-    <li><a href="#type-checking">Type checking</a></li>
+    <li><a href="#type-checking-and-future-work">Type checking and future work</a></li>
     <li><a href="#delegation-of-properties">Delegation of properties?</a></li>
     <li><a href="#see-also">See also</a></li>
   </ul>
