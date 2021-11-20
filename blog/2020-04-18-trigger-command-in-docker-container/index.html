@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/main.css">
 
-    <meta name="generator" content="Hugo 0.74.0" />
+    <meta name="generator" content="Hugo 0.89.3" />
 </head>
 
 
@@ -80,7 +80,7 @@ and container can read.</p>
 up by <a href="https://bitbucket.org/denilsonsa/small_scripts/src/default/sleep_until_modified.sh"><code>watchdo</code></a> (a script wrapping inotify written by <a href="https://bitbucket.org/denilsonsa/small_scripts/">Denilson Sá</a>)
 which will trigger some commands.</p>
 <p><strong>build.sh</strong>,</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000080;font-weight:bold">while</span> ./watchdo .watchfile; <span style="color:#000080;font-weight:bold">do</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#000080;font-weight:bold">while</span> ./watchdo .watchfile; <span style="color:#000080;font-weight:bold">do</span>
     gcc -o main main.c
 <span style="color:#000080;font-weight:bold">done</span>
 </code></pre></div><p>Run <code>build.sh</code> inside the container and to trigger it just <code>touch</code> the
@@ -88,7 +88,7 @@ which will trigger some commands.</p>
 command, you can easily trigger a recompilation without having to leave your
 editor.</p>
 <p>In Vim, you can map <code>&lt;leader&gt;s</code> to save and trigger recompilation,</p>
-<pre><code>:nmap &lt;leader&gt;s :wall &lt;BAR&gt; silent !touch .watchfile&lt;CR&gt;
+<pre tabindex="0"><code>:nmap &lt;leader&gt;s :wall &lt;BAR&gt; silent !touch .watchfile&lt;CR&gt;
 </code></pre><p>Alternatively if you&rsquo;re working with a single file, you can just point <code>watchdo</code>
 to the file and just saving normally after making changes it will be enough to
 trigger the actions.</p>
@@ -121,11 +121,12 @@ be a simple to add with some help from man pages or online references.</p>
     <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2020 francium
+            &copy; 2021 francium
             <br />
             Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
         </div>
     </div>
+    
 
     
     <script>

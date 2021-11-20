@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/main.css">
 
-    <meta name="generator" content="Hugo 0.74.0" />
+    <meta name="generator" content="Hugo 0.89.3" />
 </head>
 
 
@@ -100,7 +100,7 @@ for specifying when the service should execute. The service file will point to a
 script that will call rsync to perform the actual task of mirroring the two drives.</p>
 <h3 id="mirroring-script">Mirroring Script</h3>
 <p>I&rsquo;ve saved this file as <code>/usr/local/bin/drive-mirroring</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">#!/bin/bash
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">#!/bin/bash
 </span><span style="color:#008080"></span>
 echo <span style="color:#00f">&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
 
@@ -132,7 +132,7 @@ deleted files in backup</li>
 </ul>
 <p>Rsync is a program that efficiently transfers data between two sources. When I say
 efficiently&hellip; well look at how well it handles hundreds of gigs:</p>
-<pre><code>Dec 25 00:00:48 RPi systemd[1]: Started Drive sync.
+<pre tabindex="0"><code>Dec 25 00:00:48 RPi systemd[1]: Started Drive sync.
 Dec 25 00:00:48 RPi drive-mirroring[1019]: ########### Drive mirroring starting at Mon Dec 25 00:00:48 UTC 2017 ###########
 Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of files: 79,953 (reg: 65,687, dir: 10,729, link: 3,504, dev: 33)
 Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of created files: 14 (reg: 13, dir: 1)
@@ -154,7 +154,7 @@ Dec 25 00:01:40 RPi drive-mirroring[1019]: ########### Drive mirroring completed
 will only need to transfer the changes since last transfer.</p>
 <h3 id="systemd-scripts">Systemd Scripts</h3>
 <p>Save this file as <code>/etc/systemd/system/drive-mirroring.service</code>:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">
 <span style="color:#000080;font-weight:bold">[Unit]</span>
 <span style="color:#f00">Description</span>=<span style="color:#00f">Drive sync</span>
 
@@ -162,7 +162,7 @@ will only need to transfer the changes since last transfer.</p>
 <span style="color:#f00">Type</span>=<span style="color:#00f">simple</span>
 <span style="color:#f00">ExecStart</span>=<span style="color:#00f">/usr/local/bin/drive-mirroring</span>
 </code></pre></div><p>And finally the timer is saved as <code>/etc/systemd/system/drive-mirroring.timer</code></p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#000080;font-weight:bold">[Unit]</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#000080;font-weight:bold">[Unit]</span>
 <span style="color:#f00">Description</span>=<span style="color:#00f">Drive sync</span>
 
 <span style="color:#000080;font-weight:bold">[Timer]</span>
@@ -176,7 +176,7 @@ to sync weekly (which defaults to Mondays at 12AM).</p>
 <p>For systemd to actually run the <code>drive-mirroring.timer</code>, it must first be enabled or
 started (enabling will ensure it gets started after a reboot whereas a starting will not
 cause it to be automatically started across reboots).</p>
-<pre><code>$ systemctl enable drive-mirroring.timer  # or replace `enable` with `start`
+<pre tabindex="0"><code>$ systemctl enable drive-mirroring.timer  # or replace `enable` with `start`
 </code></pre><p>You can get information about the systemd timer or service using <code>systemctl drive-mirroring.service</code> (hint &ndash; the .service can be omitted, but anything else like a
 .timer must be explicit).</p>
 <p>And you can view the systemd logs for a particular service using <code>journalctl -u drive-mirroring.service</code>. We&rsquo;ve also piped the output of rsync to
@@ -217,11 +217,12 @@ cause it to be automatically started across reboots).</p>
     <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2020 francium
+            &copy; 2021 francium
             <br />
             Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
         </div>
     </div>
+    
 
     
     <script>
