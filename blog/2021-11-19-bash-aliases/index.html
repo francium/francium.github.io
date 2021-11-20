@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mostly useful or: How I learned stop typing and write a few Bash aliases // francium</title>
+    <title>Mostly useful or: How I learned to stop typing and write a few Bash aliases // francium</title>
 
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -10,7 +10,7 @@
     
     
 
-        <meta property="og:title" content="Mostly useful or: How I learned stop typing and write a few Bash aliases" />
+        <meta property="og:title" content="Mostly useful or: How I learned to stop typing and write a few Bash aliases" />
     <meta property="og:description" content="" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en" />
@@ -58,7 +58,7 @@
     <div class="article-inner">
         
         <header class="article-header">
-            <h1 class="article-title" itemprop="name">Mostly useful or: How I learned stop typing and write a few Bash aliases</h1>
+            <h1 class="article-title" itemprop="name">Mostly useful or: How I learned to stop typing and write a few Bash aliases</h1>
         </header>
         
         <div class="article-meta">
@@ -70,25 +70,25 @@
             
         </div>
         <div class="article-entry" itemprop="articleBody">
-            <h2 id="the-vim-quitter">The vim quitter</h2>
+            <p>A very short list of a few interesting Bash aliases.</p>
+<h2 id="the-vim-quitter">The vim quitter</h2>
 <p>If you use vim, <code>:q</code>/<code>:wq</code> is perhaps muscle memory at this point. You can now
 <code>:q</code>/<code>:wq</code> in bash too,</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">alias :q=<span style="color:#00f">&#39;exit&#39;</span>
 alias :wq=<span style="color:#00f">&#39;exit&#39;</span>
-</code></pre></div><p>I didn&rsquo;t actually write this one from scratch. I believe I came across it online
-a few years ago.</p>
+</code></pre></div><p>I think I came across this online a few years ago.</p>
 <h2 id="the-gtk-themer">The GTK themer</h2>
 <p>I use the Adwaita dark theme on Gnome. But some applications have very poor dark
 theme appearance, such as <code>gitg</code>. So I find myself opening them in light theme.
 You typically do something like this to override the theme on a per application
 basis,</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">GTK_THEME=Adwaita:light gitg &amp;
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ GTK_THEME=Adwaita:light gitg &amp;
 </code></pre></div><p>But that&rsquo;s kinda hard to remember and I typically don&rsquo;t and instead rely on Bash
 history search, <code>c-r</code>.</p>
 <p>Instead, we can define,</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">alias gtk-light=<span style="color:#00f">&#39;GTK_THEME=Adwaita:light&#39;</span>
 </code></pre></div><p>Now,</p>
-<pre tabindex="0"><code>gtk-light gitg &amp;
+<pre tabindex="0"><code>$ gtk-light gitg &amp;
 </code></pre><p>works as you&rsquo;d expect and much easier to remember.</p>
 <h2 id="the-fun-pipe">The fun pipe</h2>
 <h3 id="motivation">Motivation</h3>
@@ -110,19 +110,22 @@ Haskell, Elm or F#, where we can do something like,</p>
 
 sum a b = a + b
 
-double a = a * <span style="color:#00f">2</span>
+triple a = a * <span style="color:#00f">3</span>
 
-<span style="color:#000080;font-weight:bold">main </span>= sum <span style="color:#00f">1</span> <span style="color:#00f">2</span> |&gt; \a -&gt; a * <span style="color:#00f">3</span> |&gt; toString |&gt; text
-</code></pre></div><p>This example is in Elm.  Here <code>main</code> outputs <code>&quot;9&quot;</code>.</p>
+<span style="color:#000080;font-weight:bold">main </span>= sum <span style="color:#00f">1</span> <span style="color:#00f">2</span> |&gt; triple |&gt; toString |&gt; text
+</code></pre></div><p>This example is in Elm.  Here <code>main</code> outputs <code>&quot;9&quot;</code>. The <code>|&gt;</code> are pipe-forward
+infix functions that pass the output of the previous pipeline stage to the next
+function. For example <code>sum 1 2 |&gt; triple</code> is equivalent to <code>triple (sum 1 2)</code>.</p>
 <p>Quite elegant and eliminates the amount of text manipulation we have
 to do. Whereas in the bash example we had to wrap the <code>grep</code> and <code>awk</code> in a
 subshell <code>$(...)</code>.</p>
 <h3 id="enter-the-fun-pipe-1">Enter the fun-pipe (1)</h3>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">grep <span style="color:#00f">&#34;filepath =&#34;</span> data.txt | awk <span style="color:#00f">&#39;{ print $3 }&#39;</span> |: vim _
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ grep <span style="color:#00f">&#34;filepath =&#34;</span> data.txt | awk <span style="color:#00f">&#39;{ print $3 }&#39;</span> |: vim _
 </code></pre></div><p>Elegance.</p>
 <p>The <code>_</code> stands in for the stdout of the precious stage of the pipeline.</p>
 <p>Note that <code>|:</code> isn&rsquo;t actually a single &lsquo;operator&rsquo;.
-It&rsquo;s in fact the standard Bash pipe <code>|</code> and our new fun-pipe alias <code>:</code> without a space between.</p>
+It&rsquo;s in fact the standard Bash pipe, <code>|</code>, and our new fun-pipe alias, <code>:</code>, just
+without a space between.</p>
 <p>We can define the fun-pipe as,</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">alias :=<span style="color:#00f">&#39;xargs -i_ --&#39;</span>
 </code></pre></div><h2 id="notes">Notes</h2>
