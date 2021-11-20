@@ -1,182 +1,159 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-    <title>Making delegation easier in JavaScript (TypeScript) // francium</title>
-
-    <meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    
-    
-    
-
-        <meta property="og:title" content="Making delegation easier in JavaScript (TypeScript)" />
-    <meta property="og:description" content="" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en" />
-    <meta property="og:url" content="/blog/2020-08-22-making-delegation-easier-in-javascript/" />
-    
-
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
-    <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main.css">
-
-    <meta name="generator" content="Hugo 0.89.3" />
+<title>Making delegation easier in JavaScript (TypeScript) // francium</title>
+<meta charset=utf-8>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta property="og:title" content="Making delegation easier in JavaScript (TypeScript)">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="/blog/2020-08-22-making-delegation-easier-in-javascript/">
+<link rel="shortcut icon" href=/favicon.ico>
+<link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css>
+<link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/style.css>
+<link rel=stylesheet href=/css/main.css>
+<meta name=generator content="Hugo 0.89.3">
 </head>
-
-
 <body>
-<div id="container">
-    <header id="header">
-    <div id="header-outer" class="outer">
-        <div id="header-inner" class="inner">
-            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
-            <a id="logo" class="logo-text" href="/">francium</a>
-            <nav id="main-nav">
-                
-                <a class="main-nav-link" href="/about/">About</a>
-                
-                <a class="main-nav-link" href="/projects/">Projects</a>
-                
-                <a class="main-nav-link" href="/til/">TIL</a>
-                
-            </nav>
-            <nav id="sub-nav">
-                <div id="search-form-wrap">
-                </div>
-            </nav>
-        </div>
-    </div>
+<div id=container>
+<header id=header>
+<div id=header-outer class=outer>
+<div id=header-inner class=inner>
+<a id=main-nav-toggle class=nav-icon href=javascript:;></a>
+<a id=logo class=logo-text href=/>francium</a>
+<nav id=main-nav>
+<a class=main-nav-link href=/about/>About</a>
+<a class=main-nav-link href=/projects/>Projects</a>
+<a class=main-nav-link href=/til/>TIL</a>
+</nav>
+<nav id=sub-nav>
+<div id=search-form-wrap>
+</div>
+</nav>
+</div>
+</div>
 </header>
-
-    <section id="main" class="outer">
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            <h1 class="article-title" itemprop="name">Making delegation easier in JavaScript (TypeScript)</h1>
-        </header>
-        
-        <div class="article-meta">
-            <a href="/blog/2020-08-22-making-delegation-easier-in-javascript/" class="article-date">
-                <time datetime='2020-08-22T12:00:00.000-04:00' itemprop="datePublished">2020-08-22</time>
-            </a>
-            
-            
-            
-        </div>
-        <div class="article-entry" itemprop="articleBody">
-            <p>Delegation is a means of code reuse without using inheritance. For more
-information, have a look at <a href="https://en.wikipedia.org/wiki/Composition_over_inheritance">Wikipedia - Composition over
+<section id=main class=outer>
+<article class="article article-type-post" itemscope itemprop=blogPost>
+<div class=article-inner>
+<header class=article-header>
+<h1 class=article-title itemprop=name>Making delegation easier in JavaScript (TypeScript)</h1>
+</header>
+<div class=article-meta>
+<a href=/blog/2020-08-22-making-delegation-easier-in-javascript/ class=article-date>
+<time datetime=2020-08-22T12:00:00.000-04:00 itemprop=datePublished>2020-08-22</time>
+</a>
+</div>
+<div class=article-entry itemprop=articleBody>
+<p>Delegation is a means of code reuse without using inheritance. For more
+information, have a look at <a href=https://en.wikipedia.org/wiki/Composition_over_inheritance>Wikipedia - Composition over
 inheritance</a>; I will skip the <em>why delegation</em>, <em>why not
 inheritance</em> discussion here.</p>
-<h2 id="manually-setting-up-delegation">Manually setting up delegation</h2>
+<h2 id=manually-setting-up-delegation>Manually setting up delegation</h2>
 <p>Consider this basic Printer and Scanner class example showing delegation in
 action,</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#000080;font-weight:bold">interface</span> IPrinter {
-  print(document: <span style="color:#000080;font-weight:bold">string</span>): <span style="color:#000080;font-weight:bold">boolean</span>;
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:navy;font-weight:700>interface</span> IPrinter {
+  print(document: <span style=color:navy;font-weight:700>string</span>): <span style=color:navy;font-weight:700>boolean</span>;
 }
 
-<span style="color:#000080;font-weight:bold">interface</span> IScanner {
-  scan(): <span style="color:#000080;font-weight:bold">string</span>;
+<span style=color:navy;font-weight:700>interface</span> IScanner {
+  scan(): <span style=color:navy;font-weight:700>string</span>;
 }
 
-<span style="color:#000080;font-weight:bold">class</span> InkjetPrinter <span style="color:#000080;font-weight:bold">implements</span> IPrinter {
-  print(document: <span style="color:#000080;font-weight:bold">string</span>): <span style="color:#000080;font-weight:bold">boolean</span> {
-    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">true</span>;
+<span style=color:navy;font-weight:700>class</span> InkjetPrinter <span style=color:navy;font-weight:700>implements</span> IPrinter {
+  print(document: <span style=color:navy;font-weight:700>string</span>): <span style=color:navy;font-weight:700>boolean</span> {
+    <span style=color:navy;font-weight:700>return</span> <span style=color:navy;font-weight:700>true</span>;
   }
 }
 
-<span style="color:#000080;font-weight:bold">class</span> ColorScanner <span style="color:#000080;font-weight:bold">implements</span> IScanner {
-  scan(): <span style="color:#000080;font-weight:bold">string</span> {
-    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#00f">`scanned at </span><span style="color:#00f">${</span><span style="color:#000080;font-weight:bold">new</span> Date()<span style="color:#00f">}</span><span style="color:#00f">`</span>;
+<span style=color:navy;font-weight:700>class</span> ColorScanner <span style=color:navy;font-weight:700>implements</span> IScanner {
+  scan(): <span style=color:navy;font-weight:700>string</span> {
+    <span style=color:navy;font-weight:700>return</span> <span style=color:#00f>`scanned at </span><span style=color:#00f>${</span><span style=color:navy;font-weight:700>new</span> Date()<span style=color:#00f>}</span><span style=color:#00f>`</span>;
   }
 }
 
-<span style="color:#080;font-style:italic">///////////////////////////////////////////////////////////////////////////////
-</span><span style="color:#080;font-style:italic"></span>
-<span style="color:#000080;font-weight:bold">class</span> ZeroxModelOne <span style="color:#000080;font-weight:bold">implements</span> IPrinter, IScanner {
-  <span style="color:#000080;font-weight:bold">private</span> _scanner: <span style="color:#000080;font-weight:bold">IScanner</span> = <span style="color:#000080;font-weight:bold">new</span> ColorScanner();
-  <span style="color:#000080;font-weight:bold">private</span> _printer: <span style="color:#000080;font-weight:bold">IPrinter</span> = <span style="color:#000080;font-weight:bold">new</span> InkjetPrinter();
+<span style=color:#080;font-style:italic>///////////////////////////////////////////////////////////////////////////////
+</span><span style=color:#080;font-style:italic></span>
+<span style=color:navy;font-weight:700>class</span> ZeroxModelOne <span style=color:navy;font-weight:700>implements</span> IPrinter, IScanner {
+  <span style=color:navy;font-weight:700>private</span> _scanner: <span style=color:navy;font-weight:700>IScanner</span> = <span style=color:navy;font-weight:700>new</span> ColorScanner();
+  <span style=color:navy;font-weight:700>private</span> _printer: <span style=color:navy;font-weight:700>IPrinter</span> = <span style=color:navy;font-weight:700>new</span> InkjetPrinter();
 
-  <span style="color:#000080;font-weight:bold">public</span> scan(): <span style="color:#000080;font-weight:bold">string</span> {
-    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>._scanner.scan();
+  <span style=color:navy;font-weight:700>public</span> scan(): <span style=color:navy;font-weight:700>string</span> {
+    <span style=color:navy;font-weight:700>return</span> <span style=color:navy;font-weight:700>this</span>._scanner.scan();
   }
 
-  <span style="color:#000080;font-weight:bold">public</span> print(document: <span style="color:#000080;font-weight:bold">string</span>): <span style="color:#000080;font-weight:bold">boolean</span> {
-    <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>._printer.print(document);
+  <span style=color:navy;font-weight:700>public</span> print(document: <span style=color:navy;font-weight:700>string</span>): <span style=color:navy;font-weight:700>boolean</span> {
+    <span style=color:navy;font-weight:700>return</span> <span style=color:navy;font-weight:700>this</span>._printer.print(document);
   }
 }
 
-<span style="color:#080;font-style:italic">///////////////////////////////////////////////////////////////////////////////
-</span><span style="color:#080;font-style:italic"></span>
-<span style="color:#000080;font-weight:bold">const</span> p1 = <span style="color:#000080;font-weight:bold">new</span> ZeroxModelOne();
-console.log(<span style="color:#00f">&#39;p1 scan: &#39;</span>, p1.scan());
-console.log(<span style="color:#00f">&#39;p1 print: &#39;</span>, p1.print(<span style="color:#00f">&#39;hello world&#39;</span>));
+<span style=color:#080;font-style:italic>///////////////////////////////////////////////////////////////////////////////
+</span><span style=color:#080;font-style:italic></span>
+<span style=color:navy;font-weight:700>const</span> p1 = <span style=color:navy;font-weight:700>new</span> ZeroxModelOne();
+console.log(<span style=color:#00f>&#39;p1 scan: &#39;</span>, p1.scan());
+console.log(<span style=color:#00f>&#39;p1 print: &#39;</span>, p1.print(<span style=color:#00f>&#39;hello world&#39;</span>));
 </code></pre></div><p>This outputs,</p>
-<pre tabindex="0"><code>p1 scan:  scanned at Sat Aug 22 2020 13:36:28 GMT-0400 (Eastern Daylight Time)
+<pre tabindex=0><code>p1 scan:  scanned at Sat Aug 22 2020 13:36:28 GMT-0400 (Eastern Daylight Time)
 p1 print:  true
 </code></pre><p>Works as expected, but if we had to implement a whole bunch of methods that did
 nothing more than call into some other method on one of the objects, it will get
 verbose and tedious very quickly.</p>
-<h2 id="delegation-helper-applying-some-metaprogramming-to-remove-the-boilerplate">Delegation helper: applying some metaprogramming to remove the boilerplate</h2>
+<h2 id=delegation-helper-applying-some-metaprogramming-to-remove-the-boilerplate>Delegation helper: applying some metaprogramming to remove the boilerplate</h2>
 <p>We can use some JavaScript tricks to remove these dumb methods that do nothing
 but call through,</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#000080;font-weight:bold">type</span> Ctor&lt;<span style="color:#000080;font-weight:bold">T</span>&gt; = <span style="color:#000080;font-weight:bold">new</span>(...args: <span style="color:#000080;font-weight:bold">any</span>[]) =&gt; T;
-<span style="color:#000080;font-weight:bold">type</span> DelegateParams = {to: <span style="color:#000080;font-weight:bold">string</span>, methods?: <span style="color:#000080;font-weight:bold">string</span>[]}
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:navy;font-weight:700>type</span> Ctor&lt;<span style=color:navy;font-weight:700>T</span>&gt; = <span style=color:navy;font-weight:700>new</span>(...args: <span style=color:navy;font-weight:700>any</span>[]) =&gt; T;
+<span style=color:navy;font-weight:700>type</span> DelegateParams = {to: <span style=color:navy;font-weight:700>string</span>, methods?: <span style=color:navy;font-weight:700>string</span>[]}
 
-<span style="color:#000080;font-weight:bold">function</span> _delegate&lt;<span style="color:#000080;font-weight:bold">T</span> <span style="color:#f00">extends</span> <span style="color:#f00">Ctor</span><span style="color:#a61717;background-color:#e3d2d2">&lt;</span><span style="color:#f00">any</span>&gt;&gt;(base: <span style="color:#000080;font-weight:bold">T</span>, params: <span style="color:#000080;font-weight:bold">DelegatParams</span>): Ctor&lt;<span style="color:#000080;font-weight:bold">any</span>&gt; {
-  <span style="color:#000080;font-weight:bold">abstract</span> <span style="color:#000080;font-weight:bold">class</span> Clazz <span style="color:#000080;font-weight:bold">extends</span> base {}
+<span style=color:navy;font-weight:700>function</span> _delegate&lt;<span style=color:navy;font-weight:700>T</span> <span style=color:red>extends</span> <span style=color:red>Ctor</span><span style=color:#a61717;background-color:#e3d2d2>&lt;</span><span style=color:red>any</span>&gt;&gt;(base: <span style=color:navy;font-weight:700>T</span>, params: <span style=color:navy;font-weight:700>DelegatParams</span>): Ctor&lt;<span style=color:navy;font-weight:700>any</span>&gt; {
+  <span style=color:navy;font-weight:700>abstract</span> <span style=color:navy;font-weight:700>class</span> Clazz <span style=color:navy;font-weight:700>extends</span> base {}
 
   params.methods?.forEach(method =&gt; {
-    (Clazz.prototype <span style="color:#000080;font-weight:bold">as</span> <span style="color:#000080;font-weight:bold">any</span>)[method] = <span style="color:#000080;font-weight:bold">function</span>(...args: <span style="color:#000080;font-weight:bold">unknown</span>[]) {
-      <span style="color:#000080;font-weight:bold">return</span> <span style="color:#000080;font-weight:bold">this</span>[params.to][method](...args);
+    (Clazz.prototype <span style=color:navy;font-weight:700>as</span> <span style=color:navy;font-weight:700>any</span>)[method] = <span style=color:navy;font-weight:700>function</span>(...args: <span style=color:navy;font-weight:700>unknown</span>[]) {
+      <span style=color:navy;font-weight:700>return</span> <span style=color:navy;font-weight:700>this</span>[params.to][method](...args);
     }
   });
 
-  <span style="color:#000080;font-weight:bold">return</span> Clazz;
+  <span style=color:navy;font-weight:700>return</span> Clazz;
 }
 
-<span style="color:#000080;font-weight:bold">function</span> delegate(...targets: <span style="color:#000080;font-weight:bold">Array</span>&lt;<span style="color:#000080;font-weight:bold">DelegatParams</span>&gt;): <span style="color:#000080;font-weight:bold">any</span> {
-  <span style="color:#000080;font-weight:bold">return</span> targets.reduceRight((prev, cur) =&gt; {
-    <span style="color:#000080;font-weight:bold">return</span> _delegate(prev, cur);
-  }, Object <span style="color:#000080;font-weight:bold">as</span> Ctor&lt;<span style="color:#000080;font-weight:bold">any</span>&gt;);
+<span style=color:navy;font-weight:700>function</span> delegate(...targets: <span style=color:navy;font-weight:700>Array</span>&lt;<span style=color:navy;font-weight:700>DelegatParams</span>&gt;): <span style=color:navy;font-weight:700>any</span> {
+  <span style=color:navy;font-weight:700>return</span> targets.reduceRight((prev, cur) =&gt; {
+    <span style=color:navy;font-weight:700>return</span> _delegate(prev, cur);
+  }, Object <span style=color:navy;font-weight:700>as</span> Ctor&lt;<span style=color:navy;font-weight:700>any</span>&gt;);
 }
 </code></pre></div><p>All this is doing is monkey patching those call-through methods onto the class.
 It&rsquo;ll make more sense when we see it in action,</p>
-<h2 id="easy-delegation">Easy delegation</h2>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#000080;font-weight:bold">const</span> Delegators: <span style="color:#000080;font-weight:bold">Ctor</span>&lt;<span style="color:#000080;font-weight:bold">IPrinter</span>&gt; &amp; Ctor&lt;<span style="color:#000080;font-weight:bold">IScanner</span>&gt; = delegate(
-  { to: <span style="color:#00f">&#39;_printer&#39;</span>, methods: [<span style="color:#00f">&#39;print&#39;</span>] <span style="color:#000080;font-weight:bold">as</span> Array&lt;<span style="color:#000080;font-weight:bold">keyof</span> <span style="color:#f00">IPrinter</span>&gt; },
-  { to: <span style="color:#00f">&#39;_scanner&#39;</span>, methods: [<span style="color:#00f">&#39;scan&#39;</span>] <span style="color:#000080;font-weight:bold">as</span> Array&lt;<span style="color:#000080;font-weight:bold">keyof</span> <span style="color:#f00">IScanner</span>&gt; },
+<h2 id=easy-delegation>Easy delegation</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:navy;font-weight:700>const</span> Delegators: <span style=color:navy;font-weight:700>Ctor</span>&lt;<span style=color:navy;font-weight:700>IPrinter</span>&gt; &amp; Ctor&lt;<span style=color:navy;font-weight:700>IScanner</span>&gt; = delegate(
+  { to: <span style=color:#00f>&#39;_printer&#39;</span>, methods: [<span style=color:#00f>&#39;print&#39;</span>] <span style=color:navy;font-weight:700>as</span> Array&lt;<span style=color:navy;font-weight:700>keyof</span> <span style=color:red>IPrinter</span>&gt; },
+  { to: <span style=color:#00f>&#39;_scanner&#39;</span>, methods: [<span style=color:#00f>&#39;scan&#39;</span>] <span style=color:navy;font-weight:700>as</span> Array&lt;<span style=color:navy;font-weight:700>keyof</span> <span style=color:red>IScanner</span>&gt; },
 );
 
-<span style="color:#000080;font-weight:bold">class</span> ZeroxModelTwo <span style="color:#000080;font-weight:bold">extends</span> Delegators {
-  <span style="color:#000080;font-weight:bold">private</span> _scanner: <span style="color:#000080;font-weight:bold">IScanner</span> = <span style="color:#000080;font-weight:bold">new</span> ColorScanner();
-  <span style="color:#000080;font-weight:bold">private</span> _printer: <span style="color:#000080;font-weight:bold">IPrinter</span> = <span style="color:#000080;font-weight:bold">new</span> InkjetPrinter();
+<span style=color:navy;font-weight:700>class</span> ZeroxModelTwo <span style=color:navy;font-weight:700>extends</span> Delegators {
+  <span style=color:navy;font-weight:700>private</span> _scanner: <span style=color:navy;font-weight:700>IScanner</span> = <span style=color:navy;font-weight:700>new</span> ColorScanner();
+  <span style=color:navy;font-weight:700>private</span> _printer: <span style=color:navy;font-weight:700>IPrinter</span> = <span style=color:navy;font-weight:700>new</span> InkjetPrinter();
 }
 
-<span style="color:#000080;font-weight:bold">const</span> p2 = <span style="color:#000080;font-weight:bold">new</span> ZeroxModelTwo();
-console.log(<span style="color:#00f">&#39;p2 scan: &#39;</span>, p2.scan());
-console.log(<span style="color:#00f">&#39;p2 print: &#39;</span>, p2.print(<span style="color:#00f">&#39;hello world&#39;</span>));
+<span style=color:navy;font-weight:700>const</span> p2 = <span style=color:navy;font-weight:700>new</span> ZeroxModelTwo();
+console.log(<span style=color:#00f>&#39;p2 scan: &#39;</span>, p2.scan());
+console.log(<span style=color:#00f>&#39;p2 print: &#39;</span>, p2.print(<span style=color:#00f>&#39;hello world&#39;</span>));
 </code></pre></div><p>This too outputs the same stuff as first version,</p>
-<pre tabindex="0"><code>p1 scan:  scanned at Sat Aug 22 2020 13:36:28 GMT-0400 (Eastern Daylight Time)
+<pre tabindex=0><code>p1 scan:  scanned at Sat Aug 22 2020 13:36:28 GMT-0400 (Eastern Daylight Time)
 p1 print:  true
-</code></pre><h2 id="type-checking-and-future-work">Type checking and future work</h2>
+</code></pre><h2 id=type-checking-and-future-work>Type checking and future work</h2>
 <p>With TypeScript you do get a bit more type safety than JavaScript in this
 context, but it&rsquo;s not bulletproof.</p>
 <p>We can ensure the final class&rsquo;s interface looks correct by specifying the type
-of <code>Delegators</code> using the TypeScript interaction type operator <code>&amp;</code>,</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#000080;font-weight:bold">const</span> Delegators: <span style="color:#000080;font-weight:bold">Ctor</span>&lt;<span style="color:#000080;font-weight:bold">IPrinter</span>&gt; &amp; Ctor&lt;<span style="color:#000080;font-weight:bold">IScanner</span>&gt; = delegate(
+of <code>Delegators</code> using the TypeScript interaction type operator <code>&</code>,</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts><span style=color:navy;font-weight:700>const</span> Delegators: <span style=color:navy;font-weight:700>Ctor</span>&lt;<span style=color:navy;font-weight:700>IPrinter</span>&gt; &amp; Ctor&lt;<span style=color:navy;font-weight:700>IScanner</span>&gt; = delegate(
 </code></pre></div><p>This means any instance of <code>ZeroxModelTwo</code> class which extends <code>Delegators</code> will
 show that it implements <code>IPrinter</code> and <code>IScanner</code>. Keeps the programmers, IDE and
 compiler happy.</p>
 <p>We&rsquo;re able to prevent mistakes from occurring in the <code>delegate</code> call, when
 specifying the <code>methods</code> list using <code>keyof</code>,</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts">{ ..., methods: [<span style="color:#00f">&#39;print&#39;</span>] <span style="color:#000080;font-weight:bold">as</span> Array&lt;<span style="color:#000080;font-weight:bold">keyof</span> <span style="color:#f00">IPrinter</span>&gt; },
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ts data-lang=ts>{ ..., methods: [<span style=color:#00f>&#39;print&#39;</span>] <span style=color:navy;font-weight:700>as</span> Array&lt;<span style=color:navy;font-weight:700>keyof</span> <span style=color:red>IPrinter</span>&gt; },
 </code></pre></div><p>This will catch any typos and ensure we only try to delegate to things that
 exist on that interface. But unfortunately, in the current setup, this will only
 check to see we&rsquo;ve got all the methods required by the interface and any
@@ -187,72 +164,44 @@ the class with the private property; Turns into a chicken and egg problem.</p>
 <p>So obviously there&rsquo;s a bit of room for improvement here. Currently this is the
 most type safe implementation I&rsquo;ve thought of so far, but perhaps things will
 improve in the future.</p>
-<h2 id="delegation-of-properties">Delegation of properties?</h2>
-<p>Delegating properties is certainly doable, using a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> would help a
+<h2 id=delegation-of-properties>Delegation of properties?</h2>
+<p>Delegating properties is certainly doable, using a <a href=https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy>Proxy</a> would help a
 lot, but without it things get a bit tricker. I wanted to achieve the method
 delegation without a Proxy, so I didn&rsquo;t go down the Proxy route for enabling
 property delegation.</p>
 <p>Using Proxy to delegate the methods and properties is left as an exercise for
 the reader.</p>
-<h2 id="see-also">See also</h2>
+<h2 id=see-also>See also</h2>
 <ul>
-<li><a href="https://github.com/reasonink/property-tunnel">property-tunnel</a></li>
+<li><a href=https://github.com/reasonink/property-tunnel>property-tunnel</a></li>
 </ul>
-
-        </div>
-
-        
-        
-        <div class="article-toc" >
-            <h3>Contents</h3>
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#manually-setting-up-delegation">Manually setting up delegation</a></li>
-    <li><a href="#delegation-helper-applying-some-metaprogramming-to-remove-the-boilerplate">Delegation helper: applying some metaprogramming to remove the boilerplate</a></li>
-    <li><a href="#easy-delegation">Easy delegation</a></li>
-    <li><a href="#type-checking-and-future-work">Type checking and future work</a></li>
-    <li><a href="#delegation-of-properties">Delegation of properties?</a></li>
-    <li><a href="#see-also">See also</a></li>
-  </ul>
+</div>
+<div class=article-toc>
+<h3>Contents</h3>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#manually-setting-up-delegation>Manually setting up delegation</a></li>
+<li><a href=#delegation-helper-applying-some-metaprogramming-to-remove-the-boilerplate>Delegation helper: applying some metaprogramming to remove the boilerplate</a></li>
+<li><a href=#easy-delegation>Easy delegation</a></li>
+<li><a href=#type-checking-and-future-work>Type checking and future work</a></li>
+<li><a href=#delegation-of-properties>Delegation of properties?</a></li>
+<li><a href=#see-also>See also</a></li>
+</ul>
 </nav>
-        </div>
-        
-        
-
-        
-
-
-        
-    </div>
-    
-
+</div>
+</div>
 </article>
-
-        
-    </section>
-    <footer id="footer">
-    <div class="outer">
-        <div id="footer-info" class="inner">
-            &copy; 2021 francium
-            <br />
-            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
-        </div>
-    </div>
-    
-
-    
-    <script>
-        document.getElementById('main-nav-toggle').addEventListener('click', function () {
-            var header = document.getElementById('header');
-            if (header.classList.contains('mobile-on')) {
-                header.classList.remove('mobile-on');
-            } else {
-                header.classList.add('mobile-on');
-            }
-        });
-    </script>
+</section>
+<footer id=footer>
+<div class=outer>
+<div id=footer-info class=inner>
+&copy; 2021 francium
+<br>
+Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a>
+</div>
+</div>
+<script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var a=document.getElementById('header');a.classList.contains('mobile-on')?a.classList.remove('mobile-on'):a.classList.add('mobile-on')})</script>
 </footer>
-
 </div>
 </body>
 </html>

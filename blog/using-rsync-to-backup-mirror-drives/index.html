@@ -1,91 +1,67 @@
-<!DOCTYPE html>
-<html>
+<!doctype html><html>
 <head>
-    <title>Using Rsync to efficiently backup (mirror) hard drives // francium</title>
-
-    <meta charset="utf-8">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-    
-    
-    
-
-        <meta property="og:title" content="Using Rsync to efficiently backup (mirror) hard drives" />
-    <meta property="og:description" content="" />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content="en" />
-    <meta property="og:url" content="/blog/using-rsync-to-backup-mirror-drives/" />
-    
-
-    <link rel="shortcut icon" href="/favicon.ico">
-
-    <link href="/webfonts/ptserif/main.css" rel='stylesheet' type='text/css'>
-    <link href="/webfonts/source-code-pro/main.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/main.css">
-
-    <meta name="generator" content="Hugo 0.89.3" />
+<title>Using Rsync to efficiently backup (mirror) hard drives // francium</title>
+<meta charset=utf-8>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta property="og:title" content="Using Rsync to efficiently backup (mirror) hard drives">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="/blog/using-rsync-to-backup-mirror-drives/">
+<link rel="shortcut icon" href=/favicon.ico>
+<link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css>
+<link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/style.css>
+<link rel=stylesheet href=/css/main.css>
+<meta name=generator content="Hugo 0.89.3">
 </head>
-
-
 <body>
-<div id="container">
-    <header id="header">
-    <div id="header-outer" class="outer">
-        <div id="header-inner" class="inner">
-            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
-            <a id="logo" class="logo-text" href="/">francium</a>
-            <nav id="main-nav">
-                
-                <a class="main-nav-link" href="/about/">About</a>
-                
-                <a class="main-nav-link" href="/projects/">Projects</a>
-                
-                <a class="main-nav-link" href="/til/">TIL</a>
-                
-            </nav>
-            <nav id="sub-nav">
-                <div id="search-form-wrap">
-                </div>
-            </nav>
-        </div>
-    </div>
+<div id=container>
+<header id=header>
+<div id=header-outer class=outer>
+<div id=header-inner class=inner>
+<a id=main-nav-toggle class=nav-icon href=javascript:;></a>
+<a id=logo class=logo-text href=/>francium</a>
+<nav id=main-nav>
+<a class=main-nav-link href=/about/>About</a>
+<a class=main-nav-link href=/projects/>Projects</a>
+<a class=main-nav-link href=/til/>TIL</a>
+</nav>
+<nav id=sub-nav>
+<div id=search-form-wrap>
+</div>
+</nav>
+</div>
+</div>
 </header>
-
-    <section id="main" class="outer">
-        <article class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        <header class="article-header">
-            <h1 class="article-title" itemprop="name">Using Rsync to efficiently backup (mirror) hard drives</h1>
-        </header>
-        
-        <div class="article-meta">
-            <a href="/blog/using-rsync-to-backup-mirror-drives/" class="article-date">
-                <time datetime='2017-12-26T00:00:00.000&#43;00:00' itemprop="datePublished">2017-12-26</time>
-            </a>
-            
-            
-            
-        </div>
-        <div class="article-entry" itemprop="articleBody">
-            <!-- raw HTML omitted -->
-<h2 id="background">Background</h2>
+<section id=main class=outer>
+<article class="article article-type-post" itemscope itemprop=blogPost>
+<div class=article-inner>
+<header class=article-header>
+<h1 class=article-title itemprop=name>Using Rsync to efficiently backup (mirror) hard drives</h1>
+</header>
+<div class=article-meta>
+<a href=/blog/using-rsync-to-backup-mirror-drives/ class=article-date>
+<time datetime=2017-12-26T00:00:00.000+00:00 itemprop=datePublished>2017-12-26</time>
+</a>
+</div>
+<div class=article-entry itemprop=articleBody>
+<h2 id=background>Background</h2>
 <p>I have a Raspberry Pi setup with an external hard drive that is accessible over Samba.
 It&rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive
 hooked up to the same Raspberry Pi.</p>
 <p>I found a simple solution to this problem using Rsync and Systemd timers (as opposed to
 installing Cron and learning Cron, but if you wish, you can substitute Systemd with
 Cron).</p>
-<h2 id="setup">Setup</h2>
+<h2 id=setup>Setup</h2>
 <p>My preconditions were: 2 external hard drives, <code>systemd</code> and <code>rsync</code>.</p>
 <p>There is a master drive and a slave drive (one that is a mirrored backup of the master).
 Only the master is accessible over samba and the slave is not exposed except by ssh-ing
 into the Pi itself.</p>
 <p>I&rsquo;ve labeled the two disks so I can identify them by looking at <code>/dev/disk/by-label/</code>.
 The labeling can be done when you format them and create a filesystem or using the
-<code>e2label</code> command as described in <a href="https://www.cyberciti.biz/faq/linux-modify-partition-labels-command-to-change-diskname/">this nixCraft article</a>.</p>
+<code>e2label</code> command as described in <a href=https://www.cyberciti.biz/faq/linux-modify-partition-labels-command-to-change-diskname/>this nixCraft article</a>.</p>
 <p>So ensure the two disks are automatically mounted in a known location, I&rsquo;ve added these
 two lines to my <code>/etc/fstab</code> config:</p>
 <pre><code># &lt;file system&gt;  &lt;dir&gt;  &lt;type&gt;  &lt;options&gt;  &lt;dump&gt;  &lt;pass&gt;
@@ -98,20 +74,20 @@ two lines to my <code>/etc/fstab</code> config:</p>
 <p>Systemd timers are composed of two files, a service for performing some task, and a timer
 for specifying when the service should execute. The service file will point to a bash
 script that will call rsync to perform the actual task of mirroring the two drives.</p>
-<h3 id="mirroring-script">Mirroring Script</h3>
+<h3 id=mirroring-script>Mirroring Script</h3>
 <p>I&rsquo;ve saved this file as <code>/usr/local/bin/drive-mirroring</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#008080">#!/bin/bash
-</span><span style="color:#008080"></span>
-echo <span style="color:#00f">&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=color:teal>#!/bin/bash
+</span><span style=color:teal></span>
+echo <span style=color:#00f>&#34;########### Drive mirroring starting at `date` ###########&#34;</span>
 
 SOURCE=/media/user_name/Master/
 DEST=/media/user_name/Slave/mirror
 
-rsync -ahvAE --delete --stats $SOURCE $DEST 2&gt;&amp;<span style="color:#00f">1</span> | tee /var/log/drive-mirroring.log
+rsync -ahvAE --delete --stats $SOURCE $DEST 2&gt;&amp;<span style=color:#00f>1</span> | tee /var/log/drive-mirroring.log
 
-echo <span style="color:#00f">&#34;########### Drive mirroring completed at `date` ###########&#34;</span>
+echo <span style=color:#00f>&#34;########### Drive mirroring completed at `date` ###########&#34;</span>
 </code></pre></div><p>Note that we&rsquo;ve used the <code>tee</code> command to pipe the output (stdout and stderr as per the
-<code>2&gt;&amp;1</code>) of rsync to two places &ndash; stdout and the file <code>/var/log/drive-mirroring.log</code>. The
+<code>2>&1</code>) of rsync to two places &ndash; stdout and the file <code>/var/log/drive-mirroring.log</code>. The
 stdout in the context of this setup will be systemd&rsquo;s journal (systemd&rsquo;s logs) since
 we&rsquo;ll be calling this bash script from within a systemd service.</p>
 <p>Also note that the file we&rsquo;re outputting to will be overwritten each time this script is
@@ -131,8 +107,8 @@ deleted files in backup</li>
 <li><code>stats</code> &ndash; Give some file-transfer stats</li>
 </ul>
 <p>Rsync is a program that efficiently transfers data between two sources. When I say
-efficiently&hellip; well look at how well it handles hundreds of gigs:</p>
-<pre tabindex="0"><code>Dec 25 00:00:48 RPi systemd[1]: Started Drive sync.
+efficiently&mldr; well look at how well it handles hundreds of gigs:</p>
+<pre tabindex=0><code>Dec 25 00:00:48 RPi systemd[1]: Started Drive sync.
 Dec 25 00:00:48 RPi drive-mirroring[1019]: ########### Drive mirroring starting at Mon Dec 25 00:00:48 UTC 2017 ###########
 Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of files: 79,953 (reg: 65,687, dir: 10,729, link: 3,504, dev: 33)
 Dec 25 00:01:40 RPi drive-mirroring[1019]: Number of created files: 14 (reg: 13, dir: 1)
@@ -152,91 +128,63 @@ Dec 25 00:01:40 RPi drive-mirroring[1019]: total size is 458.53G  speedup is 12,
 Dec 25 00:01:40 RPi drive-mirroring[1019]: ########### Drive mirroring completed at Mon Dec 25 00:01:40 UTC 2017 ###########
 </code></pre><p>Of course the first transfer will not be nearly this fast, but all subsequent transfers
 will only need to transfer the changes since last transfer.</p>
-<h3 id="systemd-scripts">Systemd Scripts</h3>
+<h3 id=systemd-scripts>Systemd Scripts</h3>
 <p>Save this file as <code>/etc/systemd/system/drive-mirroring.service</code>:</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini">
-<span style="color:#000080;font-weight:bold">[Unit]</span>
-<span style="color:#f00">Description</span>=<span style="color:#00f">Drive sync</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini>
+<span style=color:navy;font-weight:700>[Unit]</span>
+<span style=color:red>Description</span>=<span style=color:#00f>Drive sync</span>
 
-<span style="color:#000080;font-weight:bold">[Service]</span>
-<span style="color:#f00">Type</span>=<span style="color:#00f">simple</span>
-<span style="color:#f00">ExecStart</span>=<span style="color:#00f">/usr/local/bin/drive-mirroring</span>
+<span style=color:navy;font-weight:700>[Service]</span>
+<span style=color:red>Type</span>=<span style=color:#00f>simple</span>
+<span style=color:red>ExecStart</span>=<span style=color:#00f>/usr/local/bin/drive-mirroring</span>
 </code></pre></div><p>And finally the timer is saved as <code>/etc/systemd/system/drive-mirroring.timer</code></p>
-<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#000080;font-weight:bold">[Unit]</span>
-<span style="color:#f00">Description</span>=<span style="color:#00f">Drive sync</span>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-ini data-lang=ini><span style=color:navy;font-weight:700>[Unit]</span>
+<span style=color:red>Description</span>=<span style=color:#00f>Drive sync</span>
 
-<span style="color:#000080;font-weight:bold">[Timer]</span>
-<span style="color:#f00">OnCalendar</span>=<span style="color:#00f">weekly</span>
-<span style="color:#f00">Persistent</span>=<span style="color:#00f">true</span>
+<span style=color:navy;font-weight:700>[Timer]</span>
+<span style=color:red>OnCalendar</span>=<span style=color:#00f>weekly</span>
+<span style=color:red>Persistent</span>=<span style=color:#00f>true</span>
 
-<span style="color:#000080;font-weight:bold">[Install]</span>
-<span style="color:#f00">WantedBy</span>=<span style="color:#00f">timers.target</span>
+<span style=color:navy;font-weight:700>[Install]</span>
+<span style=color:red>WantedBy</span>=<span style=color:#00f>timers.target</span>
 </code></pre></div><p>You can have a look at systemd timers to customize the frequency of the sync. I&rsquo;ve set it
 to sync weekly (which defaults to Mondays at 12AM).</p>
 <p>For systemd to actually run the <code>drive-mirroring.timer</code>, it must first be enabled or
 started (enabling will ensure it gets started after a reboot whereas a starting will not
 cause it to be automatically started across reboots).</p>
-<pre tabindex="0"><code>$ systemctl enable drive-mirroring.timer  # or replace `enable` with `start`
+<pre tabindex=0><code>$ systemctl enable drive-mirroring.timer  # or replace `enable` with `start`
 </code></pre><p>You can get information about the systemd timer or service using <code>systemctl drive-mirroring.service</code> (hint &ndash; the .service can be omitted, but anything else like a
 .timer must be explicit).</p>
 <p>And you can view the systemd logs for a particular service using <code>journalctl -u drive-mirroring.service</code>. We&rsquo;ve also piped the output of rsync to
 <code>/var/log/drive-mirroring.log</code> so the output of rsync can also be accessed there.</p>
-
-        </div>
-
-        
-        
-        <div class="article-toc" >
-            <h3>Contents</h3>
-            <nav id="TableOfContents">
-  <ul>
-    <li><a href="#background">Background</a></li>
-    <li><a href="#setup">Setup</a>
-      <ul>
-        <li><a href="#mirroring-script">Mirroring Script</a></li>
-        <li><a href="#systemd-scripts">Systemd Scripts</a></li>
-      </ul>
-    </li>
-  </ul>
+</div>
+<div class=article-toc>
+<h3>Contents</h3>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#background>Background</a></li>
+<li><a href=#setup>Setup</a>
+<ul>
+<li><a href=#mirroring-script>Mirroring Script</a></li>
+<li><a href=#systemd-scripts>Systemd Scripts</a></li>
+</ul>
+</li>
+</ul>
 </nav>
-        </div>
-        
-        
-
-        
-
-
-        
-    </div>
-    
-
+</div>
+</div>
 </article>
-
-        
-    </section>
-    <footer id="footer">
-    <div class="outer">
-        <div id="footer-info" class="inner">
-            &copy; 2021 francium
-            <br />
-            Powered by <a href="https://gohugo.io" target="_blank">Hugo</a> with theme <a href="https://github.com/carsonip/hugo-theme-minos" target="_blank">Minos</a>
-        </div>
-    </div>
-    
-
-    
-    <script>
-        document.getElementById('main-nav-toggle').addEventListener('click', function () {
-            var header = document.getElementById('header');
-            if (header.classList.contains('mobile-on')) {
-                header.classList.remove('mobile-on');
-            } else {
-                header.classList.add('mobile-on');
-            }
-        });
-    </script>
+</section>
+<footer id=footer>
+<div class=outer>
+<div id=footer-info class=inner>
+&copy; 2021 francium
+<br>
+Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a>
+</div>
+</div>
+<script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var a=document.getElementById('header');a.classList.contains('mobile-on')?a.classList.remove('mobile-on'):a.classList.add('mobile-on')})</script>
 </footer>
-
 </div>
 </body>
 </html>
