@@ -97,15 +97,20 @@ function. For example <code>sum 1 2 |> triple</code> is equivalent to <code>trip
 to do. Whereas in the bash example we had to wrap the <code>grep</code> and <code>awk</code> in a
 subshell <code>$(...)</code>.</p>
 <h3 id=enter-the-fun-pipe-1>Enter the fun-pipe (1)</h3>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span> |: vim _
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span> |:: vim _
 </code></pre></div><p>Elegance.</p>
 <p>The <code>_</code> stands in for the stdout of the precious stage of the pipeline.</p>
-<p>Note that <code>|:</code> isn&rsquo;t actually a single &lsquo;operator&rsquo;.
-It&rsquo;s in fact the standard Bash pipe, <code>|</code>, and our new fun-pipe alias, <code>:</code>, just
+<p>Note that <code>|::</code> isn&rsquo;t actually a single &lsquo;operator&rsquo;.
+It&rsquo;s in fact the standard Bash pipe, <code>|</code>, and our new fun-pipe alias, <code>::</code>, just
 without a space between.</p>
 <p>We can define the fun-pipe as,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>alias :=<span style=color:#00f>&#39;xargs -i_ --&#39;</span>
-</code></pre></div><h2 id=notes>Notes</h2>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>alias ::=<span style=color:#00f>&#39;xargs -i_ --&#39;</span>
+</code></pre></div><p>Originally I had defined this as just <code>:</code>, but I noticed some issues with bash
+completion as <code>:</code> is actually an existing Bash builtin operator. I would&rsquo;ve
+liked to define it as <code>></code> so <code>|></code> could be realized, similar to F# and Elm, but
+<code>></code> is another bash builtin and Bash complains if you try to define an alias
+with it.</p>
+<h2 id=notes>Notes</h2>
 <p>(1): <code>fpipe</code> was the first name I thought of, but doing a quick search shows
 there is actually already a <code>fpipe</code> project that does something somewhat similar
 &ndash; <a href=https://github.com/alexmaco/fpipe>alexmaco/fpipe</a>.</p>
