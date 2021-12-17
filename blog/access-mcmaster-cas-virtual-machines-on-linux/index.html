@@ -14,7 +14,7 @@
 <link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
 <link rel=stylesheet href=/css/style.css>
 <link rel=stylesheet href=/css/main.css>
-<meta name=generator content="Hugo 0.89.3">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body>
 <div id=container>
@@ -47,6 +47,10 @@
 </a>
 </div>
 <div class=article-entry itemprop=articleBody>
+<div class=note>
+There is a web client available, but still requires a connect to the VPN. See
+CAS wiki<a href="#ref 1">[ref 1]</a> for more information.
+</div>
 <h2 id=using-openconnect>Using <code>openconnect</code></h2>
 <p>Install openconenct</p>
 <p><code>openconnect sslvpn.mcmaster.ca</code>
@@ -89,7 +93,7 @@ about connecting to the virtual desktop</p>
 <hr>
 <h1 id=notes>Notes</h1>
 <ol>
-<li><code>libudev.so.0</code> is required for the Horizon client, but
+<li><a name="notes 1"></a><code>libudev.so.0</code> is required for the Horizon client, but
 it appears that it is no longer available in the main repositories. Instead, for the
 purposes of accessing the CAS Virtual Machines, symbolic linking <code>libudev.so.1</code> to
 <code>libudev.so.0</code> works. [[ref 2]](#ref 2)</li>
@@ -97,13 +101,13 @@ purposes of accessing the CAS Virtual Machines, symbolic linking <code>libudev.s
 <h1 id=references>References</h1>
 <ol>
 <li>
-<p><a href=http://www.cas.mcmaster.ca/support/index.php/Virtual_Desktop>CAS Virtual Desktop wiki page</a></p>
+<p><a name="ref 1"></a><a href=http://www.cas.mcmaster.ca/support/index.php/Virtual_Desktop>CAS Virtual Desktop wiki page</a></p>
 </li>
 <li>
-<p><a href=http://askubuntu.com/a/288822>Ask Ubuntu answer regarding libudev.so.0</a></p>
+<p><a name="ref 2"></a><a href=http://askubuntu.com/a/288822>Ask Ubuntu answer regarding libudev.so.0</a></p>
 </li>
 <li>
-<p><a href=http://www.mcmaster.ca/uts/network/vpn/>McMaster UTS VPN page</a></p>
+<p><a name="ref 3"></a><a href=http://www.mcmaster.ca/uts/network/vpn/>McMaster UTS VPN page</a></p>
 </li>
 </ol>
 </div>

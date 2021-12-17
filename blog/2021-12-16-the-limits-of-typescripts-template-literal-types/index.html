@@ -1,0 +1,115 @@
+<!doctype html><html>
+<head>
+<title>The limits of TypeScript's Template Literal types // francium</title>
+<meta charset=utf-8>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta property="og:title" content="The limits of TypeScript's Template Literal types">
+<meta property="og:description" content>
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en">
+<meta property="og:url" content="/blog/2021-12-16-the-limits-of-typescripts-template-literal-types/">
+<link rel="shortcut icon" href=/favicon.ico>
+<link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css>
+<link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
+<link rel=stylesheet href=/css/style.css>
+<link rel=stylesheet href=/css/main.css>
+<meta name=generator content="Hugo 0.89.4">
+</head>
+<body>
+<div id=container>
+<header id=header>
+<div id=header-outer class=outer>
+<div id=header-inner class=inner>
+<a id=main-nav-toggle class=nav-icon href=javascript:;></a>
+<a id=logo class=logo-text href=/>francium</a>
+<nav id=main-nav>
+<a class=main-nav-link href=/about/>About</a>
+<a class=main-nav-link href=/projects/>Projects</a>
+<a class=main-nav-link href=/til/>TIL</a>
+</nav>
+<nav id=sub-nav>
+<div id=search-form-wrap>
+</div>
+</nav>
+</div>
+</div>
+</header>
+<section id=main class=outer>
+<article class="article article-type-post" itemscope itemprop=blogPost>
+<div class=article-inner>
+<header class=article-header>
+<h1 class=article-title itemprop=name>The limits of TypeScript's Template Literal types</h1>
+</header>
+<div class=article-meta>
+<a href=/blog/2021-12-16-the-limits-of-typescripts-template-literal-types/ class=article-date>
+<time datetime=2021-12-16T12:00:00.000-04:00 itemprop=datePublished>2021-12-16</time>
+</a>
+</div>
+<div class=article-entry itemprop=articleBody>
+<p class=info-box>
+🛈 The code was tested against TypeScript 4.5.4 only. Other versions may have
+different errors or behavior.
+</p>
+<h2 id=template-literal-types>Template Literal Types</h2>
+<p>Template literal types allow you to do things like,</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript>type World = <span style=color:#00f>&#34;world&#34;</span>;
+type Greeting = <span style=color:#00f>`hello </span><span style=color:#00f>${</span>World<span style=color:#00f>}</span><span style=color:#00f>`</span>;
+</code></pre></div><p>Here <code>Greeting</code> is equivalent to the type <code>"hello world"</code>.</p>
+<p class=info-box>
+🛈 The <code>Range&lt;a, b></code> type being used below is from
+<a href=https://stackoverflow.com/a/70307091/2138219>Guillaume Mastio's Stackoverflow answer</a>.
+</p>
+<p>You can also use union types in template literals, allowing you to succinctly
+define huge unions,</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript>type YYYY = <span style=color:#00f>`20</span><span style=color:#00f>${</span>Range&lt;<span style=color:#00f>0</span>, <span style=color:#00f>10</span>&gt;<span style=color:#00f>}${</span>Range&lt;<span style=color:#00f>0</span>, <span style=color:#00f>10</span>&gt;<span style=color:#00f>}</span><span style=color:#00f>`</span>;
+</code></pre></div><p>Here <code>YYYY</code> is equivalent to the following union,</p>
+<pre tabindex=0><code>&quot;2000&quot; | &quot;2001&quot; | /* ... */ | &quot;2098&quot; | &quot;2099&quot;
+</code></pre><p>And combinatorial explosions occur when you do something like,</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript>type YYYY = <span style=color:#00f>`20</span><span style=color:#00f>${</span>Range&lt;<span style=color:#00f>0</span>, <span style=color:#00f>10</span>&gt;<span style=color:#00f>}${</span>Range&lt;<span style=color:#00f>0</span>, <span style=color:#00f>10</span>&gt;<span style=color:#00f>}</span><span style=color:#00f>`</span>
+type MM = <span style=color:#00f>`0</span><span style=color:#00f>${</span>Range&lt;<span style=color:#00f>1</span>, <span style=color:#00f>10</span>&gt;<span style=color:#00f>}</span><span style=color:#00f>`</span> | <span style=color:#00f>`</span><span style=color:#00f>${</span>Range&lt;<span style=color:#00f>11</span>, <span style=color:#00f>13</span>&gt;<span style=color:#00f>}</span><span style=color:#00f>`</span>
+type DD = <span style=color:#00f>`0</span><span style=color:#00f>${</span>Range&lt;<span style=color:#00f>1</span>, <span style=color:#00f>10</span>&gt;<span style=color:#00f>}</span><span style=color:#00f>`</span> | <span style=color:#00f>`</span><span style=color:#00f>${</span>Range&lt;<span style=color:#00f>11</span>, <span style=color:#00f>32</span>&gt;<span style=color:#00f>}</span><span style=color:#00f>`</span>
+type IsoDate = <span style=color:#00f>`</span><span style=color:#00f>${</span>YYYY<span style=color:#00f>}</span><span style=color:#00f>-</span><span style=color:#00f>${</span>MM<span style=color:#00f>}</span><span style=color:#00f>-</span><span style=color:#00f>${</span>DD<span style=color:#00f>}</span><span style=color:#00f>`</span>
+</code></pre></div><p><code>IsoDate</code> is a huge union containing <code>100 * 12 * 31 = 37200</code> strings.</p>
+<h2 id=limits>Limits</h2>
+<p>We can start to see limits of the TypeScript type checker if we push things a
+bit further.</p>
+<p>First, consider a simple range of numbers,</p>
+<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript>type T999 = Range&lt;<span style=color:#00f>0</span>, <span style=color:#00f>999</span>&gt;
+type T1000 = Range&lt;<span style=color:#00f>0</span>, <span style=color:#00f>1000</span>&gt;
+</code></pre></div><p>Here <code>T999</code> is a perfectly valid type. But <code>T1000</code> is invalid,</p>
+<pre tabindex=0><code>[tsserver 2589] [E] Type instantiation is excessively deep and possibly infinite.
+</code></pre><p>So the limit for the recursively defined <code>Range</code> type is 1000.</p>
+<p>If we look at the template literal type, we can see it hits a limit too,</p>
+<pre tabindex=0><code>type T316 = `${Range&lt;0, 316&gt;}-${Range&lt;0, 316&gt;}`
+type T317 = `${Range&lt;0, 316&gt;}-${Range&lt;0, 317&gt;}`
+</code></pre><p>Here <code>T316</code> (<code>316 === Math.foor(Math.sqrt(100_000))</code>) is a valid type with just
+under 100k items. If we go above 100k with <code>T317</code>, we hit a limit,</p>
+<pre tabindex=0><code>[tsserver 2590] [E] Expression produces a union type that is too complex to represent.
+</code></pre>
+</div>
+<div class=article-toc>
+<h3>Contents</h3>
+<nav id=TableOfContents>
+<ul>
+<li><a href=#template-literal-types>Template Literal Types</a></li>
+<li><a href=#limits>Limits</a></li>
+</ul>
+</nav>
+</div>
+</div>
+</article>
+</section>
+<footer id=footer>
+<div class=outer>
+<div id=footer-info class=inner>
+&copy; 2021 francium
+<br>
+Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a>
+</div>
+</div>
+<script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var a=document.getElementById('header');a.classList.contains('mobile-on')?a.classList.remove('mobile-on'):a.classList.add('mobile-on')})</script>
+</footer>
+</div>
+</body>
+</html>

@@ -15,7 +15,7 @@
 <link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
 <link rel=stylesheet href=/css/style.css>
 <link rel=stylesheet href=/css/main.css>
-<meta name=generator content="Hugo 0.89.3">
+<meta name=generator content="Hugo 0.89.4">
 </head>
 <body>
 <div id=container>
@@ -37,6 +37,26 @@
 </div>
 </header>
 <section id=main class=outer>
+<article class="article article-type-post" itemscope itemprop=blogPost>
+<div class=article-inner>
+<header class=article-header>
+<h1 itemprop=name><a class=article-title href=/blog/2021-12-16-the-limits-of-typescripts-template-literal-types/>The limits of TypeScript's Template Literal types</a></h1>
+</header>
+<div class=article-meta>
+<a href=/blog/2021-12-16-the-limits-of-typescripts-template-literal-types/ class=article-date>
+<time datetime=2021-12-16T12:00:00.000-04:00 itemprop=datePublished>2021-12-16</time>
+</a>
+</div>
+<div class=article-entry itemprop=articleBody>
+<p>
+How far can you push TypeScript&rsquo;s Template Literal types?
+</p>
+<p class=article-more-link>
+<a href=/blog/2021-12-16-the-limits-of-typescripts-template-literal-types/>Read More</a>
+</p>
+</div>
+</div>
+</article>
 <article class="article article-type-post" itemscope itemprop=blogPost>
 <div class=article-inner>
 <header class=article-header>
@@ -238,7 +258,7 @@ Elm incorporates some of the advances from the last 40 years of programming desi
 </div>
 <div class=article-entry itemprop=articleBody>
 <p>
-Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
+The concepts discussed here are not Raspberry Pi specific and can easily be adapted for other uses. Background I have a Raspberry Pi setup with an external hard drive that is accessible over Samba. It&rsquo;s be quite reliable so far, but I wanted to backup the data to another external drive hooked up to the same Raspberry Pi.
 I found a simple solution to this problem using Rsync and Systemd timers (as opposed to installing Cron and learning Cron, but if you wish, you can substitute Systemd with Cron).
 </p>
 <p class=article-more-link>
@@ -259,15 +279,13 @@ I found a simple solution to this problem using Rsync and Systemd timers (as opp
 </div>
 <div class=article-entry itemprop=articleBody>
 <p>
-Using openconnect Install openconenct
+There is a web client available, but still requires a connect to the VPN. See CAS wiki[ref 1] for more information. Using openconnect Install openconenct
 openconnect sslvpn.mcmaster.ca (try with sudo if it fails)
 If nothing failed, you should be connected
 Tested on Xubuntu and Debian (x86_64).
 Download the VPN client for linux, *.tar.gz from https://www.mcmaster.ca/uts/network/vpn/
 Download the VMWare Horizon client, *bundle from https://www.vmware.com/go/viewclients
 cd to the location of both downloads
-Install libudev1 and libpangox-1.0-dev and if it is not already installed
-$ sudo apt-get update && sudo apt-get install libudev1 libpangox-1.0-dev Extract the VPN client
 </p>
 <p class=article-more-link>
 <a href=/blog/access-mcmaster-cas-virtual-machines-on-linux/>Read More</a>
