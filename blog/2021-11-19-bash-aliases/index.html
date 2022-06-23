@@ -1,149 +1,44 @@
-<!doctype html><html>
-<head>
-<title>Mostly useful or: How I learned to stop typing and write a few Bash aliases // francium</title>
-<meta charset=utf-8>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta property="og:title" content="Mostly useful or: How I learned to stop typing and write a few Bash aliases">
-<meta property="og:description" content>
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en">
-<meta property="og:url" content="/blog/2021-11-19-bash-aliases/">
-<link rel="shortcut icon" href=/favicon.ico>
-<link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css>
-<link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
-<link rel=stylesheet href=/css/style.css>
-<link rel=stylesheet href=/css/main.css>
-<meta name=generator content="Hugo 0.89.4">
-</head>
-<body>
-<div id=container>
-<header id=header>
-<div id=header-outer class=outer>
-<div id=header-inner class=inner>
-<a id=main-nav-toggle class=nav-icon href=javascript:;></a>
-<a id=logo class=logo-text href=/>francium</a>
-<nav id=main-nav>
-<a class=main-nav-link href=/about/>About</a>
+<!doctype html><html><head><title>Mostly useful or: How I learned to stop typing and write a few Bash aliases // francium</title><meta charset=utf-8><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property="og:title" content="Mostly useful or: How I learned to stop typing and write a few Bash aliases"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:locale" content="en"><meta property="og:url" content="/blog/2021-11-19-bash-aliases/"><link rel="shortcut icon" href=/favicon.ico><link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/main.css><meta name=generator content="Hugo 0.98.0"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a>
+<a id=logo class=logo-text href=/>francium</a><nav id=main-nav><a class=main-nav-link href=/about/>About</a>
 <a class=main-nav-link href=/projects/>Projects</a>
-<a class=main-nav-link href=/til/>TIL</a>
-</nav>
-<nav id=sub-nav>
-<div id=search-form-wrap>
-</div>
-</nav>
-</div>
-</div>
-</header>
-<section id=main class=outer>
-<article class="article article-type-post" itemscope itemprop=blogPost>
-<div class=article-inner>
-<header class=article-header>
-<h1 class=article-title itemprop=name>Mostly useful or: How I learned to stop typing and write a few Bash aliases</h1>
-</header>
-<div class=article-meta>
-<a href=/blog/2021-11-19-bash-aliases/ class=article-date>
-<time datetime=2021-11-19T12:00:00.000-04:00 itemprop=datePublished>2021-11-19</time>
-</a>
-</div>
-<div class=article-entry itemprop=articleBody>
-<p>A very short list of a few interesting Bash aliases.</p>
-<h2 id=the-vim-quitter>The vim quitter</h2>
-<p>If you use vim, <code>:q</code>/<code>:wq</code> is perhaps muscle memory at this point. You can now
-<code>:q</code>/<code>:wq</code> in bash too,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>alias :q=<span style=color:#00f>&#39;exit&#39;</span>
-alias :wq=<span style=color:#00f>&#39;exit&#39;</span>
-</code></pre></div><p>I think I came across this online a few years ago.</p>
-<h2 id=the-gtk-themer>The GTK themer</h2>
-<p>I use the Adwaita dark theme on Gnome. But some applications have very poor dark
+<a class=main-nav-link href=/til/>TIL</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>Mostly useful or: How I learned to stop typing and write a few Bash aliases</h1></header><div class=article-meta><a href=/blog/2021-11-19-bash-aliases/ class=article-date><time datetime=2021-11-19T12:00:00.000-04:00 itemprop=datePublished>2021-11-19</time></a></div><div class=article-entry itemprop=articleBody><p>A very short list of a few interesting Bash aliases.</p><h2 id=the-vim-quitter>The vim quitter</h2><p>If you use vim, <code>:q</code>/<code>:wq</code> is perhaps muscle memory at this point. You can now
+<code>:q</code>/<code>:wq</code> in bash too,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>alias :q=<span style=color:#00f>&#39;exit&#39;</span>
+</span></span><span style=display:flex><span>alias :wq=<span style=color:#00f>&#39;exit&#39;</span>
+</span></span></code></pre></div><p>I think I came across this online a few years ago.</p><h2 id=the-gtk-themer>The GTK themer</h2><p>I use the Adwaita dark theme on Gnome. But some applications have very poor dark
 theme appearance, such as <code>gitg</code>. So I find myself opening them in light theme.
 You typically do something like this to override the theme on a per application
-basis,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ GTK_THEME=Adwaita:light gitg &amp;
-</code></pre></div><p>But that&rsquo;s kinda hard to remember and I typically don&rsquo;t and instead rely on Bash
-history search, <code>c-r</code>.</p>
-<p>Instead, we can define,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>alias gtk-light=<span style=color:#00f>&#39;GTK_THEME=Adwaita:light&#39;</span>
-</code></pre></div><p>Now,</p>
-<pre tabindex=0><code>$ gtk-light gitg &amp;
-</code></pre><p>works as you&rsquo;d expect and much easier to remember.</p>
-<h2 id=the-fun-pipe>The fun pipe</h2>
-<h3 id=motivation>Motivation</h3>
-<p>To explain this one, perhaps some motivating examples are necessary.</p>
-<p>Suppose a file, <code>data.txt</code>, contains some file path in it,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text>...
-filepath = README.md
-...
-</code></pre></div><p>We can pull out <code>README.md</code> from this file using some basic tools,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span>
-README.md
-</code></pre></div><p>But we can&rsquo;t now open it in <code>vim</code> for example without having to do something
-(inelegant) like,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ vim <span style=color:navy;font-weight:700>$(</span>grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span><span style=color:navy;font-weight:700>)</span>
-</code></pre></div><p>Now for something completely different. Consider functional languages, like
-Haskell, Elm or F#, where we can do something like,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-elm data-lang=elm><span style=color:navy;font-weight:700>import </span>Html exposing (text)
-<span style=color:navy;font-weight:700>import </span>Debug exposing (toString)
-
-sum a b = a + b
-
-triple a = a * <span style=color:#00f>3</span>
-
-<span style=color:navy;font-weight:700>main </span>= sum <span style=color:#00f>1</span> <span style=color:#00f>2</span> |&gt; triple |&gt; toString |&gt; text
-</code></pre></div><p>This example is in Elm. Here <code>main</code> outputs <code>"9"</code>. The <code>|></code> are pipe-forward
+basis,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ GTK_THEME=Adwaita:light gitg &amp;
+</span></span></code></pre></div><p>But that&rsquo;s kinda hard to remember and I typically don&rsquo;t and instead rely on Bash
+history search, <code>c-r</code>.</p><p>Instead, we can define,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>alias gtk-light=<span style=color:#00f>&#39;GTK_THEME=Adwaita:light&#39;</span>
+</span></span></code></pre></div><p>Now,</p><pre tabindex=0><code>$ gtk-light gitg &amp;
+</code></pre><p>works as you&rsquo;d expect and much easier to remember.</p><h2 id=the-fun-pipe>The fun pipe</h2><h3 id=motivation>Motivation</h3><p>To explain this one, perhaps some motivating examples are necessary.</p><p>Suppose a file, <code>data.txt</code>, contains some file path in it,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>...
+</span></span><span style=display:flex><span>filepath = README.md
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>We can pull out <code>README.md</code> from this file using some basic tools,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span>
+</span></span><span style=display:flex><span>README.md
+</span></span></code></pre></div><p>But we can&rsquo;t now open it in <code>vim</code> for example without having to do something
+(inelegant) like,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ vim <span style=color:navy;font-weight:700>$(</span>grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span><span style=color:navy;font-weight:700>)</span>
+</span></span></code></pre></div><p>Now for something completely different. Consider functional languages, like
+Haskell, Elm or F#, where we can do something like,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-elm data-lang=elm><span style=display:flex><span><span style=color:navy;font-weight:700>import </span>Html exposing (text)
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>import </span>Debug exposing (toString)
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>sum a b = a + b
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>triple a = a * <span style=color:#00f>3</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>main </span>= sum <span style=color:#00f>1</span> <span style=color:#00f>2</span> |&gt; triple |&gt; toString |&gt; text
+</span></span></code></pre></div><p>This example is in Elm. Here <code>main</code> outputs <code>"9"</code>. The <code>|></code> are pipe-forward
 infix functions that pass the output of the previous pipeline stage to the next
-function. For example <code>sum 1 2 |> triple</code> is equivalent to <code>triple (sum 1 2)</code>.</p>
-<p>Quite elegant and eliminates the amount of text manipulation we have
+function. For example <code>sum 1 2 |> triple</code> is equivalent to <code>triple (sum 1 2)</code>.</p><p>Quite elegant and eliminates the amount of text manipulation we have
 to do. Whereas in the bash example we had to wrap the <code>grep</code> and <code>awk</code> in a
-subshell <code>$(...)</code>.</p>
-<h3 id=enter-the-fun-pipe-1>Enter the fun-pipe (1)</h3>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>$ grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span> |:: vim _
-</code></pre></div><p>Elegance.</p>
-<p>The <code>_</code> stands in for the stdout of the precious stage of the pipeline.</p>
-<p>Note that <code>|::</code> isn&rsquo;t actually a single &lsquo;operator&rsquo;.
+subshell <code>$(...)</code>.</p><h3 id=enter-the-fun-pipe-1>Enter the fun-pipe (1)</h3><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>$ grep <span style=color:#00f>&#34;filepath =&#34;</span> data.txt | awk <span style=color:#00f>&#39;{ print $3 }&#39;</span> |:: vim _
+</span></span></code></pre></div><p>Elegance.</p><p>The <code>_</code> stands in for the stdout of the precious stage of the pipeline.</p><p>Note that <code>|::</code> isn&rsquo;t actually a single &lsquo;operator&rsquo;.
 It&rsquo;s in fact the standard Bash pipe, <code>|</code>, and our new fun-pipe alias, <code>::</code>, just
-without a space between.</p>
-<p>We can define the fun-pipe as,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash>alias ::=<span style=color:#00f>&#39;xargs -i_ --&#39;</span>
-</code></pre></div><p>Originally I had defined this as just <code>:</code>, but I noticed some issues with bash
+without a space between.</p><p>We can define the fun-pipe as,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>alias ::=<span style=color:#00f>&#39;xargs -i_ --&#39;</span>
+</span></span></code></pre></div><p>Originally I had defined this as just <code>:</code>, but I noticed some issues with bash
 completion as <code>:</code> is actually an existing Bash builtin operator. I would&rsquo;ve
 liked to define it as <code>></code> so <code>|></code> could be realized, similar to F# and Elm, but
 <code>></code> is another bash builtin and Bash complains if you try to define an alias
-with it.</p>
-<h2 id=notes>Notes</h2>
-<p>(1): <code>fpipe</code> was the first name I thought of, but doing a quick search shows
+with it.</p><h2 id=notes>Notes</h2><p>(1): <code>fpipe</code> was the first name I thought of, but doing a quick search shows
 there is actually already a <code>fpipe</code> project that does something somewhat similar
-&ndash; <a href=https://github.com/alexmaco/fpipe>alexmaco/fpipe</a>.</p>
-</div>
-<div class=article-toc>
-<h3>Contents</h3>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#the-vim-quitter>The vim quitter</a></li>
-<li><a href=#the-gtk-themer>The GTK themer</a></li>
-<li><a href=#the-fun-pipe>The fun pipe</a>
-<ul>
-<li><a href=#motivation>Motivation</a></li>
-<li><a href=#enter-the-fun-pipe-1>Enter the fun-pipe (1)</a></li>
-</ul>
-</li>
-<li><a href=#notes>Notes</a></li>
-</ul>
-</nav>
-</div>
-</div>
-</article>
-</section>
-<footer id=footer>
-<div class=outer>
-<div id=footer-info class=inner>
-&copy; 2021 francium
-<br>
-Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a>
-</div>
-</div>
-<script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var a=document.getElementById('header');a.classList.contains('mobile-on')?a.classList.remove('mobile-on'):a.classList.add('mobile-on')})</script>
-</footer>
-</div>
-</body>
-</html>
+&ndash; <a href=https://github.com/alexmaco/fpipe>alexmaco/fpipe</a>.</p></div><div class=article-toc><h3>Contents</h3><nav id=TableOfContents><ul><li><a href=#the-vim-quitter>The vim quitter</a></li><li><a href=#the-gtk-themer>The GTK themer</a></li><li><a href=#the-fun-pipe>The fun pipe</a><ul><li><a href=#motivation>Motivation</a></li><li><a href=#enter-the-fun-pipe-1>Enter the fun-pipe (1)</a></li></ul></li><li><a href=#notes>Notes</a></li></ul></nav></div></div></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2022 francium<br>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a></div></div><script>document.getElementById("main-nav-toggle").addEventListener("click",function(){var e=document.getElementById("header");e.classList.contains("mobile-on")?e.classList.remove("mobile-on"):e.classList.add("mobile-on")})</script></footer></div></body></html>

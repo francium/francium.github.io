@@ -1,168 +1,72 @@
-<!doctype html><html>
-<head>
-<title>React Hooks: A very brief intro // francium</title>
-<meta charset=utf-8>
-<meta charset=utf-8>
-<meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1">
-<meta property="og:title" content="React Hooks: A very brief intro">
-<meta property="og:description" content>
-<meta property="og:type" content="website">
-<meta property="og:locale" content="en">
-<meta property="og:url" content="/blog/2020-08-07-react-hooks-brief-intro/">
-<link rel="shortcut icon" href=/favicon.ico>
-<link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css>
-<link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css>
-<link rel=stylesheet href=/css/style.css>
-<link rel=stylesheet href=/css/main.css>
-<meta name=generator content="Hugo 0.89.4">
-</head>
-<body>
-<div id=container>
-<header id=header>
-<div id=header-outer class=outer>
-<div id=header-inner class=inner>
-<a id=main-nav-toggle class=nav-icon href=javascript:;></a>
-<a id=logo class=logo-text href=/>francium</a>
-<nav id=main-nav>
-<a class=main-nav-link href=/about/>About</a>
+<!doctype html><html><head><title>React Hooks: A very brief intro // francium</title><meta charset=utf-8><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property="og:title" content="React Hooks: A very brief intro"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:locale" content="en"><meta property="og:url" content="/blog/2020-08-07-react-hooks-brief-intro/"><link rel="shortcut icon" href=/favicon.ico><link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/main.css><meta name=generator content="Hugo 0.98.0"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a>
+<a id=logo class=logo-text href=/>francium</a><nav id=main-nav><a class=main-nav-link href=/about/>About</a>
 <a class=main-nav-link href=/projects/>Projects</a>
-<a class=main-nav-link href=/til/>TIL</a>
-</nav>
-<nav id=sub-nav>
-<div id=search-form-wrap>
-</div>
-</nav>
-</div>
-</div>
-</header>
-<section id=main class=outer>
-<article class="article article-type-post" itemscope itemprop=blogPost>
-<div class=article-inner>
-<header class=article-header>
-<h1 class=article-title itemprop=name>React Hooks: A very brief intro</h1>
-</header>
-<div class=article-meta>
-<a href=/blog/2020-08-07-react-hooks-brief-intro/ class=article-date>
-<time datetime=2020-08-07T12:00:00.000-04:00 itemprop=datePublished>2020-08-07</time>
-</a>
-</div>
-<div class=article-entry itemprop=articleBody>
-<p>React Hooks API appears to be a immediate-mode layer on top of the traditional
-retained-mode style React system.</p>
-<p>Internally, the library knows which component is currently being rendered and
+<a class=main-nav-link href=/til/>TIL</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>React Hooks: A very brief intro</h1></header><div class=article-meta><a href=/blog/2020-08-07-react-hooks-brief-intro/ class=article-date><time datetime=2020-08-07T12:00:00.000-04:00 itemprop=datePublished>2020-08-07</time></a></div><div class=article-entry itemprop=articleBody><p>React Hooks API appears to be a immediate-mode layer on top of the traditional
+retained-mode style React system.</p><p>Internally, the library knows which component is currently being rendered and
 since a hook can only be called from a React component function or another hook,
 React is able to keep track of function calls to the hook APIs to &lsquo;magically&rsquo;
 manage state without being explicit about function calls across multiple render
-cycles.</p>
-<p>To ensure this all works, React requires, you to follow two rules,</p>
-<ol>
-<li>Only Call Hooks at the Top Level
-<ul>
-<li>To ensure consistent call order each render so React can keep track of
-things</li>
-</ul>
-</li>
-<li>Only Call Hooks from React Functions (from a React component function or
-another hook)
-<ul>
-<li>So React knows which component is being rendered</li>
-</ul>
-</li>
-</ol>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-jsx data-lang=jsx><span style=color:navy;font-weight:700>function</span> SomeComponent {
-  <span style=color:#080;font-style:italic>// Internally, React keeps track of which `useState/useEffect/etc.` API call
-</span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// is being made using by knowing what component is being rendered and in what
-</span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// order hook API calls are made (possible only because of the two rules you
-</span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// are required to follow when using hook API
-</span><span style=color:#080;font-style:italic></span>  <span style=color:navy;font-weight:700>const</span> [count, setCount] = useState(<span style=color:#00f>0</span>);
-
-  <span style=color:#080;font-style:italic>// - if array specified (second arg), then React avoids re-running if value
-</span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// hasn&#39;t changed since last render cycle
-</span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// - if empty array, only run on component creation and destroy
-</span><span style=color:#080;font-style:italic></span>  useEffect(() =&gt; {
-    <span style=color:#080;font-style:italic>// some effect
-</span><span style=color:#080;font-style:italic></span>  }, [someValue]);
-
-  <span style=color:navy;font-weight:700>return</span> (
-    <span style=color:#080;font-style:italic>// ...some jsx
-</span><span style=color:#080;font-style:italic></span>  )
-}
-</code></pre></div><p>When using the <code>useEffect</code> API, you can also return a function to perform clean
+cycles.</p><p>To ensure this all works, React requires, you to follow two rules,</p><ol><li>Only Call Hooks at the Top Level<ul><li>To ensure consistent call order each render so React can keep track of
+things</li></ul></li><li>Only Call Hooks from React Functions (from a React component function or
+another hook)<ul><li>So React knows which component is being rendered</li></ul></li></ol><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-jsx data-lang=jsx><span style=display:flex><span><span style=color:navy;font-weight:700>function</span> SomeComponent {
+</span></span><span style=display:flex><span>  <span style=color:#080;font-style:italic>// Internally, React keeps track of which `useState/useEffect/etc.` API call
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// is being made using by knowing what component is being rendered and in what
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// order hook API calls are made (possible only because of the two rules you
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// are required to follow when using hook API
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:navy;font-weight:700>const</span> [count, setCount] = useState(<span style=color:#00f>0</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#080;font-style:italic>// - if array specified (second arg), then React avoids re-running if value
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// hasn&#39;t changed since last render cycle
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  <span style=color:#080;font-style:italic>// - if empty array, only run on component creation and destroy
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  useEffect(() =&gt; {
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>// some effect
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  }, [someValue]);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>return</span> (
+</span></span><span style=display:flex><span>    <span style=color:#080;font-style:italic>// ...some jsx
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>  )
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>When using the <code>useEffect</code> API, you can also return a function to perform clean
 up. This clean up function is called when the effect is re-run or component is
 destroyed - automatically, no need to do anything manually (might be
-over-simplifying, need to verify).</p>
-<h2 id=purpose-of-react-hooks>Purpose of React Hooks</h2>
-<p>To allow separation of concerns (business logic, functionality) within a
-component.</p>
-<p>Consider the example from React Hooks docs,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-jsx data-lang=jsx><span style=color:navy;font-weight:700>function</span> useFriendStatus(friendId) {
-  <span style=color:navy;font-weight:700>const</span> [isOnline, setIsOnline] = useState(<span style=color:navy;font-weight:700>null</span>);
-
-  useEffect(() =&gt; {
-    handleStatusChange = status =&gt; setIsOnline(status.isOnline);
-
-    ChatAPI.subscribeToFriendStatus(friendId, handleStatusChange);
-    <span style=color:navy;font-weight:700>return</span> () =&gt; ChatAPI.unsubscribeFromFriendStatus(friendId, handleStatusChange);
-  });
-
-  <span style=color:navy;font-weight:700>return</span> isOnline;
-}
-</code></pre></div><p>And this state-based logic can be shared across components,</p>
-<div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-jsx data-lang=jsx><span style=color:navy;font-weight:700>function</span> FriendStatus(props) {
-  <span style=color:navy;font-weight:700>const</span> isOnline = useFriendStatus(props.friend.id);
-  <span style=color:navy;font-weight:700>if</span> (isOnline === <span style=color:navy;font-weight:700>null</span>) {
-    <span style=color:navy;font-weight:700>return</span> <span style=color:#00f>&#39;Loading...&#39;</span>;
-  }
-  <span style=color:navy;font-weight:700>return</span> isOnline ? <span style=color:#00f>&#39;Online&#39;</span> : <span style=color:#00f>&#39;Offline&#39;</span>;
-}
-
-<span style=color:navy;font-weight:700>function</span> FriendListItem(props) {
-  <span style=color:navy;font-weight:700>const</span> isOnline = useFriendStatus(props.friend.id);
-  <span style=color:navy;font-weight:700>return</span> (
-    &lt;<span style=color:navy;font-weight:700>li</span> <span style=color:red>style</span>={{ color: isOnline ? <span style=color:#00f>&#39;green&#39;</span> : <span style=color:#00f>&#39;black&#39;</span> }}&gt;
-      {props.friend.name}
-    &lt;/<span style=color:navy;font-weight:700>li</span>&gt;
-  );
-}
-</code></pre></div><h2 id=immediate-mode-ui>Immediate Mode UI</h2>
-<p>React Hooks looks awfully lot like a immediate mode UI system built on-top of
-whatever React is already doing internally.</p>
-<p>An immediate mode UI is one which does not rely retaining state within the UI
+over-simplifying, need to verify).</p><h2 id=purpose-of-react-hooks>Purpose of React Hooks</h2><p>To allow separation of concerns (business logic, functionality) within a
+component.</p><p>Consider the example from React Hooks docs,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-jsx data-lang=jsx><span style=display:flex><span><span style=color:navy;font-weight:700>function</span> useFriendStatus(friendId) {
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>const</span> [isOnline, setIsOnline] = useState(<span style=color:navy;font-weight:700>null</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  useEffect(() =&gt; {
+</span></span><span style=display:flex><span>    handleStatusChange = status =&gt; setIsOnline(status.isOnline);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    ChatAPI.subscribeToFriendStatus(friendId, handleStatusChange);
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>return</span> () =&gt; ChatAPI.unsubscribeFromFriendStatus(friendId, handleStatusChange);
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>return</span> isOnline;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>And this state-based logic can be shared across components,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-jsx data-lang=jsx><span style=display:flex><span><span style=color:navy;font-weight:700>function</span> FriendStatus(props) {
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>const</span> isOnline = useFriendStatus(props.friend.id);
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>if</span> (isOnline === <span style=color:navy;font-weight:700>null</span>) {
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>return</span> <span style=color:#00f>&#39;Loading...&#39;</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>return</span> isOnline ? <span style=color:#00f>&#39;Online&#39;</span> : <span style=color:#00f>&#39;Offline&#39;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>function</span> FriendListItem(props) {
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>const</span> isOnline = useFriendStatus(props.friend.id);
+</span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>return</span> (
+</span></span><span style=display:flex><span>    &lt;<span style=color:navy;font-weight:700>li</span> <span style=color:red>style</span>={{ color: isOnline ? <span style=color:#00f>&#39;green&#39;</span> : <span style=color:#00f>&#39;black&#39;</span> }}&gt;
+</span></span><span style=display:flex><span>      {props.friend.name}
+</span></span><span style=display:flex><span>    &lt;/<span style=color:navy;font-weight:700>li</span>&gt;
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><h2 id=immediate-mode-ui>Immediate Mode UI</h2><p>React Hooks looks awfully lot like a immediate mode UI system built on-top of
+whatever React is already doing internally.</p><p>An immediate mode UI is one which does not rely retaining state within the UI
 code itself. Instead, a &lsquo;widget&rsquo;/&lsquo;component&rsquo;/&lsquo;whatever you want to call it&rsquo;, is
 just a function call that is provided some arguments and the function produces
 some piece of the UI without relying on anything except the function arguments.
 The UI code is run within some loop, eg. a game loop, and each render cycle, the
-same functions are called, perhaps with different arguments.</p>
-<p>Immediate mode UIs are quite popular in game development, examples include
+same functions are called, perhaps with different arguments.</p><p>Immediate mode UIs are quite popular in game development, examples include
 <a href=https://github.com/Immediate-Mode-UI/Nuklear>nuklear</a> and
-<a href=https://github.com/ocornut/imgui>Dear ImGUI</a>.</p>
-<p>Immediate mode UIs are in contrast to retained mode UIs which relying on
+<a href=https://github.com/ocornut/imgui>Dear ImGUI</a>.</p><p>Immediate mode UIs are in contrast to retained mode UIs which relying on
 maintaining state of the UI within the UI code itself. React classes, for
 example, can be considered retained mode as they&rsquo;re using internal class state
-to re-render.</p>
-</div>
-<div class=article-toc>
-<h3>Contents</h3>
-<nav id=TableOfContents>
-<ul>
-<li><a href=#purpose-of-react-hooks>Purpose of React Hooks</a></li>
-<li><a href=#immediate-mode-ui>Immediate Mode UI</a></li>
-</ul>
-</nav>
-</div>
-</div>
-</article>
-</section>
-<footer id=footer>
-<div class=outer>
-<div id=footer-info class=inner>
-&copy; 2021 francium
-<br>
-Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a>
-</div>
-</div>
-<script>document.getElementById('main-nav-toggle').addEventListener('click',function(){var a=document.getElementById('header');a.classList.contains('mobile-on')?a.classList.remove('mobile-on'):a.classList.add('mobile-on')})</script>
-</footer>
-</div>
-</body>
-</html>
+to re-render.</p></div><div class=article-toc><h3>Contents</h3><nav id=TableOfContents><ul><li><a href=#purpose-of-react-hooks>Purpose of React Hooks</a></li><li><a href=#immediate-mode-ui>Immediate Mode UI</a></li></ul></nav></div></div></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2022 francium<br>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a></div></div><script>document.getElementById("main-nav-toggle").addEventListener("click",function(){var e=document.getElementById("header");e.classList.contains("mobile-on")?e.classList.remove("mobile-on"):e.classList.add("mobile-on")})</script></footer></div></body></html>
