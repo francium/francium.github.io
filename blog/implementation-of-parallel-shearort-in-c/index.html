@@ -1,4 +1,4 @@
-<!doctype html><html><head><title>An Implementation of Parallel Shearshort in C using PThreads // francium</title><meta charset=utf-8><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property="og:title" content="An Implementation of Parallel Shearshort in C using PThreads"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:locale" content="en"><meta property="og:url" content="/blog/implementation-of-parallel-shearort-in-c/"><link rel="shortcut icon" href=/favicon.ico><link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/main.css><meta name=generator content="Hugo 0.104.2"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a>
+<!doctype html><html><head><title>An Implementation of Parallel Shearshort in C using PThreads // francium</title><meta charset=utf-8><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=1"><meta property="og:title" content="An Implementation of Parallel Shearshort in C using PThreads"><meta property="og:description" content><meta property="og:type" content="website"><meta property="og:locale" content="en"><meta property="og:url" content="/blog/implementation-of-parallel-shearort-in-c/"><link rel="shortcut icon" href=/favicon.ico><link href=/webfonts/ptserif/main.css rel=stylesheet type=text/css><link href=/webfonts/source-code-pro/main.css rel=stylesheet type=text/css><link rel=stylesheet href=/css/style.css><link rel=stylesheet href=/css/main.css><meta name=generator content="Hugo 0.115.4"></head><body><div id=container><header id=header><div id=header-outer class=outer><div id=header-inner class=inner><a id=main-nav-toggle class=nav-icon href=javascript:;></a>
 <a id=logo class=logo-text href=/>francium</a><nav id=main-nav><a class=main-nav-link href=/about/>About</a>
 <a class=main-nav-link href=/projects/>Projects</a>
 <a class=main-nav-link href=/til/>TIL</a></nav><nav id=sub-nav><div id=search-form-wrap></div></nav></div></div></header><section id=main class=outer><article class="article article-type-post" itemscope itemprop=blogPost><div class=article-inner><header class=article-header><h1 class=article-title itemprop=name>An Implementation of Parallel Shearshort in C using PThreads</h1></header><div class=article-meta><a href=/blog/implementation-of-parallel-shearort-in-c/ class=article-date><time datetime=2019-02-22T00:00:00.000+00:00 itemprop=datePublished>2019-02-22</time></a></div><div class=article-entry itemprop=articleBody><p>This will be a look at a parallel implementation of Shearsort using POSIX Threads
@@ -49,12 +49,12 @@ but any other array sorting algorithm will suffice.</p><p>We&rsquo;ll define a h
 </span></span><span style=display:flex><span><span style=color:teal>#ifndef BUBBLE_H
 </span></span></span><span style=display:flex><span><span style=color:teal>#define BUBBLE_H
 </span></span></span><span style=display:flex><span><span style=color:teal></span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], size_t size);
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:teal>#endif
 </span></span></span></code></pre></div><p><strong>bubble.c</strong></p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:teal>#include</span> <span style=color:teal>&#34;bubble.h&#34;</span><span style=color:teal>
 </span></span></span><span style=display:flex><span><span style=color:teal></span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], size_t size) {
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = size - <span style=color:#00f>1</span>; i &gt; <span style=color:#00f>0</span>; i--) {
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>int</span> max_i = <span style=color:#00f>0</span>;
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> j = <span style=color:#00f>0</span>; j &lt;= i; j++) {
@@ -88,7 +88,7 @@ And we&rsquo;ll also modify the <code>sort</code> function enable paramertizatio
 </span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:#080;font-style:italic>// Bubble sort function with just the new changed highlighted
-</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], size_t size, <span style=color:navy;font-weight:700>int</span> (*cmp)(<span style=color:navy;font-weight:700>int</span>, <span style=color:navy;font-weight:700>int</span>)) {
+</span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size, <span style=color:navy;font-weight:700>int</span> (*cmp)(<span style=color:navy;font-weight:700>int</span>, <span style=color:navy;font-weight:700>int</span>)) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (...) {
 </span></span><span style=display:flex><span>        ...
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (...) {
@@ -122,7 +122,7 @@ vertically (i.e. iterating per column instead of per row, we would be trying to 
 data that is not stored sequentially). This would inevitablly lead to poor performance
 due to the inevetiable cache missed we&rsquo;ll suffer from as <code>N</code> increases in size.</li></ul><p>So that means we should define a transpose function now,</p><p><strong>main.c</strong></p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:teal>#include</span> <span style=color:teal>&lt;stddef.h&gt;</span><span style=color:teal>
 </span></span></span><span style=display:flex><span><span style=color:teal></span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> transpose(<span style=color:navy;font-weight:700>int</span> arr[], size_t size) {
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> transpose(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = <span style=color:#00f>0</span>; i &lt; size; i++) {
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> j = <span style=color:#00f>0</span>; j &lt; size; j++) {
 </span></span><span style=display:flex><span>            <span style=color:#080;font-style:italic>// Only process lower half of matrix
@@ -142,7 +142,7 @@ Take a moment to prove to yourself this will do that right thing.</p><p>One more
 idea of what&rsquo;s going on at each phase,</p><p><strong>main.c</strong></p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:teal>#include</span> <span style=color:teal>&lt;stdio.h&gt;</span><span style=color:teal>
 </span></span></span><span style=display:flex><span><span style=color:teal></span>...
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> print_matrix(<span style=color:navy;font-weight:700>int</span> arr[], size_t size) {
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> print_matrix(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = <span style=color:#00f>0</span>; i &lt; size; i++) {
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> j = <span style=color:#00f>0</span>; j &lt; size; j++) {
 </span></span><span style=display:flex><span>            printf(<span style=color:#00f>&#34;%-5d &#34;</span>, arr[i * size + j]);
@@ -351,7 +351,7 @@ multithreaded environment.</p><p><strong>queue.c</strong></p><div class=highligh
 </span></span></code></pre></div><p>Here we have also added <a href=https://stackoverflow.com/questions/558122/what-is-a-static-function><code>static</code></a> to make sure it can&rsquo;t be outside this file.</p><p>Next, let&rsquo;s look at how the mutex and condition variables work.</p><h4 id=mutex>Mutex</h4><p>A mutex is <a href=https://en.wikipedia.org/wiki/Lock_(computer_science)>lock</a> that can be acquired atomically. In the simplest terms it means only
 one thread can hold it at a time. Using PThread&rsquo;s mutex requires declaraing a
 variable of type <code>pthread_mutex_t</code>, initializing it, and using <code>pthread_mutex_lock</code> and
-<code>pthread_mutex_unlock</code> to acquire and release it.</p><p><a href=https://computing.llnl.gov/tutorials/pthreads/#Mutexes>For more information about PThread mutexes see this reference</a>.</p><p>A simple example of a mutex,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>pthread_mutex_t mtx;
+<code>pthread_mutex_unlock</code> to acquire and release it.</p><p><a href=https://computing.llnl.gov/tutorials/pthreads/#Mutexes>For more information about PThread mutexes see this reference</a>.</p><p>A simple example of a mutex,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:navy;font-weight:700>pthread_mutex_t</span> mtx;
 </span></span><span style=display:flex><span>pthread_mutex_init(&amp;mtx, NULL);
 </span></span><span style=display:flex><span>pthread_mutex_lock(&amp;mtx);
 </span></span><span style=display:flex><span><span style=color:#080;font-style:italic>// do something unsafe in a multithreaded environment
@@ -365,11 +365,11 @@ initializing it using <code>pthread_cond_init</code>, and using <code>pthread_co
 get a signal to wake up.</p><p>An important thing to keep in mind is that the <code>pthread_cond_wait</code> function must be called
 while you have a lock on the mutex yourself. Calling wait will cause the mutex to be
 released and reacquired with you wake up. Additionally, when you wake, you will have to
-remember to unlock the mutex after you&rsquo;re done doing what you needed to do.</p><p><a href=https://computing.llnl.gov/tutorials/pthreads/#ConditionVariables>For more information about PThread condition variables see this reference</a>.</p><p>A simple example of a condition variable,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span>pthread_mutex_t mtx;
+remember to unlock the mutex after you&rsquo;re done doing what you needed to do.</p><p><a href=https://computing.llnl.gov/tutorials/pthreads/#ConditionVariables>For more information about PThread condition variables see this reference</a>.</p><p>A simple example of a condition variable,</p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-C data-lang=C><span style=display:flex><span><span style=color:navy;font-weight:700>pthread_mutex_t</span> mtx;
 </span></span><span style=display:flex><span>pthread_mutex_init(&amp;mtx, NULL);
 </span></span><span style=display:flex><span><span style=color:#080;font-style:italic>// ... some other thread locks mtx
 </span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>
-</span></span><span style=display:flex><span>pthread_cond_t cond;
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>pthread_cond_t</span> cond;
 </span></span><span style=display:flex><span>pthread_cond_init(&amp;cond);
 </span></span><span style=display:flex><span><span style=color:#080;font-style:italic>// make sure you already have a lock on mtx youself when you call this
 </span></span></span><span style=display:flex><span><span style=color:#080;font-style:italic></span>pthread_cond_wait(&amp;cond, &amp;mtx);
@@ -385,8 +385,8 @@ mutex and condition variable.</p><p>First, we need to declare and initialize the
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:navy;font-weight:700>typedef</span> <span style=color:navy;font-weight:700>struct</span> {
 </span></span><span style=display:flex><span>    ...
-</span></span><span style=display:flex><span>    pthread_cond_t cond;
-</span></span><span style=display:flex><span>    pthread_mutex_t mutex;
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>pthread_cond_t</span> cond;
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>pthread_mutex_t</span> mutex;
 </span></span><span style=display:flex><span>} Queue;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>...
@@ -487,7 +487,7 @@ so we don&rsquo;t have any global variables.</p><div class=highlight><pre tabind
 </span></span><span style=display:flex><span><span style=color:navy;font-weight:700>typedef</span> <span style=color:navy;font-weight:700>struct</span> {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> id;
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> *arr;
-</span></span><span style=display:flex><span>    size_t size;
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>size_t</span> size;
 </span></span><span style=display:flex><span>    Queue *inbox;
 </span></span><span style=display:flex><span>    Queue *outbox;
 </span></span><span style=display:flex><span>} WorkerArgs;
@@ -523,7 +523,7 @@ so we don&rsquo;t have any global variables.</p><div class=highlight><pre tabind
 </span></span><span style=display:flex><span>    queue_init(&amp;mq, N);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    WorkerArgs args[N];
-</span></span><span style=display:flex><span>    pthread_t tids[N];
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>pthread_t</span> tids[N];
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = <span style=color:#00f>0</span>; i &lt; n; i++) {
 </span></span><span style=display:flex><span>        queue_init(&amp;tq[i], <span style=color:#00f>1</span>);
@@ -598,7 +598,7 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span></span><span style=display:flex><span><span style=color:teal></span>
 </span></span><span style=display:flex><span><span style=color:teal>#include</span> <span style=color:teal>&#34;bubble.h&#34;</span><span style=color:teal>
 </span></span></span><span style=display:flex><span><span style=color:teal></span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> transpose(<span style=color:navy;font-weight:700>int</span> arr[], size_t size) {
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> transpose(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = <span style=color:#00f>0</span>; i &lt; size; i++) {
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> j = <span style=color:#00f>0</span>; j &lt; size; j++) {
 </span></span><span style=display:flex><span>            <span style=color:#080;font-style:italic>// Only process lower half of matrix
@@ -610,7 +610,7 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> print_matrix(<span style=color:navy;font-weight:700>int</span> arr[], size_t size) {
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> print_matrix(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = <span style=color:#00f>0</span>; i &lt; size; i++) {
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> j = <span style=color:#00f>0</span>; j &lt; size; j++) {
 </span></span><span style=display:flex><span>            printf(<span style=color:#00f>&#34;%-5d &#34;</span>, arr[i * size + j]);
@@ -622,7 +622,7 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span><span style=display:flex><span><span style=color:navy;font-weight:700>typedef</span> <span style=color:navy;font-weight:700>struct</span> {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> id;
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> *arr;
-</span></span><span style=display:flex><span>    size_t size;
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>size_t</span> size;
 </span></span><span style=display:flex><span>    Queue *inbox;
 </span></span><span style=display:flex><span>    Queue *outbox;
 </span></span><span style=display:flex><span>} WorkerArgs;
@@ -637,7 +637,7 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span><span style=display:flex><span>    queue_init(&amp;mq, N);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    WorkerArgs args[N];
-</span></span><span style=display:flex><span>    pthread_t tids[N];
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>pthread_t</span> tids[N];
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = <span style=color:#00f>0</span>; i &lt; n; i++) {
 </span></span><span style=display:flex><span>        queue_init(&amp;tq[i], <span style=color:#00f>1</span>);
@@ -713,8 +713,8 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> capacity;
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> head;
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>int</span> tail;
-</span></span><span style=display:flex><span>    pthread_cond_t cond;
-</span></span><span style=display:flex><span>    pthread_mutex_t mutex;
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>pthread_cond_t</span> cond;
+</span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>pthread_mutex_t</span> mutex;
 </span></span><span style=display:flex><span>} Queue;
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> queue_init(Queue *queue, <span style=color:navy;font-weight:700>int</span> capacity);
@@ -780,7 +780,7 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span></span><span style=display:flex><span><span style=color:teal></span>
 </span></span><span style=display:flex><span><span style=color:navy;font-weight:700>int</span> cmp_min(<span style=color:navy;font-weight:700>int</span>, <span style=color:navy;font-weight:700>int</span>);
 </span></span><span style=display:flex><span><span style=color:navy;font-weight:700>int</span> cmp_max(<span style=color:navy;font-weight:700>int</span>, <span style=color:navy;font-weight:700>int</span>);
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], size_t size);
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size);
 </span></span><span style=display:flex><span>
 </span></span><span style=display:flex><span><span style=color:teal>#endif
 </span></span></span></code></pre></div><p><strong>bubble.c</strong></p><div class=highlight><pre tabindex=0 style=background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:navy;font-weight:700>int</span> cmp_min(<span style=color:navy;font-weight:700>int</span> a, <span style=color:navy;font-weight:700>int</span> b) {
@@ -791,7 +791,7 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span><span style=display:flex><span>  <span style=color:navy;font-weight:700>return</span> a &gt; b ? <span style=color:#00f>1</span> : <span style=color:#00f>0</span>;
 </span></span><span style=display:flex><span>}
 </span></span><span style=display:flex><span>
-</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], size_t size, <span style=color:navy;font-weight:700>int</span> (*cmp)(<span style=color:navy;font-weight:700>int</span>, <span style=color:navy;font-weight:700>int</span>)) {
+</span></span><span style=display:flex><span><span style=color:navy;font-weight:700>void</span> sort(<span style=color:navy;font-weight:700>int</span> arr[], <span style=color:navy;font-weight:700>size_t</span> size, <span style=color:navy;font-weight:700>int</span> (*cmp)(<span style=color:navy;font-weight:700>int</span>, <span style=color:navy;font-weight:700>int</span>)) {
 </span></span><span style=display:flex><span>    <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> i = size - <span style=color:#00f>1</span>; i &gt; <span style=color:#00f>0</span>; i--) {
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>int</span> max_i = <span style=color:#00f>0</span>;
 </span></span><span style=display:flex><span>        <span style=color:navy;font-weight:700>for</span> (<span style=color:navy;font-weight:700>int</span> j = <span style=color:#00f>0</span>; j &lt;= i; j++) {
@@ -802,4 +802,4 @@ memory.</p><h2 id=full-source>Full Source</h2><p><strong>main.c</strong></p><div
 </span></span><span style=display:flex><span>        arr[max_i] = t;
 </span></span><span style=display:flex><span>    }
 </span></span><span style=display:flex><span>}
-</span></span></code></pre></div></div><div class=article-toc><h3>Contents</h3><nav id=TableOfContents><ul><li><a href=#implementation>Implementation</a><ul><li><a href=#sorting-an-array>Sorting an array</a></li><li><a href=#improving-bubble-sort>Improving bubble sort</a></li><li><a href=#implementing-a-squential-shearsort>Implementing a squential shearsort</a></li></ul></li><li><a href=#parallel>Parallel</a><ul><li><a href=#a-queue>A Queue</a></li><li><a href=#a-thread-safe-queue>A Thread Safe Queue</a></li><li><a href=#parallel-shearsort>Parallel shearsort</a></li></ul></li><li><a href=#full-source>Full Source</a></li></ul></nav></div></div></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2022 francium<br>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a></div></div><script>document.getElementById("main-nav-toggle").addEventListener("click",function(){var e=document.getElementById("header");e.classList.contains("mobile-on")?e.classList.remove("mobile-on"):e.classList.add("mobile-on")})</script></footer></div></body></html>
+</span></span></code></pre></div></div><div class=article-toc><h3>Contents</h3><nav id=TableOfContents><ul><li><a href=#implementation>Implementation</a><ul><li><a href=#sorting-an-array>Sorting an array</a></li><li><a href=#improving-bubble-sort>Improving bubble sort</a></li><li><a href=#implementing-a-squential-shearsort>Implementing a squential shearsort</a></li></ul></li><li><a href=#parallel>Parallel</a><ul><li><a href=#a-queue>A Queue</a></li><li><a href=#a-thread-safe-queue>A Thread Safe Queue</a></li><li><a href=#parallel-shearsort>Parallel shearsort</a></li></ul></li><li><a href=#full-source>Full Source</a></li></ul></nav></div></div></article></section><footer id=footer><div class=outer><div id=footer-info class=inner>&copy; 2023 francium<br>Powered by <a href=https://gohugo.io target=_blank>Hugo</a> with theme <a href=https://github.com/carsonip/hugo-theme-minos target=_blank>Minos</a></div></div><script>document.getElementById("main-nav-toggle").addEventListener("click",function(){var e=document.getElementById("header");e.classList.contains("mobile-on")?e.classList.remove("mobile-on"):e.classList.add("mobile-on")})</script></footer></div></body></html>
